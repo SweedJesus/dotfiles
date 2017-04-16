@@ -1,0 +1,4 @@
+[user]
+  email = nilso@enosis.net
+[init]
+  templateDir = /var2/home/fire_public/share/git-core/templates

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Terminfo
+tic ~/.terminfo/xterm-256color-it.terminfo -o ~/.terminfo
+
+# Vim plugins
+mkdir -p ~/.vim/undodir
+vim -u ~/.vimrc +PluginInstall +PluginClean +qa < /dev/tty "$@"
+
+shell=$(finger $USER | grep -oP 'Shell: \K.*$')
+if [ -z $shell ]; then
+  echo "You are using $(tput bold)$shell$(tput sgr0) as your login shell"
+  echo "To change to Zsh: 'chsh -s \$(which zsh) $USER'"
+fi

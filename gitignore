@@ -1,0 +1,12 @@
+*.swp
+.*
+!.bash_profile
+!.bashrc
+!.gitignore
+!.inputrc
+!.profile
+!.terminfo
+!.tmux.conf
+!.vim
+!.vimrc
+documents/cisc187

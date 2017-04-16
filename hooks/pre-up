@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Setup Zsh
+
+# Plugin manager
+if [ ! -e ~/.antigen/antigen.zsh ]; then
+  curl -fLo ~/.antigen/antigen.zsh --create-dirs \
+    https://git.io/antigen
+fi
+
+# Setup Vim
+
+mkdir -p ~/.vim/{backup,swap,undo}
+
+# Plugin manager
+if [ ! -e ~/.vim/bundle/Vundle.vim ]; then
+  git clone https://github.com/VundleVim/Vundle.vim.git \
+    ~/.vim/bundle/Vundle.vim
+fi
