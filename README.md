@@ -10,6 +10,8 @@ The second, *rcm*, is the *rc file* (dotfile) management command suite by Though
 
 All the suite does is add and remove symbolic-links (symlinks) from the configuration files in *~/.dotfiles* to your home directory. For example the configuration file for the rcm suite is named *rcrc* and exists at *~/.dotfiles/rcrc*; after running *rcup* the following file will exist: *~/.rcrc* which points to *~/.dotfiles/rcrc*. This way all configuration related files owned by the user can be stored in a single directory (*~/.dotfiles*) and be used as a git repository.
 
+## Installing *rcm*
+
 ## Installation
 
 1.  Install [rcm][rcm]
