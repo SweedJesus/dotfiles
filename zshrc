@@ -6,7 +6,7 @@
 mesg y
 
 # Default file permission
-umask 077
+umask 022
 
 # Vim mode
 bindkey -v
