@@ -2,9 +2,12 @@
 
 #echo -e "$(tput bold).zshenv$(tput sgr0)"
 
-# User
-export FIRE_PUBLIC=/var2/home/fire_public
-export CLASS_SITE="209.129.16.61/~dparillo"
+# Class
+export FIRE_PUBLIC="/var2/home/fire_public"
+export CLASS_USER="fire22"
+export CLASS_IP="209.129.16.61"
+export DPARILLO="/var2/home/dparillo"
+
 export LS_OPTIONS='-F --color=auto --block-size=M -h'
 
 # Ruby

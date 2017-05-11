@@ -24,6 +24,11 @@ set incsearch
 set laststatus=2
 set autowrite
 set mouse=a
+if has("mouse_sgr")
+  set ttymouse=sgr
+else
+  set ttymouse=xterm2
+endif
 "set number
 set foldmethod=syntax
 
@@ -121,6 +126,9 @@ map <leader>t :TagbarToggle<cr>
 
 " Mundo
 map <leader>u :MundoToggle<cr>
+
+" Tabularize
+map <leader>o :Tabularize<cr>
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<cr>
