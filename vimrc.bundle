@@ -21,5 +21,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+" Language : C++
+Plugin 'octol/vim-cpp-enhanced-highlight'
+" Language : JavaScript
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'leafgarland/typescript-vim'
+"Plugin 'burnettk/vim-angular'
 
 call vundle#end()

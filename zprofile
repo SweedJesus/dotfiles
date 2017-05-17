@@ -4,9 +4,9 @@
 
 typeset -U path
 path=(\
-  /var2/home/fire_public/bin\
-  /usr/hla /var2/local/bin /var2/lopt/bin\
+  ${FIRE_PUBLIC}/bin\
   ${FIRE_PUBLIC}/gem/ruby/2.0.0/bin\
+  /usr/hla /var2/local/bin /var2/lopt/bin\
   $path)
 export PATH
 

@@ -31,6 +31,7 @@ else
 endif
 "set number
 set foldmethod=syntax
+autocmd Syntax * normal zR
 
 augroup vimrcEx
   au!
@@ -113,7 +114,12 @@ let g:syntastic_always_populate_loc_list=1
 let g:syntastic_cpp_compiler="g++"
 let g:syntastic_cpp_compiler_options="-std=c++11"
 let g:syntastic_cpp_check_header=1
+let g:syntastic_quiet_messages = {
+      \ "regex": "#pragma once" }
 map <leader>e :SyntasticCheck<cr>
+
+" JavaScript libraries
+let g:used_javascript_libs = 'angularjs,jasmine'
 
 " NERDTree
 nnoremap <leader>n :NERDTreeToggle<cr>
