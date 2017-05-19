@@ -6,7 +6,11 @@
 mesg y
 
 # Default file permission
-umask 077
+umask 022
+
+# Turn of history expansion
+#setopt no_bang_hist
+#setopt no_prompt_bang
 
 # Vim mode
 bindkey -v

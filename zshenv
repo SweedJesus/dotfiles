@@ -2,10 +2,11 @@
 
 #echo -e "$(tput bold).zshenv$(tput sgr0)"
 
-# User
-#export FIRE_PUBLIC=/var2/home/fire_public
-export CLASS="209.129.16.61"
-export CLASS_USER="fire22"
+# Mesa Linux Server
+export FIRE_PUBLIC=/var2/home/fire_public
+export FIRE_HOSTNAME="209.129.16.61"
+export FIRE_SSH_HOSTNAME="$FIRE_HOSTNAME"
+export DPARILLO="/var2/home/dparillo"
 
 export LS_OPTIONS='-F --color=auto --block-size=M -h'
 

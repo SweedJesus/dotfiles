@@ -24,6 +24,11 @@ set incsearch
 set laststatus=2
 set autowrite
 set mouse=a
+if has("mouse_sgr")
+  set ttymouse=sgr
+else
+  set ttymouse=xterm2
+endif
 "set number
 set foldmethod=syntax
 autocmd Syntax * normal zR
@@ -109,7 +114,12 @@ let g:syntastic_always_populate_loc_list=1
 let g:syntastic_cpp_compiler="g++"
 let g:syntastic_cpp_compiler_options="-std=c++11"
 let g:syntastic_cpp_check_header=1
+let g:syntastic_quiet_messages = {
+      \ "regex": "#pragma once" }
 map <leader>e :SyntasticCheck<cr>
+
+" JavaScript libraries
+let g:used_javascript_libs = 'angularjs,jasmine'
 
 " NERDTree
 nnoremap <leader>n :NERDTreeToggle<cr>
@@ -122,6 +132,9 @@ map <leader>t :TagbarToggle<cr>
 
 " Mundo
 map <leader>u :MundoToggle<cr>
+
+" Tabularize
+map <leader>o :Tabularize<cr>
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<cr>
