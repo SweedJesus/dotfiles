@@ -29,3 +29,4 @@ export SPACESHIP_VI_MODE_SHOW=false
 
 # Aliases
 [[ -e ~/.aliases ]] && source ~/.aliases
+[[ -e ~/.profile.local ]] && source ~/.profile.local

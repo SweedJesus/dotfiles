@@ -10,8 +10,9 @@ path=(\
   $path)
 export PATH
 
-typeset -U manpath
-manpath=(\
-  /var2/home/file_public/share/man\
-  $manpath)
-export MANPATH
+#typeset -U manpath
+#manpath=(\
+  #/var2/home/file_public/share/man\
+  #$manpath)
+#export MANPATH
+

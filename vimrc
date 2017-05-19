@@ -26,6 +26,7 @@ set autowrite
 set mouse=a
 "set number
 set foldmethod=syntax
+autocmd Syntax * normal zR
 
 augroup vimrcEx
   au!
