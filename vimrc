@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " Nils vimrc
 
 " Remap leader
@@ -108,14 +110,18 @@ endif
 
 " Syntastic
 set laststatus=2
-let g:syntastic_mode_map={
-      \ "mode" : "passive" }
+let g:syntastic_mode_map={ "mode" : "passive" }
+" C++
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_cpp_compiler="g++"
 let g:syntastic_cpp_compiler_options="-std=c++11"
 let g:syntastic_cpp_check_header=1
-let g:syntastic_quiet_messages = {
-      \ "regex": "#pragma once" }
+let g:syntastic_quiet_messages = { "regex": "#pragma once" }
+" Rust
+let g:syntastic_rust_checkers=['rustc']
+let g:syntastic_rust_rustc_exe = 'cargo check'
+let g:syntastic_rust_rustc_fname = ''
+let g:syntastic_rust_rustc_args = '--'
 map <leader>e :SyntasticCheck<cr>
 
 " JavaScript libraries
@@ -129,6 +135,20 @@ map <C-i> <PLUG>NERDCommenterInvert k<cr>
 
 " Tagbar
 map <leader>t :TagbarToggle<cr>
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : '~/.vim/bundle/markdown2ctags/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
 
 " Mundo
 map <leader>u :MundoToggle<cr>

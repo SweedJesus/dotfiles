@@ -11,7 +11,7 @@ export DPARILLO="/var2/home/dparillo"
 export LS_OPTIONS='-F --color=auto --block-size=M -h'
 
 # Ruby
-#export GEM_HOME="${FIRE_PUBLIC}/gem/ruby/2.0.0"
+export GEM_HOME="~/.gem/ruby/2.0.0"
 
 # System
 if [ -e ~/.terminfo/x/xterm-256color-it ]; then
