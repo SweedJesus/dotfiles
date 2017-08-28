@@ -4,7 +4,6 @@
 tic ~/.terminfo/xterm-256color-it.terminfo -o ~/.terminfo
 
 # Vim plugins
-mkdir -p ~/.vim/undodir
 vim -u ~/.vimrc +PluginInstall +PluginClean +qa < /dev/tty "$@"
 
 shell=$(finger $USER | grep -oP 'Shell: \K.*$')
