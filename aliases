@@ -3,8 +3,10 @@
 #echo -e "$(tput bold).aliases$(tput sgr0)"
 
 alias g++='g++ -std=c++11'
+alias clang='clang -std=c++11'
 
-alias ls='ls -h --color=auto'
-alias lsa='ls -A'
-alias ll='ls -l'
-alias lla='ls -lA'
+# I think zsh aliases these
+#alias ls='ls -h'
+#alias lsa='ls -A'
+#alias ll='ls -l'
+#alias lla='ls -lA'

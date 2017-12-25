@@ -1,6 +1,6 @@
-scriptencoding utf-8
-
 " Nils vimrc
+
+"scriptencoding utf-8
 
 " Remap leader
 let mapleader=" "
@@ -26,14 +26,16 @@ set incsearch
 set laststatus=2
 set autowrite
 set mouse=a
-if has("mouse_sgr")
-  set ttymouse=sgr
-else
-  set ttymouse=xterm2
+if !has("nvim")
+  if has("mouse_sgr")
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
 endif
-"set number
 set foldmethod=syntax
-autocmd Syntax * normal zR
+set foldlevelstart=20
+"set number
 
 augroup vimrcEx
   au!
@@ -46,18 +48,27 @@ augroup vimrcEx
   au BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 augroup END
 
+" Encoding
+set encoding=utf-8
+set fileencoding=utf-8
+
 " Softtabs, 2 spaces wide
 set tabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
 
+" Linebreaking
+set wrap linebreak nolist
+set showbreak=↪\ 
+
+" Display extra whitespace
+"set list listchars=tab:»·,trail:·,nbsp:·
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+
 " Make it obvious where 80 characters is
 set textwidth=80
 set colorcolumn=+1
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
 
 " Use one space, not two, after punctuation.
 set nojoinspaces

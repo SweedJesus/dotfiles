@@ -2,6 +2,9 @@
 
 #echo -e "$(tput bold).zshrc$(tput sgr0)"
 
+# Aliases
+try_source ~/.aliases
+
 # Talk permission
 mesg y
 
@@ -12,25 +15,16 @@ umask 022
 #setopt no_bang_hist
 #setopt no_prompt_bang
 
+# Solarized dircolors
+#eval `dircolors ~/.dir_colors`
+
 # Vim mode
 bindkey -v
 export KEYTIMEOUT=1
 
-# Solarized dircolors
-eval `dircolors ~/.dir_colors`
-
-# Plugins
+# Antigen and plugins
 source ~/.antigen/antigen.zsh
-antigen init ~/.antigenrc
-
-# Plugin overrides
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0' # Grey
-#export SPACESHIP_GIT_SHOW=false
-#export SPACESHIP_PROMPT_SYMBOL='>'
-export SPACESHIP_PROMPT_SYMBOL='➔'
-export SPACESHIP_PREFIX_SHOW=false
-export SPACESHIP_VI_MODE_SHOW=false
-
-# Aliases
-[[ -e ~/.aliases ]] && source ~/.aliases
-[[ -e ~/.profile.local ]] && source ~/.profile.local
+if ! [[ -v ANTIGEN_LOADED ]]; then
+  antigen init ~/.antigenrc
+  ANTIGEN_LOADED=True
+fi
