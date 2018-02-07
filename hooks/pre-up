@@ -10,7 +10,7 @@ fi
 
 # Setup Vim
 
-mkdir -p ~/.vim/{backup,swap,undo}
+mkdir -p ~/.vim/{backup,swap,undo,bundle}
 
 # Plugin manager
 if [ ! -e ~/.vim/bundle/Vundle.vim ]; then
