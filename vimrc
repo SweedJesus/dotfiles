@@ -1,26 +1,57 @@
 " Nils vimrc
 
-"scriptencoding utf-8
-
 " Remap leader
 let mapleader=" "
 
 " Plugins
-set nocompatible
-filetype off
-if filereadable(expand("~/.vimrc.bundle"))
-  source ~/.vimrc.bundle
-endif
-filetype plugin indent on
+source ~/.vimrc.bundle
 
+" Theme
+if has('gui_running') || has('gui_vimr')
+  colorscheme NeoSolarized
+  set background=dark
+else
+  colorscheme wal
+endif
+
+" Syntax
+if &t_Co >= 2 || has('gui_running')
+  syntax on
+endif
+
+function! MathAndLiquid()
+    "" Define certain regions
+    " Block math. Look for "$$[anything]$$"
+    syn region math start=/\$\$/ end=/\$\$/
+    " inline math. Look for "$[not $][anything]$"
+    syn match math_block '\$[^$].\{-}\$'
+
+    " Liquid single line. Look for "{%[anything]%}"
+    syn match liquid '{%.*%}'
+    " Liquid multiline. Look for "{%[anything]%}[anything]{%[anything]%}"
+    syn region highlight_block start='{% highlight .*%}' end='{%.*%}'
+    " Fenced code blocks, used in GitHub Flavored Markdown (GFM)
+    "syn region highlight_block start='```' end='```'
+
+    "" Actually highlight those regions.
+    hi link math Statement
+    hi link liquid Statement
+    hi link highlight_block Function
+    hi link math_block Function
+
+    map <leader>\ :! pandoc % -o $(echo % \| cut -d "." -f 1).pdf<cr>
+endfunction
+
+" Call everytime we open a Markdown file
+autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
+
+set number
 set backup
 set backupdir=~/.vim/backup
 set swapfile
 set directory=~/.vim/swap
 set undofile
 set undodir=~/.vim/undo
-set backspace=2
-set ruler
 set showcmd
 set incsearch
 set laststatus=2
@@ -35,7 +66,6 @@ if !has("nvim")
 endif
 set foldmethod=syntax
 set foldlevelstart=20
-"set number
 
 augroup vimrcEx
   au!
@@ -49,14 +79,15 @@ augroup vimrcEx
 augroup END
 
 " Encoding
-set encoding=utf-8
-set fileencoding=utf-8
+set encoding=utf8
+set fileencoding=utf8
 
-" Softtabs, 2 spaces wide
-set tabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
+" Font
+"set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete:h12
+
+" Two column wide softtabs
+" No copyindent, let syntax file handle that
+set tabstop=2 shiftwidth=2 expandtab shiftround
 
 " Linebreaking
 set wrap linebreak nolist
@@ -119,63 +150,9 @@ if executable('ag')
   endif
 endif
 
-" Syntastic
-set laststatus=2
-let g:syntastic_mode_map={ "mode" : "passive" }
-" C++
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_cpp_compiler="g++"
-let g:syntastic_cpp_compiler_options="-std=c++11"
-let g:syntastic_cpp_check_header=1
-let g:syntastic_quiet_messages = { "regex": "#pragma once" }
-" Rust
-let g:syntastic_rust_checkers=['rustc']
-let g:syntastic_rust_rustc_exe = 'cargo check'
-let g:syntastic_rust_rustc_fname = ''
-let g:syntastic_rust_rustc_args = '--'
-map <leader>e :SyntasticCheck<cr>
-
-" JavaScript libraries
-let g:used_javascript_libs = 'angularjs,jasmine'
-
-" Markdown
-let g:vim_markdown_math=1
-let g:vim_markdown_toml_frontmatter=1
-
-" Indent
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=8
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=0
-
-" NERDTree
-nnoremap <leader>n :NERDTreeToggle<cr>
-
-" NERDCommenter
-map <C-i> <PLUG>NERDCommenterInvert k<cr>
-
-" Tagbar
-map <leader>t :TagbarToggle<cr>
-let g:tagbar_type_markdown = {
-    \ 'ctagstype': 'markdown',
-    \ 'ctagsbin' : '~/.vim/bundle/markdown2ctags/markdown2ctags.py',
-    \ 'ctagsargs' : '-f - --sort=yes',
-    \ 'kinds' : [
-        \ 's:sections',
-        \ 'i:images'
-    \ ],
-    \ 'sro' : '|',
-    \ 'kind2scope' : {
-        \ 's' : 'section',
-    \ },
-    \ 'sort': 0,
-\ }
-
-" Mundo
-map <leader>u :MundoToggle<cr>
-
-" Tabularize
-map <leader>o :Tabularize<cr>
+" C/C++ indent options
+set cindent
+set cinoptions=g-1
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<cr>
@@ -201,17 +178,3 @@ nnoremap <leader>l :nohlsearch<cr>
 
 " Run commands that require an interactive shell
 nnoremap <leader>r :RunInInteractiveShell<space>
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  if !exists("syntax_on")
-    syntax on
-  endif
-  "set t_ut=
-  set t_Co=256
-  "color jellybeans
-  set background=dark
-  "let g:solarized_termcolors=256
-  colors solarized
-endif

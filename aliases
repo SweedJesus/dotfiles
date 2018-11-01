@@ -2,11 +2,20 @@
 
 #echo -e "$(tput bold).aliases$(tput sgr0)"
 
+#alias vim='nvim'
+alias python='python3'
+alias jn=jupyter-notebook
 alias g++='g++ -std=c++11'
 alias clang='clang -std=c++11'
 
-# I think zsh aliases these
-#alias ls='ls -h'
-#alias lsa='ls -A'
-#alias ll='ls -l'
-#alias lla='ls -lA'
+alias clean='rm -f *.{aux,log}(N)'
+
+alias t='todo.sh'
+
+export LS_COLORS=$(ls_colors_generator)
+run_ls() { ls-i --color=auto -w $(tput cols) "$@" }
+run_dir() { dir-i --color=auto -w $(tput cols) "$@" }
+run_vdir() { vdir-i --color=auto -w $(tput cols) "$@" }
+alias ls='run_ls'
+alias dir='run_dir'
+alias vdir='run_vdir'

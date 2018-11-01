@@ -12,15 +12,18 @@ Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/LanguageTool'
 Plug 'shime/vim-livedown'
+Plug 'vim-scripts/loremipsum'
 Plug 'ervandew/eclim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'junegunn/goyo.vim'
 Plug 'sjl/vitality.vim'
 Plug 'benmills/vimux'
 Plug 'dylanaraps/wal.vim'
+Plug 'icymind/neosolarized'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -34,8 +37,10 @@ let g:languagetool_jar='/usr/local/Cellar/languagetool/4.0/libexec/languagetool-
 " Syntastic
 set laststatus=2
 let g:syntastic_mode_map={'mode': 'passive'}
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 " Javascript
-"let g:syntastic_javascript_checkers=['jshint']
+let g:syntastic_javascript_checkers=['jshint']
 " Java
 let g:loaded_syntastic_java_javac_checker=1
 " C++
@@ -61,22 +66,28 @@ map <C-i> <PLUG>NERDCommenterInvert k<cr>
 map <leader>o :Tabularize<cr>
 
 " Tagbar
-map <leader>t :TagbarToggle<cr>
-let g:tagbar_type_markdown = {
-      \ 'ctagstype': 'markdown',
-      \ 'ctagsbin' : '~/.vim/bundle/markdown2ctags/markdown2ctags.py',
-      \ 'ctagsargs' : '-f - --sort=yes',
-      \ 'kinds' : [
-      \ 's:sections',
-      \ 'i:images'
-      \ ],
-      \ 'sro' : '|',
-      \ 'kind2scope' : {
-      \ 's' : 'section',
-      \ },
-      \ 'sort': 0,
-      \ }
+"map <leader>t :TagbarToggle<cr>
+"let g:tagbar_type_markdown = {
+      "\ 'ctagstype': 'markdown',
+      "\ 'ctagsbin' : '~/.vim/bundle/markdown2ctags/markdown2ctags.py',
+      "\ 'ctagsargs' : '-f - --sort=yes',
+      "\ 'kinds' : [
+      "\ 's:sections',
+      "\ 'i:images'
+      "\ ],
+      "\ 'sro' : '|',
+      "\ 'kind2scope' : {
+      "\ 's' : 'section',
+      "\ },
+      "\ 'sort': 0,
+      "\ }
 
 " Vimux
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
+
 nmap <C-c><C-c> "vyip :VimuxRunCommand(@v)<cr>
-vmap <C-c> "vy :VimuxRunCommand(@v)<cr>
+"nmap <C-c><leader> %yv :VimuxRunCommand(@v)<cr>
+vmap <C-c> "vy :call VimuxSlime()<cr>

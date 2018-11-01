@@ -1,4 +1,1 @@
-gem: --no-format-executable
-install: -i /var2/home/fire_public/gem/ruby/2.0.0/ --no-format-executable --no-user-install
-update: -i /var2/home/fire_public/gem/ruby/2.0.0/ --no-format-executable --no-user-install
-format_executable: false
+gem: --user-install

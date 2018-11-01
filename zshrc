@@ -1,9 +1,7 @@
 #!/bin/zsh
 
-#echo -e "$(tput bold).zshrc$(tput sgr0)"
-
-# Aliases
-try_source ~/.aliases
+# Colorscheme (pywal)
+(cat ~/.cache/wal/sequences); clear
 
 # Talk permission
 mesg y
@@ -15,12 +13,20 @@ umask 022
 #setopt no_bang_hist
 #setopt no_prompt_bang
 
-# Solarized dircolors
-#eval `dircolors ~/.dir_colors`
-
 # Vim mode
 bindkey -v
 export KEYTIMEOUT=1
+
+# Theme config
+#POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_SHORTEN_STRATEGY=truncate_folders
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+status root_indicator background_jobs todo history time)
+POWERLEVEL9K_TODO_BACKGROUND="blue"
+
+# Solarized dircolors
+#eval `dircolors ~/.dir_colors`
 
 # Antigen and plugins
 source ~/.antigen/antigen.zsh
@@ -28,3 +34,6 @@ if ! [[ -v ANTIGEN_LOADED ]]; then
   antigen init ~/.antigenrc
   ANTIGEN_LOADED=True
 fi
+
+# Aliases
+try_source ~/.aliases
