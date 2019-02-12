@@ -12,6 +12,8 @@ alias clean='rm -f *.{aux,log}(N)'
 
 alias t='todo.sh'
 
+alias am='asciinema'
+
 export LS_COLORS=$(ls_colors_generator)
 run_ls() { ls-i --color=auto -w $(tput cols) "$@" }
 run_dir() { dir-i --color=auto -w $(tput cols) "$@" }

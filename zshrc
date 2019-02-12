@@ -1,13 +1,13 @@
 #!/bin/zsh
 
-# Colorscheme (pywal)
-(cat ~/.cache/wal/sequences); clear
-
 # Talk permission
 mesg y
 
 # Default file permission
 umask 022
+
+# Colorscheme (pywal)
+[[ $ITERM_PROFILE != "Asciinema" ]] && ((cat ~/.cache/wal/sequences); clear)
 
 # Turn of history expansion
 #setopt no_bang_hist
@@ -18,12 +18,18 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # Theme config
-#POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_SHORTEN_STRATEGY=truncate_folders
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-status root_indicator background_jobs todo history time)
-POWERLEVEL9K_TODO_BACKGROUND="blue"
+POWERLEVEL9K_MODE='nerdfont-complete'
+if [[ $ITERM_PROFILE = "Asciinema" ]]; then
+  POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir)
+  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+else
+  POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+  POWERLEVEL9K_SHORTEN_STRATEGY=truncate_folders
+  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+  status root_indicator background_jobs todo history time)
+  POWERLEVEL9K_TODO_BACKGROUND="blue"
+fi
 
 # Solarized dircolors
 #eval `dircolors ~/.dir_colors`
@@ -37,3 +43,8 @@ fi
 
 # Aliases
 try_source ~/.aliases
+
+# iTerm profiles (asciimedia)
+if [[ $ITERM_PROFILE = "Asciinema" ]]; then
+  unalias ls
+fi

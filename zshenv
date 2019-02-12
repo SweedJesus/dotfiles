@@ -4,20 +4,33 @@
 Website=~/Documents/Web/nilsso.github.io
 
 # School and classes
-School=~/Documents/School/2018-Fall
-408=$School/MUSIC-408
-320=$School/MATH-320
-330=$School/MATH-330
-340=$School/MATH-340
+School=~/Documents/School/2019-Spring
 
-LC_ALL=en_US.utf8
-LANG=en_US.utf8
+# 2018-Fall
+408=$School/../2018-Fall/MUSIC-408
+320=$School/../2018-Fall/MATH-320
+330=$School/../2018-Fall/MATH-330
+340=$School/../2018-Fall/MATH-340
+
+# 2019-Spring
+496=$School/../2019-Spring/CS-496
+524=$School/../2019-Spring/MATH-524
+530=$School/../2019-Spring/MATH-530
+596=$School/../2019-Spring/MATH-596
+308=$School/../2019-Spring/MUSIC-308
+
+#Research=~/Documents/School/Research/acm
+ACM=~/Documents/School/Research/acm/acm-cpp/
+
+LANG=en_US.UTF-8
+LC_ALL=$LANG
 DEFAULT_USER=nils
 
 # Path
 typeset -gxU path
 path+=(
 ~/bin
+~/bin/gap-4.10.0
 ~/.gem/ruby/2.5.0/bin
 ~/Documents/Python/quiz-generator
 )

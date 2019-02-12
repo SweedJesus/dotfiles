@@ -7,8 +7,8 @@ let mapleader=" "
 source ~/.vimrc.bundle
 
 " Theme
-if has('gui_running') || has('gui_vimr')
-  colorscheme NeoSolarized
+if has('gui_running') || has('gui_vimr') || $ITERM_PROFILE == "Asciinema"
+  colorscheme solarized
   set background=dark
 else
   colorscheme wal
@@ -18,6 +18,18 @@ endif
 if &t_Co >= 2 || has('gui_running')
   syntax on
 endif
+
+function! Latex()
+  map <leader>\ :! pdflatex -shell-escape %<cr>
+  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+endfunction
+autocmd BufRead,BufNewFile,BufEnter *.tex call Latex()
+
+function! Lilypond()
+  map <leader>\ :! lilypond % -o $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+endfunction
+autocmd BufRead,BufNewFile,BufEnter *.ly call Lilypond()
 
 function! MathAndLiquid()
     "" Define certain regions
@@ -40,9 +52,8 @@ function! MathAndLiquid()
     hi link math_block Function
 
     map <leader>\ :! pandoc % -o $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
 endfunction
-
-" Call everytime we open a Markdown file
 autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
 
 set number
@@ -52,6 +63,7 @@ set swapfile
 set directory=~/.vim/swap
 set undofile
 set undodir=~/.vim/undo
+set acd
 set showcmd
 set incsearch
 set laststatus=2
@@ -91,7 +103,7 @@ set tabstop=2 shiftwidth=2 expandtab shiftround
 
 " Linebreaking
 set wrap linebreak nolist
-set showbreak=↪\ 
+set showbreak=↪\
 
 " Display extra whitespace
 "set list listchars=tab:»·,trail:·,nbsp:·
@@ -155,10 +167,10 @@ set cindent
 set cinoptions=g-1
 
 " Get off my lawn
-nnoremap <Left> :echoe "Use h"<cr>
-nnoremap <Right> :echoe "Use l"<cr>
-nnoremap <Up> :echoe "Use k"<cr>
-nnoremap <Down> :echoe "Use j"<cr>
+nnoremap <Left> :echoe "Use h noob"<cr>
+nnoremap <Right> :echoe "Use l noob"<cr>
+nnoremap <Up> :echoe "Use k noob"<cr>
+nnoremap <Down> :echoe "Use j noob"<cr>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
@@ -169,12 +181,18 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" Normie copy
+"vnoremap <C-c> "*y
+ "noremap <C-v> "*p
+
 " Quicker saving and quitting
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
+nnoremap <leader>W :w!<cr>
+nnoremap <leader>Q :q!<cr>
 
 " Turn off highlighting
-nnoremap <leader>l :nohlsearch<cr>
+nnoremap <leader>l :nohlsearch<cr>:SyntasticReset<cr>
 
 " Run commands that require an interactive shell
 nnoremap <leader>r :RunInInteractiveShell<space>

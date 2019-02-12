@@ -1,4 +1,7 @@
 call plug#begin('~/.config/nvim/bundle')
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'altercation/vim-colors-solarized'
 Plug 'xolox/vim-misc'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
@@ -11,33 +14,63 @@ Plug 'tpope/vim-markdown'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/LanguageTool'
-Plug 'shime/vim-livedown'
+Plug 'vim-scripts/matchit.zip'
 Plug 'vim-scripts/loremipsum'
+"Plug 'lervag/vimtex'
+Plug 'shime/vim-livedown'
 Plug 'ervandew/eclim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'sjl/vitality.vim'
 Plug 'benmills/vimux'
 Plug 'dylanaraps/wal.vim'
-Plug 'icymind/neosolarized'
-Plug 'ryanoasis/vim-devicons'
+Plug 'rizzatti/dash.vim'
+if $ITERM_PROFILE != "Asciinema"
+  Plug 'ryanoasis/vim-devicons'
+end
 call plug#end()
 
 " Airline
-let g:airline_powerline_fonts=1
-let g:airline_theme='wal'
+if $ITERM_PROFILE == "Asciinema"
+  let g:airline_theme="solarized"
+else
+  let g:airline_powerline_fonts=1
+  let g:airline_theme='wal'
+end
 
 " LanguageTool
 let g:languagetool_jar='/usr/local/Cellar/languagetool/4.0/libexec/languagetool-commandline.jar'
 
+" Goyo
+"let g:goyo_width=80
+function! s:goyo_enter()
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+endfunction
+function! s:goyo_leave()
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+endfunction
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 " Syntastic
 set laststatus=2
 let g:syntastic_mode_map={'mode': 'passive'}
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_mode_map={'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
+let g:syntastic_quiet_messages = { 'regex': [
+      \ '#pragma once',
+      \ 'Do not use @ in LaTeX macro names',
+      \ 'Command terminated with space'
+      \ ] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 " Javascript
 let g:syntastic_javascript_checkers=['jshint']
@@ -46,9 +79,8 @@ let g:loaded_syntastic_java_javac_checker=1
 " C++
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_cpp_compiler='g++'
-let g:syntastic_cpp_compiler_options='-std=c++11'
+let g:syntastic_cpp_compiler_options='-std=c++14 -Wall -Wextra'
 let g:syntastic_cpp_check_header=1
-let g:syntastic_quiet_messages = {'regex': '#pragma once'}
 " Rust
 let g:syntastic_rust_checkers=['rustc']
 let g:syntastic_rust_rustc_exe = 'cargo check'
@@ -91,3 +123,7 @@ endfunction
 nmap <C-c><C-c> "vyip :VimuxRunCommand(@v)<cr>
 "nmap <C-c><leader> %yv :VimuxRunCommand(@v)<cr>
 vmap <C-c> "vy :call VimuxSlime()<cr>
+
+" Dash
+
+nmap <silent> <leader>d <Plug>DashSearch
