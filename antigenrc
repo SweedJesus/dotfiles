@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 antigen use oh-my-zsh
 
 antigen bundle vi-mode

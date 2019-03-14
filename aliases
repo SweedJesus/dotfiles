@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #echo -e "$(tput bold).aliases$(tput sgr0)"
+alias open='xdg-open'
+
+alias edoras='ssh $EDORAS'
 
 #alias vim='nvim'
 alias python='python3'
@@ -14,10 +17,10 @@ alias t='todo.sh'
 
 alias am='asciinema'
 
-export LS_COLORS=$(ls_colors_generator)
-run_ls() { ls-i --color=auto -w $(tput cols) "$@" }
-run_dir() { dir-i --color=auto -w $(tput cols) "$@" }
-run_vdir() { vdir-i --color=auto -w $(tput cols) "$@" }
-alias ls='run_ls'
-alias dir='run_dir'
-alias vdir='run_vdir'
+#export LS_COLORS=$(ls_colors_generator)
+#run_ls() { ls-i --color=auto -w $(tput cols) "$@" }
+#run_dir() { dir-i --color=auto -w $(tput cols) "$@" }
+#run_vdir() { vdir-i --color=auto -w $(tput cols) "$@" }
+#alias ls='run_ls'
+#alias dir='run_dir'
+#alias vdir='run_vdir'

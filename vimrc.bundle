@@ -3,6 +3,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'xolox/vim-misc'
+"Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -16,9 +17,9 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/LanguageTool'
 Plug 'vim-scripts/matchit.zip'
 Plug 'vim-scripts/loremipsum'
-"Plug 'lervag/vimtex'
-Plug 'shime/vim-livedown'
-Plug 'ervandew/eclim'
+Plug 'lervag/vimtex'
+"Plug 'shime/vim-livedown'
+"Plug 'ervandew/eclim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -29,18 +30,18 @@ Plug 'sjl/vitality.vim'
 Plug 'benmills/vimux'
 Plug 'dylanaraps/wal.vim'
 Plug 'rizzatti/dash.vim'
-if $ITERM_PROFILE != "Asciinema"
-  Plug 'ryanoasis/vim-devicons'
-end
+"if $ITERM_PROFILE != "Asciinema"
+  "Plug 'ryanoasis/vim-devicons'
+"end
 call plug#end()
 
 " Airline
-if $ITERM_PROFILE == "Asciinema"
-  let g:airline_theme="solarized"
-else
-  let g:airline_powerline_fonts=1
-  let g:airline_theme='wal'
-end
+"if $ITERM_PROFILE == "Asciinema"
+"let g:airline_theme="solarized"
+"else
+let g:airline_powerline_fonts=1
+let g:airline_theme='wal'
+"end
 
 " LanguageTool
 let g:languagetool_jar='/usr/local/Cellar/languagetool/4.0/libexec/languagetool-commandline.jar'
@@ -69,7 +70,7 @@ let g:syntastic_mode_map={'mode': 'passive', 'active_filetypes': [],'passive_fil
 let g:syntastic_quiet_messages = { 'regex': [
       \ '#pragma once',
       \ 'Do not use @ in LaTeX macro names',
-      \ 'Command terminated with space'
+      \ 'Command terminated with space' ,
       \ ] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 " Javascript

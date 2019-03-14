@@ -7,12 +7,12 @@ let mapleader=" "
 source ~/.vimrc.bundle
 
 " Theme
-if has('gui_running') || has('gui_vimr') || $ITERM_PROFILE == "Asciinema"
-  colorscheme solarized
-  set background=dark
-else
-  colorscheme wal
-endif
+"if has('gui_running') || has('gui_vimr') || $ITERM_PROFILE == "Asciinema"
+"colorscheme solarized
+"set background=dark
+"else
+colorscheme wal
+"endif
 
 " Syntax
 if &t_Co >= 2 || has('gui_running')
@@ -21,38 +21,38 @@ endif
 
 function! Latex()
   map <leader>\ :! pdflatex -shell-escape %<cr>
-  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! xdg-open $(echo % \| cut -d "." -f 1).pdf<cr>
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.tex call Latex()
 
 function! Lilypond()
   map <leader>\ :! lilypond % -o $(echo % \| cut -d "." -f 1).pdf<cr>
-  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! xdg-open $(echo % \| cut -d "." -f 1).pdf<cr>
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.ly call Lilypond()
 
 function! MathAndLiquid()
-    "" Define certain regions
-    " Block math. Look for "$$[anything]$$"
-    syn region math start=/\$\$/ end=/\$\$/
-    " inline math. Look for "$[not $][anything]$"
-    syn match math_block '\$[^$].\{-}\$'
+  "" Define certain regions
+  " Block math. Look for "$$[anything]$$"
+  syn region math start=/\$\$/ end=/\$\$/
+  " inline math. Look for "$[not $][anything]$"
+  syn match math_block '\$[^$].\{-}\$'
 
-    " Liquid single line. Look for "{%[anything]%}"
-    syn match liquid '{%.*%}'
-    " Liquid multiline. Look for "{%[anything]%}[anything]{%[anything]%}"
-    syn region highlight_block start='{% highlight .*%}' end='{%.*%}'
-    " Fenced code blocks, used in GitHub Flavored Markdown (GFM)
-    "syn region highlight_block start='```' end='```'
+  " Liquid single line. Look for "{%[anything]%}"
+  syn match liquid '{%.*%}'
+  " Liquid multiline. Look for "{%[anything]%}[anything]{%[anything]%}"
+  syn region highlight_block start='{% highlight .*%}' end='{%.*%}'
+  " Fenced code blocks, used in GitHub Flavored Markdown (GFM)
+  syn region highlight_block start='```' end='```'
 
-    "" Actually highlight those regions.
-    hi link math Statement
-    hi link liquid Statement
-    hi link highlight_block Function
-    hi link math_block Function
+  "" Actually highlight those regions.
+  hi link math Statement
+  hi link liquid Statement
+  hi link highlight_block Function
+  hi link math_block Function
 
-    map <leader>\ :! pandoc % -o $(echo % \| cut -d "." -f 1).pdf<cr>
-  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader>\ :! pandoc --pdf-engine=xelatex % -o $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! xdg-open $(echo % \| cut -d "." -f 1).pdf<cr>
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
 
@@ -78,6 +78,9 @@ if !has("nvim")
 endif
 set foldmethod=syntax
 set foldlevelstart=20
+
+" Un-fuck the cursor
+highlight MatchParen ctermbg=blue ctermfg=white
 
 augroup vimrcEx
   au!
@@ -191,7 +194,7 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>W :w!<cr>
 nnoremap <leader>Q :q!<cr>
 
-" Turn off highlighting
+ "Turn off highlighting
 nnoremap <leader>l :nohlsearch<cr>:SyntasticReset<cr>
 
 " Run commands that require an interactive shell
