@@ -21,13 +21,13 @@ endif
 
 function! Latex()
   map <leader>\ :! pdflatex -shell-escape %<cr>
-  map <leader><c-\> :! xdg-open $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.tex call Latex()
 
 function! Lilypond()
   map <leader>\ :! lilypond % -o $(echo % \| cut -d "." -f 1).pdf<cr>
-  map <leader><c-\> :! xdg-open $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.ly call Lilypond()
 
@@ -52,7 +52,7 @@ function! MathAndLiquid()
   hi link math_block Function
 
   map <leader>\ :! pandoc --pdf-engine=xelatex % -o $(echo % \| cut -d "." -f 1).pdf<cr>
-  map <leader><c-\> :! xdg-open $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
 
@@ -80,7 +80,7 @@ set foldmethod=syntax
 set foldlevelstart=20
 
 " Un-fuck the cursor
-highlight MatchParen ctermbg=blue ctermfg=white
+set guicursor=
 
 augroup vimrcEx
   au!
