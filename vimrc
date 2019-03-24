@@ -6,55 +6,73 @@ let mapleader=" "
 " Plugins
 source ~/.vimrc.bundle
 
+" Syntax
+if &t_Co >= 2 || has('gui_running')
+  syntax on
+endif
+
 " Theme
 "if has('gui_running') || has('gui_vimr') || $ITERM_PROFILE == "Asciinema"
 "colorscheme solarized
 "set background=dark
 "else
 colorscheme wal
+" Fix conceal style
+hi Conceal ctermbg=None
 "endif
-
-" Syntax
-if &t_Co >= 2 || has('gui_running')
-  syntax on
-endif
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
 
 function! Latex()
+  " Compile/display shortcut
   map <leader>\ :! pdflatex -shell-escape %<cr>
   map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+  " Custom concealments
+  source ~/.vimrc.custom
+  map <leader>c :call ToggleConcealLevel()<cr>
+  function! ToggleConcealLevel()
+    if &conceallevel
+      set conceallevel=0
+    else
+      set conceallevel=2
+    endif
+  endfunction
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.tex call Latex()
 
-function! Lilypond()
-  map <leader>\ :! lilypond % -o $(echo % \| cut -d "." -f 1).pdf<cr>
-  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
-endfunction
-autocmd BufRead,BufNewFile,BufEnter *.ly call Lilypond()
+"function! Lilypond()
+  "map <leader>\ :! lilypond % -o $(echo % \| cut -d "." -f 1).pdf<cr>
+  "map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+"endfunction
+"autocmd BufRead,BufNewFile,BufEnter *.ly call Lilypond()
 
-function! MathAndLiquid()
-  "" Define certain regions
-  " Block math. Look for "$$[anything]$$"
-  syn region math start=/\$\$/ end=/\$\$/
-  " inline math. Look for "$[not $][anything]$"
-  syn match math_block '\$[^$].\{-}\$'
+"function! MathAndLiquid()
+  """ Define certain regions
+  "" Block math. Look for "$$[anything]$$"
+  "syn region math start=/\$\$/ end=/\$\$/
+  "" inline math. Look for "$[not $][anything]$"
+  "syn match math_block '\$[^$].\{-}\$'
 
-  " Liquid single line. Look for "{%[anything]%}"
-  syn match liquid '{%.*%}'
-  " Liquid multiline. Look for "{%[anything]%}[anything]{%[anything]%}"
-  syn region highlight_block start='{% highlight .*%}' end='{%.*%}'
-  " Fenced code blocks, used in GitHub Flavored Markdown (GFM)
-  syn region highlight_block start='```' end='```'
+  "" Liquid single line. Look for "{%[anything]%}"
+  "syn match liquid '{%.*%}'
+  "" Liquid multiline. Look for "{%[anything]%}[anything]{%[anything]%}"
+  "syn region highlight_block start='{% highlight .*%}' end='{%.*%}'
+  "" Fenced code blocks, used in GitHub Flavored Markdown (GFM)
+  "syn region highlight_block start='```' end='```'
 
-  "" Actually highlight those regions.
-  hi link math Statement
-  hi link liquid Statement
-  hi link highlight_block Function
-  hi link math_block Function
+  """ Actually highlight those regions.
+  "hi link math Statement
+  "hi link liquid Statement
+  "hi link highlight_block Function
+  "hi link math_block Function
 
-  map <leader>\ :! pandoc --pdf-engine=xelatex % -o $(echo % \| cut -d "." -f 1).pdf<cr>
-  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
-endfunction
-autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
+  "map <leader>\ :! pandoc --pdf-engine=xelatex % -o $(echo % \| cut -d "." -f 1).pdf<cr>
+  "map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+"endfunction
+"autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
 
 set number
 set backup
@@ -82,16 +100,16 @@ set foldlevelstart=20
 " Un-fuck the cursor
 set guicursor=
 
-augroup vimrcEx
-  au!
-  au BufReadPost *
-        \ if &ft != 'gitcommit' && line("'\"") > 0 && line ("'\"") <= line("$") |
-        \ exe "normal g`\"" |
-        \ endif
-  au BufRead,BufNewFile Appraisals set filetype=ruby
-  au BufRead,BufNewFile *.md set filetype=markdown
-  au BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
-augroup END
+"augroup vimrcEx
+  "au!
+  "au BufReadPost *
+        "\ if &ft != 'gitcommit' && line("'\"") > 0 && line ("'\"") <= line("$") |
+        "\ exe "normal g`\"" |
+        "\ endif
+  "au BufRead,BufNewFile Appraisals set filetype=ruby
+  "au BufRead,BufNewFile *.md set filetype=markdown
+  "au BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+"augroup END
 
 " Encoding
 set encoding=utf8
@@ -106,11 +124,11 @@ set tabstop=2 shiftwidth=2 expandtab shiftround
 
 " Linebreaking
 set wrap linebreak nolist
-set showbreak=↪\
+"set showbreak=↪\
 
 " Display extra whitespace
 "set list listchars=tab:»·,trail:·,nbsp:·
-set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+"set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 " Make it obvious where 80 characters is
 set textwidth=80
@@ -135,35 +153,35 @@ set diffopt+=vertical
 " Tab completion
 " will insert tab at beginning of line,
 " will use completion if not at beginning
-set wildmode=list:longest,list:full
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
+"set wildmode=list:longest,list:full
+"function! InsertTabWrapper()
+  "let col = col('.') - 1
+  "if !col || getline('.')[col - 1] !~ '\k'
+    "return "\<tab>"
+  "else
+    "return "\<c-p>"
+  "endif
+"endfunction
+"inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+"inoremap <S-Tab> <c-n>
 
 " Use The Silver Searcher
 " https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+"if executable('ag')
+  "" Use Ag over Grep
+  "set grepprg=ag\ --nogroup\ --nocolor
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+  "" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  "let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
 
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+  "" ag is fast enough that CtrlP doesn't need to cache
+  "let g:ctrlp_use_caching = 0
 
-  if !exists(":Ag")
-    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-    nnoremap \ :Ag<SPACE>
-  endif
-endif
+  "if !exists(":Ag")
+    "command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    "nnoremap \ :Ag<SPACE>
+  "endif
+"endif
 
 " C/C++ indent options
 set cindent
