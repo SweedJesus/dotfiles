@@ -56,8 +56,8 @@ let g:vimtex_indent_enabled=0
 " Snippets
 let g:UltiSnipsSnippetDirectories=[$HOME . "/.vim/snips"]
 let g:UltiSnipsExpandTrigger = '<tab>'
-"let g:UltiSnipsJumpForwardTrigger = '<tab>'
-"let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " Goyo
 let g:goyo_width=80
