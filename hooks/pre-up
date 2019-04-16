@@ -10,7 +10,7 @@ fi
 
 # Setup Vim
 
-mkdir -p ~/.vim/{backup,swap,undo,bundle}
+mkdir -p ~/.vim/{backup,swap,undo,bundle,snips}
 
 # Plugin manager
 if [ ! -e ~/.vim/autoload/plug.vim ]; then

@@ -6,5 +6,7 @@
 # Vim plugins
 #vim -u ~/.vimrc +PluginInstall +PluginClean +qa < /dev/tty "$@"
 
-echo 'To change login shell to  Zsh: "chsh -s $(which zsh) $(whoami)"'
-echo 'And lastly run ":PlugInstall" in vim/neovim to install the plugins'
+if [ ! -n $ZSH_VERSION ]; then
+  echo 'To change login shell to  Zsh: "chsh -s $(which zsh) $(whoami)"'
+  echo 'And lastly run ":PlugInstall" in vim/neovim to install the plugins'
+fi
