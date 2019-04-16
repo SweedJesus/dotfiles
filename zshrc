@@ -21,18 +21,16 @@ export KEYTIMEOUT=1
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_STRATEGY=truncate_folders
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-  dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-status root_indicator background_jobs todo history time)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(host dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs todo history time)
 POWERLEVEL9K_TODO_BACKGROUND="blue"
 
 # Antigen and plugins
 source ~/.antigen/antigen.zsh
-if ! [[ -v ANTIGEN_LOADED ]]; then
-  antigen init ~/.antigenrc
-  ANTIGEN_LOADED=True
-fi
+#if ! [[ -v ANTIGEN_LOADED ]]; then
+antigen init ~/.antigenrc
+ANTIGEN_LOADED=True
+#fi
 
 # Aliases
 source ~/.aliases

@@ -31,10 +31,10 @@ ACM=~/Documents/School/Research/acm/acm-cpp/
 # Path
 typeset -gxU path
 path+=(
-~/bin
+$HOME/bin
 #~/bin/gap-4.10.0
-~/.gem/ruby/*/bin
-/Users/nilsso/Library/Python/2.7/bin
+#$HOME/.gem/ruby/*/bin
+#/Users/nilsso/Library/Python/2.7/bin
 #~/Documents/Python/quiz-generator
 )
 
