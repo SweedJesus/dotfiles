@@ -17,23 +17,20 @@ All the suite does is add and remove symbolic-links (symlinks) from the configur
 1.  Install [rcm][rcm]
 
 2.  Clone this repository to ~/.dotfiles:
-
-    ```
-    git clone https://github.com/SweedJesus/dotfiles.git ~/.dotfiles
-    ```
+```
+git clone https://github.com/SweedJesus/dotfiles.git ~/.dotfiles
+```
 
 3.  Run the rcup command with the variable RCRC set to the path of ~/.dotfiles/rcrc:
+```
+env RCRC=~/.dotfiles/rcrc rcup
+```
 
-    ```
-    env RCRC=~/.dotfiles/rcrc rcup
-    ```
-
-    This will symlink the various files and also run a couple scripts that will install various plugins for both vim and zsh.
+This will symlink the various files and also run a couple scripts that will install various plugins for both vim and zsh.
 
 4.  Set zsh as your login shell
-
-    ```
-    chsh -s $(which zsh) $(USER)
-    ```
+```
+chsh -s $(which zsh) $(USER)
+```
 
 [rcm]: https://github.com/thoughtbot/rcm
