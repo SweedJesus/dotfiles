@@ -1,5 +1,8 @@
 syn match texMathSymbol '\\vdotswithin{=}' contained conceal cchar=⋮
 
+"syn match texMathSymbol '_a' contained conceal cchar=ᵢ
+"syn match texMathSymbol '^a' contained conceal cchar=ᵃ
+
 " These are all going to depend on having custom math operators defined in
 " LaTeX files, e.g. '\DeclareMathOperator{\\Z}{\\mathbb{Z}}'
 syn match texMathSymbol '\v\\A\a@!' contained conceal cchar=𝔸
@@ -29,8 +32,18 @@ syn match texMathSymbol '\v\\X\a@!' contained conceal cchar=𝕏
 syn match texMathSymbol '\v\\Y\a@!' contained conceal cchar=𝕐
 syn match texMathSymbol '\v\\Z\a@!' contained conceal cchar=ℤ
 
+syn match texMathSymbol '\v\\lVert\s?' contained conceal cchar=‖
+syn match texMathSymbol '\v\\rVert\s?' contained conceal cchar=‖
+
 syn match texMathSymbol '&' contained conceal
 
-syn match texMathSymbol '\\calO' contained conceal cchar=O
+syn match texMathSymbol '\v\\mathspan'me=s+5 conceal
+syn match texMathSymbol '\v\\mathnull'me=s+5 conceal
+syn match texMathSymbol '\v\\mathrange'me=s+5 conceal
+
+syn match texMathSymbol '\\calC' contained conceal cchar=C
 syn match texMathSymbol '\\calL' contained conceal cchar=L
+syn match texMathSymbol '\\calO' contained conceal cchar=O
+syn match texMathSymbol '\\calP' contained conceal cchar=P
+syn match texMathSymbol '\\calS' contained conceal cchar=C
 

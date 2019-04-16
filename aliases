@@ -11,7 +11,7 @@ alias jn=jupyter-notebook
 alias g++='g++ -std=c++11'
 alias clang='clang -std=c++11'
 
-alias clean='rm -f *.{aux,log}(N)'
+alias clean='rm -f *.{aux,log,pdf}(N)'
 
 alias t='todo.sh'
 

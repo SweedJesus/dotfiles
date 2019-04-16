@@ -1,5 +1,7 @@
 " Nils vimrc
 
+set nocompatible              
+"filetype off 
 " Remap leader
 let mapleader=" "
 
@@ -28,7 +30,7 @@ autocmd BufReadPost *
 
 function! Latex()
   " Compile/display shortcut
-  map <leader>\ :! pdflatex -shell-escape %<cr>
+  map <leader>\ :! lualatex -shell-escape %<cr>
   map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
   " Custom concealments
   source ~/.vimrc.custom
@@ -43,36 +45,36 @@ function! Latex()
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.tex call Latex()
 
-"function! Lilypond()
-  "map <leader>\ :! lilypond % -o $(echo % \| cut -d "." -f 1).pdf<cr>
-  "map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
-"endfunction
-"autocmd BufRead,BufNewFile,BufEnter *.ly call Lilypond()
+function! Lilypond()
+  map <leader>\ :! lilypond %<cr>
+  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+endfunction
+autocmd BufRead,BufNewFile,BufEnter *.ly call Lilypond()
 
-"function! MathAndLiquid()
-  """ Define certain regions
-  "" Block math. Look for "$$[anything]$$"
-  "syn region math start=/\$\$/ end=/\$\$/
-  "" inline math. Look for "$[not $][anything]$"
-  "syn match math_block '\$[^$].\{-}\$'
+function! MathAndLiquid()
+  "" Define certain regions
+  " Block math. Look for "$$[anything]$$"
+  syn region math start=/\$\$/ end=/\$\$/
+  " inline math. Look for "$[not $][anything]$"
+  syn match math_block '\$[^$].\{-}\$'
 
-  "" Liquid single line. Look for "{%[anything]%}"
-  "syn match liquid '{%.*%}'
-  "" Liquid multiline. Look for "{%[anything]%}[anything]{%[anything]%}"
-  "syn region highlight_block start='{% highlight .*%}' end='{%.*%}'
-  "" Fenced code blocks, used in GitHub Flavored Markdown (GFM)
-  "syn region highlight_block start='```' end='```'
+  " Liquid single line. Look for "{%[anything]%}"
+  syn match liquid '{%.*%}'
+  " Liquid multiline. Look for "{%[anything]%}[anything]{%[anything]%}"
+  syn region highlight_block start='{% highlight .*%}' end='{%.*%}'
+  " Fenced code blocks, used in GitHub Flavored Markdown (GFM)
+  syn region highlight_block start='```' end='```'
 
-  """ Actually highlight those regions.
-  "hi link math Statement
-  "hi link liquid Statement
-  "hi link highlight_block Function
-  "hi link math_block Function
+  "" Actually highlight those regions.
+  hi link math Statement
+  hi link liquid Statement
+  hi link highlight_block Function
+  hi link math_block Function
 
-  "map <leader>\ :! pandoc --pdf-engine=xelatex % -o $(echo % \| cut -d "." -f 1).pdf<cr>
-  "map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
-"endfunction
-"autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
+  map <leader>\ :! pandoc --pdf-engine=lualatex % -o $(echo % \| cut -d "." -f 1).pdf<cr>
+  map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
+endfunction
+autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
 
 set number
 set backup
@@ -96,6 +98,7 @@ if !has("nvim")
 endif
 set foldmethod=syntax
 set foldlevelstart=20
+set conceallevel=2
 
 " Un-fuck the cursor
 set guicursor=
