@@ -25,12 +25,16 @@ Plug 'lervag/vimtex'
 "Plug 'ervandew/eclim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'dense-analysis/ale'
+"Plug 'valloric/youcompleteme'
 "Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'scrooloose/syntastic'
 Plug 'sirver/ultisnips'
-Plug 'gisraptor/vim-lilypond-integrator'
+Plug 'gisraptor/vim-lilypond-integrator', {'for': 'ly'}
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'kien/ctrlp.vim'
+"Plug 'ianding1/leetcode.vim'
 "Plug 'sjl/vitality.vim'
 "Plug 'benmills/vimux'
 "Plug 'rizzatti/dash.vim'
@@ -55,9 +59,13 @@ let g:vimtex_indent_enabled=0
 
 " Snippets
 let g:UltiSnipsSnippetDirectories=[$HOME . "/.vim/snips"]
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<right>'
+let g:UltiSnipsJumpForwardTrigger = '<right>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-right>'
+
+" Leetcode
+"let g:leetcode_username = 'nilsso'
+"let g:leetcode_solution_filetype = 'rust'
 
 " Goyo
 let g:goyo_width=80
@@ -136,6 +144,9 @@ map <leader>o :Tabularize<cr>
   "call VimuxSendText(@v)
   "call VimuxSendKeys("Enter")
 "endfunction
+
+" YCM
+let g:ycm_rust_src_path = $RUST_SRC_PATH
 
 "nmap <C-c><C-c> "vyip :VimuxRunCommand(@v)<cr>
 ""nmap <C-c><leader> %yv :VimuxRunCommand(@v)<cr>

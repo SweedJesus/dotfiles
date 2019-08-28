@@ -7,6 +7,7 @@ let mapleader=" "
 
 " Plugins
 source ~/.vimrc.bundle
+source ~/.vimrc.private
 
 " Syntax
 if &t_Co >= 2 || has('gui_running')
@@ -76,6 +77,13 @@ function! MathAndLiquid()
 endfunction
 autocmd BufRead,BufNewFile,BufEnter *.md,*.markdown call MathAndLiquid()
 
+function! CAndCPP()
+  " C/C++ indent options
+  set cindent
+  set cinoptions=g-1
+endfunction
+autocmd BufRead,BufNewFile,BufEnter *.c,*.cpp,*.h,*.hpp call CAndCPP()
+
 set number
 set backup
 set backupdir=~/.vim/backup
@@ -96,7 +104,7 @@ if !has("nvim")
     set ttymouse=xterm2
   endif
 endif
-set foldmethod=syntax
+set foldmethod=manual
 set foldlevelstart=20
 set conceallevel=2
 
@@ -123,7 +131,7 @@ set fileencoding=utf8
 
 " Two column wide softtabs
 " No copyindent, let syntax file handle that
-set tabstop=2 shiftwidth=2 expandtab shiftround
+set tabstop=4 shiftwidth=4 expandtab shiftround
 
 " Linebreaking
 set wrap linebreak nolist
@@ -156,17 +164,17 @@ set diffopt+=vertical
 " Tab completion
 " will insert tab at beginning of line,
 " will use completion if not at beginning
-"set wildmode=list:longest,list:full
-"function! InsertTabWrapper()
-  "let col = col('.') - 1
-  "if !col || getline('.')[col - 1] !~ '\k'
-    "return "\<tab>"
-  "else
-    "return "\<c-p>"
-  "endif
-"endfunction
-"inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-"inoremap <S-Tab> <c-n>
+set wildmode=list:longest,list:full
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
+endfunction
+inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <S-Tab> <c-n>
 
 " Use The Silver Searcher
 " https://github.com/ggreer/the_silver_searcher
@@ -185,10 +193,6 @@ set diffopt+=vertical
     "nnoremap \ :Ag<SPACE>
   "endif
 "endif
-
-" C/C++ indent options
-set cindent
-set cinoptions=g-1
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h noob"<cr>

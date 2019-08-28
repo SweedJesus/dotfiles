@@ -1,4 +1,6 @@
 syn match texMathSymbol '\\vdotswithin{=}' contained conceal cchar=⋮
+syn match texMathSymbol '\\lvert' conceal cchar=|
+syn match texMathSymbol '\\rvert' conceal cchar=|
 
 "syn match texMathSymbol '_a' contained conceal cchar=ᵢ
 "syn match texMathSymbol '^a' contained conceal cchar=ᵃ
