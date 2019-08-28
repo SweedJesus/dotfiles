@@ -2,19 +2,8 @@
 
 LANG=en_US.UTF-8
 LC_ALL=$LANG
-DEFAULT_USER=nils
 
-# Misc
-Website=~/Documents/Web/nilsso.github.io
-
-# School and classes
-School=~/Documents/School/2019-Fall
-
-OPHELIA=olsson@ophelia2.sdsu.edu
-alias ophelia='ssh $OPHELIA'
-
-Research=~/Documents/School/Research
-acm=$Research/acm
+source $HOME/.personal
 
 GEOS_DIR=/usr/local/Cellar/geos/3.7.1_1/
 

@@ -3,20 +3,12 @@
 #echo -e "$(tput bold).aliases$(tput sgr0)"
 #alias open='xdg-open'
 
-#alias vim='nvim'
-alias python='python3'
 alias jn=jupyter-notebook
 alias g++='g++ -std=c++11'
 alias clang='clang -std=c++11'
-
 alias clean='rm -f *.{aux,log,out}(N)'
-
 alias t='todo.sh'
-
 alias gitacm='git add -A && git commit -m "Lazy update" && git push'
-
-alias vim=nvim
-
 alias am='asciinema'
 
 #export LS_COLORS=$(ls_colors_generator)
