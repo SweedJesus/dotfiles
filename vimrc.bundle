@@ -33,6 +33,7 @@ Plug 'sirver/ultisnips'
 Plug 'gisraptor/vim-lilypond-integrator', {'for': 'ly'}
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+"Plug 'junegunn/vim-emoji'
 Plug 'kien/ctrlp.vim'
 "Plug 'ianding1/leetcode.vim'
 "Plug 'sjl/vitality.vim'
@@ -68,11 +69,12 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-right>'
 "let g:leetcode_solution_filetype = 'rust'
 
 " Goyo
-let g:goyo_width=80
+let g:goyo_width=100
 function! s:goyo_enter()
   set noshowmode
   set noshowcmd
   set scrolloff=999
+  set number
   Limelight
 endfunction
 function! s:goyo_leave()
@@ -100,7 +102,7 @@ let g:syntastic_python_python_exec = '/usr/bin/python3'
 " C++
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_cpp_compiler='g++'
-let g:syntastic_cpp_compiler_options='-std=c++14 -Wall -Wextra'
+let g:syntastic_cpp_compiler_options='-std=c++20 -Wall -Wextra'
 let g:syntastic_cpp_check_header=1
 " Rust
 let g:syntastic_rust_checkers=['rustc']

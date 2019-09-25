@@ -29,9 +29,10 @@ autocmd BufReadPost *
       \   exe "normal! g`\"" |
       \ endif
 
-function! Latex()
+function! LaTeX()
   " Compile/display shortcut
-  map <leader>\ :! lualatex -shell-escape %<cr>
+  "map <leader>\ :! lualatex -shell-escape %<cr>
+  map <leader>\ :! arara %<cr>
   map <leader><c-\> :! open $(echo % \| cut -d "." -f 1).pdf<cr>
   " Custom concealments
   source ~/.vimrc.custom
@@ -44,7 +45,7 @@ function! Latex()
     endif
   endfunction
 endfunction
-autocmd BufRead,BufNewFile,BufEnter *.tex call Latex()
+autocmd BufRead,BufNewFile,BufEnter *.tex call LaTeX()
 
 function! Lilypond()
   map <leader>\ :! lilypond %<cr>
@@ -142,7 +143,7 @@ set wrap linebreak nolist
 "set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 " Make it obvious where 80 characters is
-set textwidth=80
+set textwidth=100
 set colorcolumn=+1
 
 " Use one space, not two, after punctuation.

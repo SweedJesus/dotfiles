@@ -5,11 +5,12 @@
 
 alias jn=jupyter-notebook
 alias g++='g++ -std=c++11'
-alias clang='clang -std=c++11'
+alias clang='clang -std=c++14'
 alias clean='rm -f *.{aux,log,out}(N)'
 alias t='todo.sh'
 alias gitacm='git add -A && git commit -m "Lazy update" && git push'
 alias am='asciinema'
+alias tree='tree -C'
 
 #export LS_COLORS=$(ls_colors_generator)
 #run_ls() { ls-i --color=auto -w $(tput cols) "$@" }
