@@ -6,11 +6,18 @@
 alias jn=jupyter-notebook
 alias g++='g++ -std=c++11'
 alias clang='clang -std=c++14'
-alias clean='rm -f *.{aux,log,out}(N)'
+alias clean='rm -f *.{aux,log,out,toc}(N)'
 alias t='todo.sh'
-alias gitacm='git add -A && git commit -m "Lazy update" && git push'
+# alias gitacm='git add -A && git commit -m "Lazy update" && git push'
 alias am='asciinema'
 alias tree='tree -C'
+
+alias neovide='$HOME/.local/share/neovide --multiGrid --geometry=100x30'
+
+gitacm() {
+    msg=${1:-"Lazy commit"}
+    git add -A && git commit -m "$msg" && git push
+}
 
 #export LS_COLORS=$(ls_colors_generator)
 #run_ls() { ls-i --color=auto -w $(tput cols) "$@" }

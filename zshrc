@@ -7,7 +7,7 @@ mesg y
 umask 022
 
 # Colorscheme (pywal)
-((cat ~/.cache/wal/sequences); clear)
+#((cat ~/.cache/wal/sequences); clear)
 
 # Turn of history expansion
 #setopt no_bang_hist
@@ -35,3 +35,8 @@ ANTIGEN_LOADED=True
 # Aliases
 source ~/.aliases
 
+PATH="/Users/nilsso/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/nilsso/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/nilsso/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/nilsso/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/nilsso/perl5"; export PERL_MM_OPT;

@@ -13,9 +13,10 @@ path+=(
 $HOME/bin
 $HOME/.cargo/bin
 $HOME/.gem/ruby/*/bin
-#$HOME/bin/gap-4.10.1
-#/Users/nilsso/Library/Python/2.7/bin
-#~/Documents/Python/quiz-generator
+$HOME/.rustup/toolchains/nightly-x86_64-apple-darwin/bin
+/Library/Ruby/Gems/2.6.0/gems/*/bin
+/usr/local/opt/python@*/bin
+/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/
 )
 
 # Manpath
@@ -34,8 +35,19 @@ function acp {
   git push;
 }
 
+# C++
+export CXX=clang++
+
 # Rust
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+# Lua
+#typeset -T -gxU LUA_PATH lua_path ";"
+#lua_path+=(
+#$HOME/.luarocks/share/lua/5.1
+#"$HOME/.luarocks/share/lua/5.1/?.lua"
+#)
+#export LUA_PATH
 
 # Python virtualenv
 #VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3 
