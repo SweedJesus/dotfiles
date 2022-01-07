@@ -3,10 +3,14 @@
 # Terminfo
 #tic ~/.terminfo/xterm-256color-it.terminfo -o ~/.terminfo
 
-# Vim plugins
-#vim -u ~/.vimrc +PluginInstall +PluginClean +qa < /dev/tty "$@"
+# Vim/Neovim plugins
+if [ -x "$(command -v nvim)" ]; then
+elif [ -x "$(command -v vim)" ]; then
+    vim -u ~/.vimrc +PluginInstall +PluginClean +qa < /dev/tty "$@"
+fi
+
 
 if [ ! -n $ZSH_VERSION ]; then
-  echo 'To change login shell to  Zsh: "chsh -s $(which zsh) $(whoami)"'
-  echo 'And lastly run ":PlugInstall" in vim/neovim to install the plugins'
+    echo 'To change login shell to  Zsh: "chsh -s $(which zsh) $(whoami)"'
+    echo 'And lastly run ":PlugInstall" in vim/neovim to install the plugins'
 fi

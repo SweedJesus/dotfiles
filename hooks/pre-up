@@ -8,8 +8,7 @@ if [ ! -e ~/.antigen/antigen.zsh ]; then
     https://git.io/antigen
 fi
 
-# Setup Vim
-
+# Setup Vim/Neovim directories
 mkdir -p ~/.vim/{backup,swap,undo,bundle,snips}
 
 # Plugin manager
