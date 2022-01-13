@@ -34,22 +34,25 @@ require('packer').startup(function()
     }
     -- use 'joshdick/onedark.vim'               -- Theme inspired by Atom
     use 'itchyny/lightline.vim'                 -- Fancier statusline
-    use {                                       -- Add indentation guides even on blank lines
-        'lukas-reineke/indent-blankline.nvim',
-        branch="lua"
-    }
+    -- use {                                       -- Add indentation guides even on blank lines
+    --     'lukas-reineke/indent-blankline.nvim',
+    --     branch="lua"
+    -- }
     -- use 'tpope/vim-fugitive'                 -- Git commands in nvim
     -- use 'tpope/vim-rhubarb'                  -- Fugitive-companion to interact with github
     -- use {                                    -- Add git related info in the signs columns and popups
     --     'lewis6991/gitsigns.nvim',
     --     requires = {'nvim-lua/plenary.nvim'}
     -- }
-    use {
-        'kyazdani42/nvim-tree.lua',
-        -- requires = {
-        --     {'kyazdani42/nvim-web-devicons'}
-        -- }
-    }
+    -- use {
+    --     'kyazdani42/nvim-tree.lua',
+    --     requires = {
+    --         'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    --     },
+    --     config = function() require'nvim-tree'.setup {} end
+    -- }
+    use 'ryanoasis/vim-devicons'
+    use 'scrooloose/nerdtree'
     use 'L3MON4D3/LuaSnip'
     -- use 'kevinhwang91/rnvimr'                   -- Ranger from inside neovim
     use 'neovim/nvim-lspconfig'                 -- Collection of configurations for built-in LSP client
@@ -100,68 +103,71 @@ vim.g.lightline = {
 -- File tree (nvim-tree)
 -- =================================================================================================
 
-vim.cmd([[highlight NvimTreeFolderIcon guibg=blue]])
-vim.g.nvim_tree_width = 40
-vim.g.nvim_tree_gitignore = 1
-vim.g.nvim_tree_auto_close = 1
-vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' }
-vim.g.nvim_tree_follow = 1
-vim.g.nvim_tree_indent_markers = 1
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_width_allow_resize  = 1
-vim.g.nvim_tree_add_trailing = 1
-vim.g.nvim_tree_group_empty = 1
-vim.g.nvim_tree_lsp_diagnostics = 1
-vim.g.nvim_tree_special_files = { 'README.md', 'Makefile', 'MAKEFILE' }
-vim.g.nvim_tree_show_icons = { git = 0, folders = 1, files = 1 }
-vim.g.nvim_tree_icons = {
-    default = '',
-    symlink = '',
-    git = {
-        unstaged = '✗',
-        staged = '✓',
-        unmerged = '',
-        renamed = '➜',
-        untracked = '★',
-        deleted = '',
-        ignored = '◌'
-    },
-    folder = {
-        default = '',
-        open = '',
-        empty = '',
-        empty_open = '',
-        symlink = '',
-        symlink_open = '',
-    },
-    lsp = {
-        hint = '',
-        info = '',
-        warning = '',
-        error = '',
-    }
-}
+-- require'nvim-tree'.setup {
+-- }
 
-require('nvim-tree.events').on_nvim_tree_ready(function ()
-    vim.g.nvim_tree_ready = 1
-end)
+-- vim.cmd([[highlight NvimTreeFolderIcon guibg=blue]])
+-- vim.g.nvim_tree_width = 40
+-- vim.g.nvim_tree_gitignore = 1
+-- vim.g.nvim_tree_auto_close = 1
+-- vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' }
+-- vim.g.nvim_tree_follow = 1
+-- vim.g.nvim_tree_indent_markers = 1
+-- vim.g.nvim_tree_git_hl = 1
+-- vim.g.nvim_tree_width_allow_resize  = 1
+-- vim.g.nvim_tree_add_trailing = 1
+-- vim.g.nvim_tree_group_empty = 1
+-- vim.g.nvim_tree_lsp_diagnostics = 1
+-- vim.g.nvim_tree_special_files = { 'README.md', 'Makefile', 'MAKEFILE' }
+-- vim.g.nvim_tree_show_icons = { git = 0, folders = 1, files = 1 }
+-- vim.g.nvim_tree_icons = {
+--     default = '',
+--     symlink = '',
+--     git = {
+--         unstaged = '✗',
+--         staged = '✓',
+--         unmerged = '',
+--         renamed = '➜',
+--         untracked = '★',
+--         deleted = '',
+--         ignored = '◌'
+--     },
+--     folder = {
+--         default = '',
+--         open = '',
+--         empty = '',
+--         empty_open = '',
+--         symlink = '',
+--         symlink_open = '',
+--     },
+--     lsp = {
+--         hint = '',
+--         info = '',
+--         warning = '',
+--         error = '',
+--     }
+-- }
 
-function update_cwd()
-    if vim.g.nvim_tree_ready == 1 then
-        local view = require('nvim-tree.view')
-        local lib = require('nvim-tree.lib')
-        if view.win_open() then
-            lib.change_dir(vim.fn.getcwd())
-        end
-    end
-end
+-- require('nvim-tree.events').on_nvim_tree_ready(function ()
+--     vim.g.nvim_tree_ready = 1
+-- end)
 
-vim.api.nvim_exec([[
-augroup NvimTreeConfig
-au!
-au DirChanged * lua update_cwd()
-augroup END
-]], false)
+-- function update_cwd()
+--     if vim.g.nvim_tree_ready == 1 then
+--         local view = require('nvim-tree.view')
+--         local lib = require('nvim-tree.lib')
+--         if view.win_open() then
+--             lib.change_dir(vim.fn.getcwd())
+--         end
+--     end
+-- end
+
+-- vim.api.nvim_exec([[
+-- augroup NvimTreeConfig
+-- au!
+-- au DirChanged * lua update_cwd()
+-- augroup END
+-- ]], false)
 
 -- Change directory to openned file
 -- vim.cmd([[cd %<]])
@@ -211,7 +217,8 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn',   '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',           '<cmd>lua vim.lsp.buf.references()<cr>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca',   '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e',    '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
+    -- TODO: migrate
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e',    '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d',           '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d',           '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>,',    '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', opts)
@@ -284,7 +291,8 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
 )
 
 -- Show diagnostics on cursor
-vim.api.nvim_exec('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()', false)
+-- TODO: migrate
+-- vim.api.nvim_exec('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()', false)
 
 -- Type inlay hints
 vim.api.nvim_exec([[autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost * lua require"lsp_extensions".inlay_hints{ prefix = '', highlight = "Comment", enabled = { "TypeHint", "ChainingHint", "ParameterHint"} }]], false)

@@ -51,7 +51,9 @@ map('i', '<cr>', 'compe#confirm("<cr>")', { noremap = false, expr = true })
 map('i', '<c-space>', 'compe#complete()', { noremap = false, expr = true })
 
 -- Toggle file tree (NvimTree)
-map('n', '<leader>n',  [[<cmd>NvimTreeToggle<cr>]])
+-- map('n', '<leader>n',  [[<cmd>NvimTreeToggle<cr>]])
+-- (NERDTree)
+map('n', '<leader>n', [[<cmd>NERDTreeToggle<cr>]])
 
 -- Telescope
 map('n', '<leader>f',   [[<cmd>lua require('telescope.builtin').find_files()<cr>]])
