@@ -19,9 +19,12 @@ gitacm() {
     git add -A && git commit -m "$msg" && git push
 }
 
+<<<<<<< HEAD
 # Only for Windows with Linux subsystem
 alias open=explorer.exe
 
+=======
+>>>>>>> 0243a296f66c232ff7c98ce2e20e721bca04a83f
 alias dcu='docker-compose up'
 alias dcd='docker-compose down'
 alias dcr='docker-compose restart'

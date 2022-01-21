@@ -50,7 +50,11 @@ opts.updatetime = 250
 opts.signcolumn="yes"
 
 -- Remap escape to leave terminal mode
-vim.api.nvim_exec([[ augroup Terminal autocmd! au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n> au TermOpen * set nonu augroup end ]], false)
+-- vim.api.nvim_exec([[
+vim.cmd [[
+augroup Terminal autocmd! au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n> au TermOpen * set nonu augroup end
+]]
+--]], false)
 
 -- Return to last edit position when opening files
 vim.api.nvim_exec([[ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]], false)
@@ -96,6 +100,20 @@ augroup end
 
 -- Map :Format to vim.lsp.buf.formatting()
 vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+
+vim.g.html_indent_script1 = "inc"
+vim.g.html_indent_style1 = "inc"
+vim.g.html_indent_inctags = "html,body,head,tbody"
+
+vim.cmd [[
+augroup Indentation
+    autocmd!
+    autocmd FileType javascript set shiftwidth=2
+    autocmd FileType typescript set shiftwidth=2
+    autocmd FileType vue set shiftwidth=2
+    autocmd FileType html set shiftwidth=2
+augroup END
+]]
 
 require('plugins')
 require('maps')
