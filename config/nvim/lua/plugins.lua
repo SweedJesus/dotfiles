@@ -62,12 +62,14 @@ require('packer').startup(function()
     --     opt = true,
     --     ft = { 'c', 'cpp', 'go', 'rust', 'scala', 'python', 'objcpp', 'objc', 'reason' }
     -- }
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        config = function()
-            require('plugins/treesitter')
-        end
-    }
+    --[[
+       [use {
+       [    'nvim-treesitter/nvim-treesitter',
+       [    config = function()
+       [        require('plugins/treesitter')
+       [    end
+       [}
+       ]]
 end)
 
 -- =================================================================================================

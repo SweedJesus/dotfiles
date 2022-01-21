@@ -3,20 +3,24 @@
 LANG=en_US.UTF-8
 LC_ALL=$LANG
 
-source $HOME/.personal
+if [[ -f $HOME/.personal ]]; then
+    source $HOME/.personal
+fi
 
 GEOS_DIR=/usr/local/Cellar/geos/3.7.1_1/
 
 # Path
 typeset -gxU path
 path+=(
-$HOME/bin
+$HOME/.local/bin
 $HOME/.cargo/bin
-$HOME/.gem/ruby/*/bin
+#$HOME/.gem/ruby/*/bin
 $HOME/.rustup/toolchains/nightly-x86_64-apple-darwin/bin
-/Library/Ruby/Gems/2.6.0/gems/*/bin
-/usr/local/opt/python@*/bin
-/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/
+#/Library/Ruby/Gems/2.6.0/gems/*/bin
+#/usr/local/opt/python@*/bin
+#/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/
+#eval "$(pyenv virtualenv-init -)"
+$HOME/bin
 )
 
 # Manpath
@@ -39,7 +43,9 @@ function acp {
 export CXX=clang++
 
 # Rust
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+if [ -z rustc ]; then
+    export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+fi
 
 # Lua
 #typeset -T -gxU LUA_PATH lua_path ";"

@@ -19,6 +19,13 @@ gitacm() {
     git add -A && git commit -m "$msg" && git push
 }
 
+# Only for Windows with Linux subsystem
+alias open=explorer.exe
+
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
+alias dcr='docker-compose restart'
+
 #export LS_COLORS=$(ls_colors_generator)
 #run_ls() { ls-i --color=auto -w $(tput cols) "$@" }
 #run_dir() { dir-i --color=auto -w $(tput cols) "$@" }

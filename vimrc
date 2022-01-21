@@ -7,7 +7,7 @@ let mapleader=" "
 
 " Plugins
 source ~/.vimrc.bundle
-source ~/.vimrc.private
+"source ~/.vimrc.private
 
 " Syntax
 if &t_Co >= 2 || has('gui_running')
@@ -27,9 +27,12 @@ colorscheme nord
 hi Normal ctermbg=NONE
 
 " Fix conceal style
-hi Conceal ctermbg=None
-hi Conceal guibg=None
+"hi Conceal ctermbg=None
+"hi Conceal guibg=None
 "endif
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[3 q"
+let &t_EI = "\<Esc>[2 q"
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
