@@ -41,14 +41,14 @@ map('n', '<c-a-p>', [[:set bg=dark<cr>]]);
 -- map('n', '<F10>', '<cmd>lua ToggleMouse()<cr>')
 
 -- Tab completion
-map("i", "<Tab>", "v:lua.tab_complete()", { noremap = false, expr = true })
-map("s", "<Tab>", "v:lua.tab_complete()", { noremap = false, expr = true })
-map("i", "<S-Tab>", "v:lua.s_tab_complete()", { noremap = false, expr = true })
-map("s", "<S-Tab>", "v:lua.s_tab_complete()", { noremap = false, expr = true })
+-- map("i", "<Tab>", "v:lua.tab_complete()", { noremap = false, expr = true })
+-- map("s", "<Tab>", "v:lua.tab_complete()", { noremap = false, expr = true })
+-- map("i", "<S-Tab>", "v:lua.s_tab_complete()", { noremap = false, expr = true })
+-- map("s", "<S-Tab>", "v:lua.s_tab_complete()", { noremap = false, expr = true })
 
 -- Map compe confirm and complete functions
-map('i', '<cr>', 'compe#confirm("<cr>")', { noremap = false, expr = true })
-map('i', '<c-space>', 'compe#complete()', { noremap = false, expr = true })
+-- map('i', '<cr>', 'compe#confirm("<cr>")', { noremap = false, expr = true })
+-- map('i', '<c-space>', 'compe#complete()', { noremap = false, expr = true })
 
 -- Toggle file tree (NvimTree)
 -- map('n', '<leader>n',  [[<cmd>NvimTreeToggle<cr>]])
