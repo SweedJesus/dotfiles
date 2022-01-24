@@ -16,8 +16,8 @@ $HOME/bin
 $HOME/.local/bin
 $HOME/.local/share/bin
 $HOME/.cargo/bin
-$HOME/.rustup/toolchains/nightly-*/bin
-$HOME/.rustup/toolchains/*/bin
+#$HOME/.rustup/toolchains/nightly-*/bin
+# $HOME/.rustup/toolchains/*/bin
 #/usr/local/opt/python@*/bin
 )
 

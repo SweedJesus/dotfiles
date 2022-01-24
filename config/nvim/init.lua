@@ -28,6 +28,8 @@ vim.cmd([[set guifont=FiraCode\ Nerd\ Font:h11]])
 vim.cmd([[set tw=100]])
 vim.cmd([[set cc=+1]])
 
+opts.termguicolors = true
+
 --Set highlight on search
 opts.hlsearch = true
 opts.incsearch = true

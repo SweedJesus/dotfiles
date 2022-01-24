@@ -3,6 +3,8 @@
 # Talk permission
 mesg y
 
+# export TERM='xterm-256color'
+
 # Default file permission
 umask 022
 

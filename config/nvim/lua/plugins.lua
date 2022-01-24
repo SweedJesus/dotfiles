@@ -59,10 +59,10 @@ require('packer').startup(function()
     -- use 'kevinhwang91/rnvimr'                   -- Ranger from inside neovim
     --
     -- CoC stuff
-    use {
-        'neoclide/coc.nvim',
-        branch='release'
-    }
+    -- use {
+    --     'neoclide/coc.nvim',
+    --     branch='release'
+    -- }
     --
     -- Native LSP stuff:
     -- use {
