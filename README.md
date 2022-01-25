@@ -12,8 +12,6 @@ All the suite does is add and remove symbolic-links (symlinks) from the configur
 
 ## Installing rcm
 
-## Installation
-
 1.  Install [rcm][rcm]
 
 2.  Clone this repository to ~/.dotfiles:
@@ -34,3 +32,11 @@ chsh -s $(which zsh) $(USER)
 ```
 
 [rcm]: https://github.com/thoughtbot/rcm
+
+## Language servers
+
+### GraphQL
+
+```
+npm install -g graphql-language-service-cli
+```

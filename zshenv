@@ -19,6 +19,8 @@ $HOME/.cargo/bin
 #$HOME/.rustup/toolchains/nightly-*/bin
 # $HOME/.rustup/toolchains/*/bin
 #/usr/local/opt/python@*/bin
+# Language servers
+$HOME/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin
 )
 
 # Manpath

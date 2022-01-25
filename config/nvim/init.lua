@@ -18,6 +18,9 @@ opts.shiftround = true     -- Round indent
 opts.joinspaces = false    -- No double spaces with join after a dot
 opts.breakindent = true    --Enable break indent
 
+vim.opt.list = true
+vim.opt.listchars:append("eol:↴")
+
 --Enable mouse mode
 opts.mouse = "a"
 
