@@ -65,10 +65,14 @@ require('packer').startup(function()
     -- }
     --
     -- Native LSP stuff:
-    -- use {
-    --     'neovim/nvim-lspconfig',
-    --     'williamboman/nvim-lsp-installer',
-    -- }
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/nvim-lsp-installer'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/nvim-cmp'
+
     -- use 'nvim-lua/lsp_extensions.nvim'          -- Extensions to built-in LSP
     -- use 'folke/lsp-colors.nvim'
     -- use 'hrsh7th/nvim-compe'                    -- Autocompletion plugin
@@ -95,6 +99,51 @@ require('packer').startup(function()
         end
     }
 end)
+
+
+local cmp = require('cmp')
+cmp.setup({
+    -- snippet = {
+    --     expand = function(args)
+    --         vim.fn['vsnip#anonymous'](args.body)
+    --         -- require('luasnip').lsp_expand(args.body)
+    --         -- vim.fn['UltiSnips#Anon'](args.body)
+    --     end,
+    -- },
+    -- mapping = {
+    --     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+    --     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+    --     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+    --     ['<C-y>'] = cmp.config.disable,
+    --     ['<C-e>'] = cmp.mapping({
+    --         i = cmp.mapping.abort(),
+    --         c = cmp.mapping.close(),
+    --     }),
+    --     ['<CR>'] = cmp.mapping.confirm({select = true}),
+    -- },
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        -- { name = 'vsnip' },
+        -- { name = 'luasnip' },
+        -- { name = 'ultisnips' },
+        -- { name = 'snippy' },
+    }, {
+        { name = 'buffer' },
+    })
+})
+cmp.setup.cmdline('/', {
+    sources = {
+        { name = 'buffer' }
+    }
+})
+cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})
+
 
 require('nvim_comment').setup({
     hook = function()
@@ -225,61 +274,67 @@ require('telescope').setup {
 -- Language server (LSP)
 -- =================================================================================================
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- require('lspconfig')[server].setup {
+    -- capabilities = capabilities
+-- }
+
 -- --Incremental live completion
 -- opts.inccommand = 'nosplit'
 -- 
 -- -- Set completeopt to have a better completion experience
 -- opts.completeopt='menuone,noselect'
 -- 
--- local lsp_installer = require('nvim-lsp-installer')
--- 
--- lsp_installer.on_server_ready(function(server)
---     local opts={}
---     server:setup(opts)
--- end)
+local lsp_installer = require('nvim-lsp-installer')
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+    server:setup(opts)
+end)
 -- 
 -- -- TODO: Figure out how to setup the html server between lsp_installer AND lspconfig
 -- 
--- local lsp_config = require('lspconfig')
+local lsp_config = require('lspconfig')
 -- 
 -- -- lsp_config.sumneko_lua
 -- 
--- local on_attach = function(client, bufnr)
---     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
---     -- Mappings.
---     local opts = { noremap = true, silent = true }
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',           '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',           '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',            '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',           '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>',        '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa',   '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr',   '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl',   '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D',    '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn',   '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',           '<cmd>lua vim.lsp.buf.references()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca',   '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
---     -- TODO: migrate
---     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e',    '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d',           '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d',           '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>,',    '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', opts)
--- end
+local on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- Mappings.
+    local opts = { noremap = true, silent = true }
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',           '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',           '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',            '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',           '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>',        '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa',   '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr',   '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl',   '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D',    '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn',   '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',           '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca',   '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    -- TODO: migrate
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e',    '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d',           '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d',           '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>,',    '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', opts)
+end
 -- 
 -- -- require'lspconfig'.vuels.setup{}
 -- 
 -- -- local servers = { 'clangd', 'gopls', 'rust_analyzer', 'rnix', 'hls', 'dartls', 'pyre', 'gdscript' }
--- local servers = {
---     -- 'rust_analyzer',
---     -- 'html',
---     'vuels',
--- }
--- for _, lsp in ipairs(servers) do
---     lsp_config[lsp].setup {
---         on_attach = on_attach,
---     }
--- end
+local servers = {
+    -- 'rust_analyzer',
+    -- 'html',
+    -- 'vuels',
+    'graphql',
+}
+for _, lsp in ipairs(servers) do
+    lsp_config[lsp].setup {
+        -- on_attach = on_attach,
+        capabilities = capabilities,
+    }
+end
 -- 
 -- -- lsp_config.vuels.setup {
 -- --     on_attach = function(client)
