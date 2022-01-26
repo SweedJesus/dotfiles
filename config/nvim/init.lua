@@ -20,8 +20,20 @@ opts.breakindent = true    --Enable break indent
 
 -- Display chars
 vim.opt.list = true
-vim.opt.fillchars = { eob = "–", fold = " ", vert = "│", foldsep = " ", foldclose = "", foldopen = "" }
-vim.opt.listchars = vim.opt.listchars + { tab = "··", lead = "·", eol = "﬋" }
+vim.opt.fillchars = {
+    eob = "–",
+    fold = " ",
+    -- vert = "│",
+    -- vert = "v",
+    foldsep = " ",
+    foldclose = "",
+    foldopen = ""
+}
+vim.opt.listchars = vim.opt.listchars + {
+    tab = "··",
+    lead = " ",
+    eol = "﬋"
+}
 
 --Enable mouse mode
 opts.mouse = "a"

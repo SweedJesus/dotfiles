@@ -20,7 +20,9 @@ $HOME/.cargo/bin
 # $HOME/.rustup/toolchains/*/bin
 #/usr/local/opt/python@*/bin
 # Language servers
-$HOME/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin
+# $HOME/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin
+# $HOME/.local/share/nvim/lsp_servers/jedi_language_server/venv/bin
+$HOME/.local/share/nvim/lsp_servers/**/bin
 )
 
 # Manpath

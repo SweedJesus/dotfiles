@@ -56,8 +56,11 @@ packer.startup(function()
     -- =============================================================================================
     -- Filetree
     -- =============================================================================================
-    use 'ryanoasis/vim-devicons'
-    use 'scrooloose/nerdtree'
+    use {
+        'scrooloose/nerdtree',
+        requires = { 'ryanoasis/vim-devicons' },
+    }
+    -- TODO: move this to a plugin file (others?)
     map('n', '<leader>n', [[<cmd>NERDTreeToggle<cr>]])
 
     -- =============================================================================================
@@ -68,23 +71,31 @@ packer.startup(function()
     -- =============================================================================================
     -- LSP
     -- =============================================================================================
-    use {
-        'williamboman/nvim-lsp-installer',
-        config = function() require('plugins.nvim-lsp-installer') end
-    }
+    -- use {
+    --     'williamboman/nvim-lsp-installer',
+    --     config = function() require('plugins.nvim-lsp-installer') end
+    -- }
 
     -- Setup language servers
     use {
         'neovim/nvim-lspconfig',
-        config = function() require('plugins.nvim-lspconfig') end
+        requires = { 'williamboman/nvim-lsp-installer' },
+        -- config = function() require('plugins.nvim-lspconfig') end
+        config = function() require('plugins.nvim-lsp') end
     }
 
-    -- Other things
     use 'onsails/lspkind-nvim'
 
     -- =============================================================================================
     -- Completion
     -- =============================================================================================
+    use({
+        "SirVer/ultisnips",
+        config = function()
+            require("plugins.others").ultisnips()
+        end,
+    })
+
     use {
         'hrsh7th/nvim-cmp',
         config = function() require('plugins.nvim-cmp') end,
