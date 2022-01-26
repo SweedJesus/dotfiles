@@ -1,3 +1,10 @@
+vim.cmd([[
+augroup PACKER_COMPILE_ONCHANGE
+    autocmd!
+    autocmd BufWritePost init.lua source <afile> | PackerCompile
+augroup END
+]])
+
 local util = require('util')
 local map = util.map
 -- local map_buf = util.map_buf
@@ -26,59 +33,32 @@ packer.startup(function()
     -- =============================================================================================
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        config = function()
-        end
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     require('lualine').setup{}
 
     -- =============================================================================================
-    -- Comments
-    -- =============================================================================================
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
-    use 'terrortylor/nvim-comment'
-    require('nvim_comment').setup{
-        hook = function()
-            if vim.api.nvim_buf_get_option(0, 'filetype') == 'vue' then
-                require('ts_context_commentstring.internal').update_commentstring()
-            end
-        end
-    }
-    map('n', '<tab>', 'gcc', { noremap = false })
-    map('v', '<tab>', 'gc', { noremap = false })
-
-    -- =============================================================================================
     -- Fuzzy-finder
     -- =============================================================================================
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make'
+    }
     use {
         'nvim-telescope/telescope.nvim',
         requires = {
             {'nvim-lua/popup.nvim'},
             {'nvim-lua/plenary.nvim'}
         },
-        config = function()
-            require('telescope').setup{
-                defaults = {
-                    mappings = {
-                        i = {
-                            ['<C-u>'] = false,
-                            ['<C-d>'] = false,
-                        },
-                    },
-                    generic_sorter =  require'telescope.sorters'.get_fzy_sorter,
-                    file_sorter =  require'telescope.sorters'.get_fzy_sorter,
-                }
-            }
-        end
+        config = function() require('plugins.telescope') end
     }
-    require('telescope').load_extension('fzf')
 
     -- =============================================================================================
     -- Filetree
     -- =============================================================================================
     use 'ryanoasis/vim-devicons'
     use 'scrooloose/nerdtree'
+    map('n', '<leader>n', [[<cmd>NERDTreeToggle<cr>]])
 
     -- =============================================================================================
     -- Snippets
@@ -88,43 +68,16 @@ packer.startup(function()
     -- =============================================================================================
     -- LSP
     -- =============================================================================================
-    use 'williamboman/nvim-lsp-installer'
-    -- Install language servers
-    local servers = {
-        "graphql",
-        "html",
-        "sumneko_lua"
+    use {
+        'williamboman/nvim-lsp-installer',
+        config = function() require('plugins.nvim-lsp-installer') end
     }
-    local lsp_installer = require('nvim-lsp-installer.servers')
-    for _, server_name in pairs(servers) do
-        local server_available, server = lsp_installer.get_server(server_name)
-        if not server_available then
-            server:install()
-        end
-    end
 
     -- Setup language servers
-    use 'neovim/nvim-lspconfig'
-    local lspconfig = require('lspconfig')
-    -- Lua
-    local lua_runtime_path = vim.split(package.path, ';')
-    table.insert(lua_runtime_path, 'lua/?.lua')
-    table.insert(lua_runtime_path, 'lua/?/init.lua')
-    lspconfig.sumneko_lua.setup{
-        settings = {
-            Lua = {
-                runtime = {
-                    version = 'LuaJIT',
-                    path = lua_runtime_path,
-                },
-                diagnostics = { globals = {'vim'} },
-                workspace = { library = vim.api.nvim_get_runtime_file('', true) },
-                telemetry = { enable = false }
-            }
-        }
+    use {
+        'neovim/nvim-lspconfig',
+        config = function() require('plugins.nvim-lspconfig') end
     }
-    -- GraphQL
-    lspconfig.graphql.setup{}
 
     -- Other things
     use 'onsails/lspkind-nvim'
@@ -132,70 +85,18 @@ packer.startup(function()
     -- =============================================================================================
     -- Completion
     -- =============================================================================================
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    -- use 'hrsh7th/cmp-path'
-    -- use 'hrsh7th/cmp-cmdline'
     use {
         'hrsh7th/nvim-cmp',
-        config = function()
-            local lspkind = require('lspkind')
-            local cmp = require('cmp')
-            cmp.setup{
-                -- snippet = {
-                --     expand = function(args)
-                --         vim.fn['vsnip#anonymous'](args.body)
-                --         -- require('luasnip').lsp_expand(args.body)
-                --         -- vim.fn['UltiSnips#Anon'](args.body)
-                --     end,
-                -- },
-                -- mapping = {
-                --     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-                --     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-                --     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
-                --     ['<C-y>'] = cmp.config.disable,
-                --     ['<C-e>'] = cmp.mapping({
-                --         i = cmp.mapping.abort(),
-                --         c = cmp.mapping.close(),
-                --     }),
-                --     ['<CR>'] = cmp.mapping.confirm({select = true}),
-                -- },
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    -- { name = 'luasnip' },
-                    { name = 'path' },
-                    { name = 'buffer', keyword_length = 5 },
-                }, {
-                }),
-                experimental = {
-                    ghost_text = true,
-                },
-                formatting = {
-                    format = lspkind.cmp_format({
-                        -- with_text = false,
-                        -- maxwidth = 50,
-                        before = function(_, vim_item)
-                            return vim_item
-                        end,
-                    })
-                },
-            }
-            cmp.setup.cmdline('/', {
-                sources = {
-                    { name = 'buffer' }
-                }
-            })
-            cmp.setup.cmdline(':', {
-                sources = cmp.config.sources({
-                    { name = 'path' }
-                }, {
-                    { name = 'cmdline' }
-                })
-            })
-        end
+        config = function() require('plugins.nvim-cmp') end,
+        requires = {
+            { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', requires = 'neovim/nvim-lspconfig' },
+            { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+            { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+            { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
+        }
+        -- use 'nvim-lua/lsp_extensions.nvim'
+        -- use 'folke/lsp-colors.nvim'
     }
-    -- use 'nvim-lua/lsp_extensions.nvim'
-    -- use 'folke/lsp-colors.nvim'
 
     -- =============================================================================================
     -- Treesitter
@@ -203,31 +104,31 @@ packer.startup(function()
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
-        config = function() require('plugins.treesitter') end
+        config = function() require('plugins.nvim-treesitter') end
     }
 
     -- =============================================================================================
     -- Miscelaneous quality of life
     -- =============================================================================================
-    use 'tpope/vim-surround'
-    use 'tpope/vim-repeat'
-    use 'godlygeek/tabular'
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
     use {
-        'lukas-reineke/indent-blankline.nvim',
-        config = function()
-            require('indent_blankline').setup{
-                show_end_of_line = true,
-            }
-        end
+        'terrortylor/nvim-comment',
+        config = function() require('plugins.others').nvim_comment() end
+    }
+    use 'tpope/vim-surround' -- Surround motions
+    use 'tpope/vim-repeat' -- Dot can do more things
+    use 'godlygeek/tabular' -- Auto-tabulation
+    use {
+        'lukas-reineke/indent-blankline.nvim', -- Show indent levels
+        config = function() require('plugins.others').indent_blankline() end
     }
     use {
-        'folke/todo-comments.nvim',
+        'folke/todo-comments.nvim', -- Highlight todo/note comments
         requires = 'nvim-lua/plenary.nvim',
-        config = function() require('todo-comments').setup{} end
+        config = function() require('plugins.others').todo_comments() end
     }
-    use { -- Add matching HTML tag
-        'windwp/nvim-ts-autotag',
-        config = function() require'nvim-ts-autotag'.setup{} end
+    use {
+        'windwp/nvim-ts-autotag', -- Add matching HTML tag
+        config = function() require('plugins.others').nvim_ts_autotag() end
     }
 end)
-

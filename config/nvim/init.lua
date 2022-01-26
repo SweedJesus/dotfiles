@@ -18,8 +18,10 @@ opts.shiftround = true     -- Round indent
 opts.joinspaces = false    -- No double spaces with join after a dot
 opts.breakindent = true    --Enable break indent
 
+-- Display chars
 vim.opt.list = true
-vim.opt.listchars:append("eol:↴")
+vim.opt.fillchars = { eob = "–", fold = " ", vert = "│", foldsep = " ", foldclose = "", foldopen = "" }
+vim.opt.listchars = vim.opt.listchars + { tab = "··", lead = "·", eol = "﬋" }
 
 --Enable mouse mode
 opts.mouse = "a"
@@ -69,28 +71,28 @@ opts.pastetoggle="<F3>"
 -- opts.pastetoggle="<leader>p" -- I don't know how to set this yet
 
 -- Map blankline
-vim.g.indent_blankline_char = "⋮"
+-- vim.g.indent_blankline_char = "⋮"
 -- vim.g.indent_blankline_char = "│"
-vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
-vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile'}
-vim.g.indent_blankline_char_highlight = 'LineNr'
+-- vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
+-- vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile'}
+-- vim.g.indent_blankline_char_highlight = 'LineNr'
 
 -- Toggle to disable mouse mode and indentlines for easier paste
-ToggleMouse = function()
-    if opts.mouse == 'a' then
-        vim.cmd([[IndentBlanklineDisable]])
-        opts.signcolumn='no'
-        opts.mouse = 'v'
-        opts.number = false
-        print("Mouse disabled")
-    else
-        vim.cmd([[IndentBlanklineEnable]])
-        opts.signcolumn='yes'
-        opts.mouse = 'a'
-        opts.number = true
-        print("Mouse enabled")
-    end
-end
+-- ToggleMouse = function()
+--     if opts.mouse == 'a' then
+--         vim.cmd([[IndentBlanklineDisable]])
+--         opts.signcolumn='no'
+--         opts.mouse = 'v'
+--         opts.number = false
+--         print("Mouse disabled")
+--     else
+--         vim.cmd([[IndentBlanklineEnable]])
+--         opts.signcolumn='yes'
+--         opts.mouse = 'a'
+--         opts.number = true
+--         print("Mouse enabled")
+--     end
+-- end
 
 -- Change preview window location
 vim.g.splitbelow = true
@@ -120,5 +122,5 @@ augroup Indentation
 augroup END
 ]]
 
+require('basemaps')
 require('plugins')
-require('maps')
