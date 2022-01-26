@@ -40,11 +40,8 @@ map('n', '<c-a-p>', [[:set bg=dark<cr>]]);
 -- Toggle mouse
 -- map('n', '<F10>', '<cmd>lua ToggleMouse()<cr>')
 
--- Tab completion
---map("i", "<Tab>", "v:lua.tab_complete()", { noremap = false, expr = true })
---map("s", "<Tab>", "v:lua.tab_complete()", { noremap = false, expr = true })
---map("i", "<S-Tab>", "v:lua.s_tab_complete()", { noremap = false, expr = true })
---map("s", "<S-Tab>", "v:lua.s_tab_complete()", { noremap = false, expr = true })
+map('n', '<S-Tab>', [[<<]])
+map('i', '<S-Tab>', [[<C-d>]])
 
 -- Map compe confirm and complete functions
 -- map('i', '<cr>', 'compe#confirm("<cr>")', { noremap = false, expr = true })

@@ -64,18 +64,8 @@ packer.startup(function()
     map('n', '<leader>n', [[<cmd>NERDTreeToggle<cr>]])
 
     -- =============================================================================================
-    -- Snippets
-    -- =============================================================================================
-    -- use 'L3MON4D3/LuaSnip'
-
-    -- =============================================================================================
     -- LSP
     -- =============================================================================================
-    -- use {
-    --     'williamboman/nvim-lsp-installer',
-    --     config = function() require('plugins.nvim-lsp-installer') end
-    -- }
-
     -- Setup language servers
     use {
         'neovim/nvim-lspconfig',
@@ -83,31 +73,25 @@ packer.startup(function()
         -- config = function() require('plugins.nvim-lspconfig') end
         config = function() require('plugins.nvim-lsp') end
     }
-
     use 'onsails/lspkind-nvim'
 
     -- =============================================================================================
-    -- Completion
+    -- Snippets and completion
     -- =============================================================================================
-    use({
-        "SirVer/ultisnips",
-        config = function()
-            require("plugins.others").ultisnips()
-        end,
-    })
-
+    use 'L3MON4D3/LuaSnip'
     use {
         'hrsh7th/nvim-cmp',
         config = function() require('plugins.nvim-cmp') end,
         requires = {
-            { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', requires = 'neovim/nvim-lspconfig' },
-            { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-            { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-            { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-cmdline' },
+            { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
         }
-        -- use 'nvim-lua/lsp_extensions.nvim'
-        -- use 'folke/lsp-colors.nvim'
     }
+    -- use 'nvim-lua/lsp_extensions.nvim'
+    -- use 'folke/lsp-colors.nvim'
 
     -- =============================================================================================
     -- Treesitter

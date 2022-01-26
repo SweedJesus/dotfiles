@@ -35,6 +35,7 @@ vim.api.nvim_set_keymap('n', '<leader>tf', [[<CMD>lua require('telescope.builtin
 vim.api.nvim_set_keymap('n', '<leader>tb', [[<CMD>lua require('telescope.builtin').buffers()<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>tm', [[<CMD>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>to', [[<CMD>lua require('telescope.builtin').oldfiles()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>tg', [[<CMD>lua require('telescope.builtin').grep_string()<CR>]], opts)
 -- .quickfix
 -- .loclist
 -- .jumplist
