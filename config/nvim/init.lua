@@ -18,6 +18,8 @@ opts.shiftround = true     -- Round indent
 opts.joinspaces = false    -- No double spaces with join after a dot
 opts.breakindent = true    --Enable break indent
 
+-- vim.g.python3_host_prog = '/'
+
 -- Display chars
 vim.opt.list = true
 vim.opt.fillchars = {
@@ -29,11 +31,11 @@ vim.opt.fillchars = {
     foldclose = "",
     foldopen = ""
 }
-vim.opt.listchars = vim.opt.listchars + {
-    tab = "··",
-    lead = " ",
-    eol = "﬋"
-}
+-- vim.opt.listchars = vim.opt.listchars + {
+--     tab = "··",
+--     lead = " ",
+--     eol = "﬋"
+-- }
 
 --Enable mouse mode
 opts.mouse = "a"

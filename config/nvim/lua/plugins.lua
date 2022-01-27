@@ -25,8 +25,11 @@ packer.startup(function()
     -- Colorscheme
     -- =============================================================================================
     use 'shaunsingh/nord.nvim'
+    -- use 'Th3Whit3Wolf/one-nvim'
     gopts.termguicolors = true
-    vim.cmd('colorscheme nord')
+    -- vim.cmd([[set background=light]])
+    -- vim.cmd([[colorscheme one-nvim]])
+    vim.cmd([[colorscheme nord]])
 
     -- =============================================================================================
     -- Status line

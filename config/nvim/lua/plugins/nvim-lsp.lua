@@ -9,7 +9,14 @@ table.insert(lua_runtime_path, 'lua/?/init.lua')
 local servers = {
     graphql = {},
     html = {},
-    jedi_language_server = {},
+    -- jedi_language_server = {},
+    pyright = {
+        settings = {
+            python = {
+                venvPath = ''
+            }
+        }
+    },
     sumneko_lua = {
         settings = {
             Lua = {
@@ -66,10 +73,14 @@ local default_setup_table = {
 -- Install and setup language servers
 for server_name, specific_setup_table in pairs(servers) do
     local server_available, server = lsp_installer_servers.get_server(server_name)
-    if server_available and not server:is_installed() then
-        server:install()
+    if server_available then
+        server:on_ready(function()
+            local opts = vim.tbl_extend('keep', specific_setup_table, default_setup_table)
+            server:setup(opts)
+        end)
+        if not server:is_installed() then
+            server:install()
+        end
     end
-    local setup_table = vim.tbl_extend('keep', specific_setup_table, default_setup_table)
-    lspconfig[server_name].setup(setup_table)
 end
 
