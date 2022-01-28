@@ -10,10 +10,25 @@ local servers = {
     graphql = {},
     html = {},
     -- jedi_language_server = {},
-    pyright = {
+    -- pyright = {
+    --     settings = {
+    --         python = {
+    --             venvPath = ''
+    --         }
+    --     }
+    -- },
+    pylsp = {
+        -- env_path = '',
         settings = {
-            python = {
-                venvPath = ''
+            pylsp = {
+                plugins = {
+                    -- pylint = { enabled = true, executable = 'pylint' },
+                    -- pyflakes = { enabled = false },
+                    -- pycodestyle = { enabled = false },
+                    -- jedi_completion = { fuzzy = true },
+                    -- pyls_isort = { enabled = true },
+                    -- pylsp_mypy = { enabled = true },
+                }
             }
         }
     },
