@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Terminfo
+# Terminfo (?)
 #tic ~/.terminfo/xterm-256color-it.terminfo -o ~/.terminfo
 
 # Vim/Neovim plugins
-# if [ -x "$(command -v nvim)" ]; then
-# elif [ -x "$(command -v vim)" ]; then
+# if [[ -x "$(command -v nvim)" ]]; then
+# elif [[ -x "$(command -v vim)" ]]; then
 #     vim -u ~/.vimrc +PluginInstall +PluginClean +qa < /dev/tty "$@"
 # fi
 

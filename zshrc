@@ -1,9 +1,7 @@
 #!/bin/zsh
-
-# Talk permission
-mesg y
-
-# export TERM='xterm-256color'
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Default file permission
 umask 022
@@ -19,27 +17,33 @@ umask 022
 bindkey -v
 export KEYTIMEOUT=1
 
-# Theme config
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_SHORTEN_STRATEGY=truncate_folders
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(ssh dir vcs)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs todo history time)
-#POWERLEVEL9K_TODO_BACKGROUND="blue"
-
-# Antigen and plugins
-source ~/.antigen/antigen.zsh
-#if ! [[ -v ANTIGEN_LOADED ]]; then
-antigen init ~/.antigenrc
-ANTIGEN_LOADED=True
-#fi
+# Personal private things (hidden from public repository)
+# TODO: secret protected in repository?
+if [[ -f $HOME/.zprofile ]]; then
+    source $HOME/.zprofile
+fi
 
 # Aliases
 source ~/.aliases
 
+# User functions
+fpath=(~/.zfunc/ "${fpath[@]}")
+autoload -Uz try_source
+
+# Python
+eval "$(pyenv init -)"
+
+# Node version manager
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-alias luamake=/Users/nilsso/Downloads/lua-language-server/3rd/luamake/luamake
+# Antigen and plugins
+source ~/.antigen/antigen.zsh
+if [[ ! -v ANTIGEN_LOADED ]]; then
+    antigen init ~/.antigenrc
+    export ANTIGEN_LOADED=1
+fi
 
+# Theme (p10k) config. To customize, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
