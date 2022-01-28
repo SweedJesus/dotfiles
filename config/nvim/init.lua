@@ -21,7 +21,11 @@ opts.shiftround = true     -- Round indent
 opts.joinspaces = false    -- No double spaces with join after a dot
 opts.breakindent = true    --Enable break indent
 
--- vim.g.python3_host_prog = '/'
+-- Python virtual environments
+-- TODO: automate the setup with rcrc
+-- https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
+vim.g.python_host_prog = '$HOME/.pyenv/versions/nvim2/bin/python'
+vim.g.python3_host_prog = '$HOME/.pyenv/versions/nvim3/bin/python'
 
 -- Display chars
 vim.opt.list = true
@@ -44,7 +48,7 @@ vim.opt.fillchars = {
 opts.mouse = "a"
 
 -- Graphical font
-vim.cmd([[set guifont=FiraCode\ Nerd\ Font:h11]])
+-- vim.cmd([[set guifont=FiraCode\ Nerd\ Font:h11]])
 
 -- Column wrap
 vim.cmd([[set tw=100]])
