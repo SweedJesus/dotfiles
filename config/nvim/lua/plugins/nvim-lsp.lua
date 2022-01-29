@@ -20,16 +20,16 @@ local servers = {
     pylsp = {
         -- env_path = '',
         settings = {
-            pylsp = {
-                plugins = {
-                    -- pylint = { enabled = true, executable = 'pylint' },
-                    -- pyflakes = { enabled = false },
-                    -- pycodestyle = { enabled = false },
-                    -- jedi_completion = { fuzzy = true },
-                    -- pyls_isort = { enabled = true },
-                    -- pylsp_mypy = { enabled = true },
-                }
-            }
+            -- pylsp = {
+            --     plugins = {
+            --         -- pylint = { enabled = true, executable = 'pylint' },
+            --         -- pyflakes = { enabled = false },
+            --         -- pycodestyle = { enabled = false },
+            --         -- jedi_completion = { fuzzy = true },
+            --         -- pyls_isort = { enabled = true },
+            --         -- pylsp_mypy = { enabled = true },
+            --     }
+            -- }
         }
     },
     sumneko_lua = {
@@ -50,7 +50,7 @@ local servers = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-local function on_attach(client, bufnr)
+local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true }
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -75,6 +75,12 @@ local function on_attach(client, bufnr)
         augroup END
         ]])
     end
+
+    require("lsp_signature").on_attach({
+		bind = true,
+		hint_prefix = "🧸 ",
+		handler_opts = { border = "rounded" },
+	}, bufnr)
 end
 
 local default_setup_table = {

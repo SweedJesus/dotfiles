@@ -19,8 +19,8 @@ export KEYTIMEOUT=1
 
 # Personal private things (hidden from public repository)
 # TODO: secret protected in repository?
-if [[ -f $HOME/.zprofile ]]; then
-    source $HOME/.zprofile
+if [[ -f $HOME/.zprivate ]]; then
+    source $HOME/.zprivate
 fi
 
 # Aliases
@@ -42,7 +42,7 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.antigen/antigen.zsh
 if [[ ! -v ANTIGEN_LOADED ]]; then
     antigen init ~/.antigenrc
-    export ANTIGEN_LOADED=1
+    ANTIGEN_LOADED=1
 fi
 
 # Theme (p10k) config. To customize, run `p10k configure` or edit ~/.p10k.zsh.

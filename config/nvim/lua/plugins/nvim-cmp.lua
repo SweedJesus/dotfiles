@@ -34,13 +34,8 @@ lspkind.init({
     -- },
 })
 
--- We're using LuaJIT which has 5.1 compatability
--- Prior to 5.2, upack was a global function
--- While 5.2 and beyond you use table.unpack
-local unpack = unpack or table.unpack
-
 local has_words_before = function()
-   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
@@ -51,24 +46,38 @@ cmp.setup{
         end,
     },
     mapping = {
-        ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
-        ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
+        ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), {'i', 's'}),
+        ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), {'i', 's'}),
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-        ['<C-e>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
         ['<C-c>'] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
-        }),
-        -- ['<CR>'] = cmp.mapping.confirm({select = true}),
+        }, {'i', 's'}),
+        ['<CR>'] = cmp.mapping(function(fallback)
+            if luasnip.expandable() then
+                luasnip.expand()
+            elseif cmp.visible() then
+                cmp.mapping.confirm({select = true})
+            else
+                fallback()
+            end
+        end, {'i', 's'}),
+        ['<C-l>'] = cmp.mapping(function(_)
+            if luasnip.jumpable(1) then
+                luasnip.jump(1)
+            end
+        end, {'i', 's'}),
+        ['<C-h>'] = cmp.mapping(function(_)
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            end
+        end, {'i', 's'}),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
             elseif has_words_before() then
-                -- cmp.complete()
-                cmp.mapping.confirm({ select = true })
+                cmp.complete()
             else
                 fallback()
             end
@@ -76,8 +85,6 @@ cmp.setup{
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
             else
                 fallback()
             end

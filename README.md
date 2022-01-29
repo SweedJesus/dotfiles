@@ -39,7 +39,11 @@ and post-symlink hooks can be used for further automating the setup.
 ### Python versions and virtual environments
 
 Both [`pyenv`][pyenv] for managing Python versions and [`pyenv-virtualenv`][pyenv-virtualenv] for
-managing Python virtual environments. To create a virtualenv for the Python version used with `pyenv`
+managing Python virtual environments. See [this][intro-to-pyenv] for a pretty good guide.
+
+[intro-to-pyenv]: https://realpython.com/intro-to-pyenv/
+
+To create a virtualenv for the Python version used with `pyenv`
 run <kbd>pyenv virtualenv [version] \<venv-name\></kbd>. For example
 
 [pyenv]: https://github.com/pyenv/pyenv

@@ -6,8 +6,6 @@ augroup END
 ]])
 
 local util = require('util')
-local map = util.map
--- local map_buf = util.map_buf
 local gopts = util.opts();
 
 -- Install package manager (Packer) if it's not there
@@ -22,7 +20,7 @@ packer.startup(function()
     use 'wbthomason/packer.nvim'
 
     -- =============================================================================================
-    -- Colorscheme
+    -- Colorscheme/theme
     -- =============================================================================================
     use 'shaunsingh/nord.nvim'
     -- use 'Th3Whit3Wolf/one-nvim'
@@ -53,18 +51,32 @@ packer.startup(function()
             {'nvim-lua/popup.nvim'},
             {'nvim-lua/plenary.nvim'}
         },
-        config = function() require('plugins.telescope') end
+        config = function() require('plugins.telescope') end,
+    }
+
+    -- This shit is crazy
+    -- https://github.com/ggandor/lightspeed.nvim
+    -- https://www.youtube.com/watch?v=ESyld9NCl1w
+    -- NOTE: use `cl` for `s` and `cc` for `S` replacements
+    use {
+        'ggandor/lightspeed.nvim',
+        config = function() require('plugins.lightspeed') end,
     }
 
     -- =============================================================================================
     -- Filetree
     -- =============================================================================================
     use {
-        'scrooloose/nerdtree',
-        requires = { 'ryanoasis/vim-devicons' },
+        'kyazdani42/nvim-tree.lua',
+        requires = {'kyazdani42/nvim-web-devicons'},
+        config = function() require('plugins.filetree').nvim_tree() end,
     }
+    -- use {
+    --     'scrooloose/nerdtree',
+    --     requires = { 'ryanoasis/vim-devicons' },
+    --     config = function() require('plugins.filetree').nerdtree() end
+    -- }
     -- TODO: move this to a plugin file (others?)
-    map('n', '<leader>n', [[<cmd>NERDTreeToggle<cr>]])
 
     -- =============================================================================================
     -- LSP
@@ -72,8 +84,12 @@ packer.startup(function()
     -- Setup language servers
     use {
         'neovim/nvim-lspconfig',
-        requires = { 'williamboman/nvim-lsp-installer' },
-        -- config = function() require('plugins.nvim-lspconfig') end
+        -- after = 'nvim-cmp',
+        requires = {
+            'williamboman/nvim-lsp-installer',
+            'ray-x/lsp_signature.nvim',
+            -- 'jose-elias-alvarez/null-ls.nvim',
+        },
         config = function() require('plugins.nvim-lsp') end
     }
     use 'onsails/lspkind-nvim'
