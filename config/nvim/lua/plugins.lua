@@ -183,9 +183,6 @@ require('packer').startup(function(use)
     -- https://github.com/Shatur/neovim-session-manager
 
     use {
-        'Shatur/neovim-session-manager'
-    }
-    use {
         'goolord/alpha-nvim',
         config = function() require('plugins.alpha') end,
     }
