@@ -14,9 +14,9 @@ M.ultisnips = function()
     -- Disable snipmate plugins to avoid duplicate snippets
     vim.g.UltiSnipsEnableSnipMate = 0
     vim.g.UltiSnipsRemoveSelectModeMappings = 0
-    vim.g.UltiSnipsExpandTrigger = "<Tab>"
-    vim.g.UltiSnipsJumpForwardTrigger = "<Tab>"
-    vim.g.UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+    vim.g.UltiSnipsExpandTrigger = '<Tab>'
+    vim.g.UltiSnipsJumpForwardTrigger = '<Tab>'
+    vim.g.UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 end
 
 M.todo_comments = function()
@@ -24,6 +24,14 @@ M.todo_comments = function()
 end
 M.indent_blankline = function()
     require('indent_blankline').setup{
+        filetype_exclude = {
+            'alpha',
+            'lspinfo',
+            'packer',
+            'checkhealth',
+            'help',
+            '',
+        },
         use_treesitter = true,
         char = '│',
         context_char = '┃',

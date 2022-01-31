@@ -17,7 +17,14 @@ require('nvim-treesitter.configs').setup({
         'typescript',
         'vue',
     },
-    indent = { enable = true },
-    highlight = { enable = true }
+    indent = {
+        -- NOTE: Indentation is too broken for python (sometimes for lua too)
+        -- e.g. https://github.com/nvim-treesitter/nvim-treesitter/issues/1573
+        enable = false,
+        -- disable = { 'python' },
+    },
+    highlight = {
+        enable = true,
+    },
 })
 

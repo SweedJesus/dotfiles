@@ -11,6 +11,7 @@ path+=(
     $HOME/.local/share/bin
     $HOME/.cargo/bin
     $HOME/.poetry/bin
+    /usr/local/Cellar/fontforge/20201107/bin
 )
 
 # Manpath

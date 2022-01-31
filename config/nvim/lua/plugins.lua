@@ -11,12 +11,19 @@ local gopts = util.opts();
 -- Install package manager (Packer) if it's not there
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim '.. install_path)
+    -- vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim '.. install_path)
+	packer_bootstrap = fn.system({
+		"git",
+		"clone",
+		"--depth",
+		"1",
+		"https://github.com/wbthomason/packer.nvim",
+		install_path,
+	})
 end
+vim.cmd([[packadd packer.nvim]])
 
-local packer = require('packer')
-local use = packer.use
-packer.startup(function()
+require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- =============================================================================================
@@ -87,7 +94,7 @@ packer.startup(function()
         -- after = 'nvim-cmp',
         requires = {
             'williamboman/nvim-lsp-installer',
-            'ray-x/lsp_signature.nvim',
+            -- 'ray-x/lsp_signature.nvim',
             -- 'jose-elias-alvarez/null-ls.nvim',
         },
         config = function() require('plugins.nvim-lsp') end
@@ -97,7 +104,10 @@ packer.startup(function()
     -- =============================================================================================
     -- Snippets and completion
     -- =============================================================================================
-    use 'L3MON4D3/LuaSnip'
+    use {
+        'L3MON4D3/LuaSnip',
+        requires = { 'rafamadriz/friendly-snippets' },
+    }
     use {
         'hrsh7th/nvim-cmp',
         config = function() require('plugins.nvim-cmp') end,
@@ -127,7 +137,8 @@ packer.startup(function()
     use 'JoosepAlviste/nvim-ts-context-commentstring'
     use {
         'terrortylor/nvim-comment',
-        config = function() require('plugins.others').nvim_comment() end
+        config = function() require('plugins.others').nvim_comment() end,
+        --keys = { { "n", "<C-/>" }, { "v", "<C-/>" }, { "i", "<C-/>" }, { "n", "gc" }, { "v", "gc" } },
     }
     use 'tpope/vim-surround' -- Surround motions
     use 'tpope/vim-repeat' -- Dot can do more things
@@ -145,4 +156,43 @@ packer.startup(function()
         'windwp/nvim-ts-autotag', -- Add matching HTML tag
         config = function() require('plugins.others').nvim_ts_autotag() end
     }
+    use{
+        "norcalli/nvim-colorizer.lua",
+        -- e.g. #558817 #a33243 #4269a8
+        config = function() require('colorizer').setup() end,
+    }
+    -- https://github.com/sbdchd/neoformat
+
+
+    -- Annotation/docummentation generator
+    -- https://github.com/danymat/neogen
+    use {
+        'danymat/neogen',
+        requires = { "nvim-treesitter/nvim-treesitter" },
+        after = "nvim-treesitter",
+        config = function()
+        --     require("user.plugins.config.others").neogen()
+            require("neogen").setup({
+                enabled = true,
+            })
+        end,
+    }
+
+    -- Maybe these two can play together?
+    -- https://github.com/goolord/alpha-nvim
+    -- https://github.com/Shatur/neovim-session-manager
+
+    use {
+        'Shatur/neovim-session-manager'
+    }
+    use {
+        'goolord/alpha-nvim',
+        config = function() require('plugins.alpha') end,
+    }
+
+    if packer_bootstrap then
+        require("packer").sync()
+    end
 end)
+
+-- TODO: should probably move all the config/setup stuff down here

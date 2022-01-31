@@ -3,6 +3,16 @@ local actions = require('telescope.actions')
 
 telescope.setup{
     defaults = {
+        vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            -- '--no-heading',
+            '--with-filename',
+            '--column',
+            '--smart-case',  -- search case sensitively
+            '--follow',  -- follow symlinks
+            '-u',  -- unrestritect (search hidden files)
+        },
         mappings = {
             i = {
                 ['<C-n>'] = false,
@@ -36,6 +46,7 @@ vim.api.nvim_set_keymap('n', '<leader>tb', [[<CMD>lua require('telescope.builtin
 vim.api.nvim_set_keymap('n', '<leader>tm', [[<CMD>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>to', [[<CMD>lua require('telescope.builtin').oldfiles()<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>tg', [[<CMD>lua require('telescope.builtin').grep_string()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>tl', [[<CMD>lua require('telescope.builtin').live_grep()<CR>]], opts)
 -- .quickfix
 -- .loclist
 -- .jumplist

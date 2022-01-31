@@ -129,19 +129,19 @@ augroup end
 -- Map :Format to vim.lsp.buf.formatting()
 vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 
-vim.g.html_indent_script1 = "inc"
-vim.g.html_indent_style1 = "inc"
-vim.g.html_indent_inctags = "html,body,head,tbody"
+-- vim.g.html_indent_script1 = "inc"
+-- vim.g.html_indent_style1 = "inc"
+-- vim.g.html_indent_inctags = "html,body,head,tbody"
 
-vim.cmd [[
-augroup Indentation
-    autocmd!
-    autocmd FileType javascript set shiftwidth=2
-    autocmd FileType typescript set shiftwidth=2
-    autocmd FileType vue set shiftwidth=2
-    autocmd FileType html set shiftwidth=2
-augroup END
-]]
+-- vim.cmd [[
+-- augroup Indentation
+--     autocmd!
+--     autocmd FileType javascript set shiftwidth=2
+--     autocmd FileType typescript set shiftwidth=2
+--     autocmd FileType vue set shiftwidth=2
+--     autocmd FileType html set shiftwidth=2
+-- augroup END
+-- ]]
 
 require('basemaps')
 require('plugins')

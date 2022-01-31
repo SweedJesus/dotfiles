@@ -19,7 +19,7 @@ local servers = {
     -- },
     pylsp = {
         -- env_path = '',
-        settings = {
+        -- settings = {
             -- pylsp = {
             --     plugins = {
             --         -- pylint = { enabled = true, executable = 'pylint' },
@@ -30,7 +30,7 @@ local servers = {
             --         -- pylsp_mypy = { enabled = true },
             --     }
             -- }
-        }
+        -- }
     },
     sumneko_lua = {
         settings = {
@@ -76,11 +76,11 @@ local on_attach = function(client, bufnr)
         ]])
     end
 
-    require("lsp_signature").on_attach({
-		bind = true,
-		hint_prefix = "🧸 ",
-		handler_opts = { border = "rounded" },
-	}, bufnr)
+    -- require("lsp_signature").on_attach({
+		-- bind = true,
+		-- hint_prefix = "🧸 ",
+		-- handler_opts = { border = "rounded" },
+	-- }, bufnr)
 end
 
 local default_setup_table = {

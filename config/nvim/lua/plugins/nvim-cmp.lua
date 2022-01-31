@@ -1,5 +1,6 @@
 local luasnip = require('luasnip')
-local cmp = require('cmp')
+-- Other snippet sources
+require("luasnip.loaders.from_vscode").load()
 
 local lspkind = require('lspkind')
 lspkind.init({
@@ -39,12 +40,16 @@ local has_words_before = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
+local cmp = require('cmp')
 cmp.setup{
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
     },
+    -- Mappings:
+    -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#super-tab-like-mapping
+    -- https://github.com/Neelfrost/nvim-config/blob/main/lua/user/plugins/config/cmp.lua
     mapping = {
         ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), {'i', 's'}),
         ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), {'i', 's'}),
@@ -55,13 +60,18 @@ cmp.setup{
             c = cmp.mapping.close(),
         }, {'i', 's'}),
         ['<CR>'] = cmp.mapping(function(fallback)
-            if luasnip.expandable() then
-                luasnip.expand()
-            elseif cmp.visible() then
-                cmp.mapping.confirm({select = true})
+            if luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             else
                 fallback()
             end
+            -- if luasnip.expandable() then
+            --     luasnip.expand()
+            -- elseif cmp.visible() then
+            --     cmp.mapping.confirm({select = true})
+            -- else
+            --     fallback()
+            -- end
         end, {'i', 's'}),
         ['<C-l>'] = cmp.mapping(function(_)
             if luasnip.jumpable(1) then
@@ -90,6 +100,8 @@ cmp.setup{
             end
         end, { 'i', 's' }),
     },
+    -- Completion sources:
+    -- https://github.com/topics/nvim-cmp
     sources = cmp.config.sources({
         {
             name = 'luasnip',
