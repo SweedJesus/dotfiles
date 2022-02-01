@@ -18,6 +18,13 @@ local servers = {
     --     }
     -- },
     pylsp = {
+        -- Don't forget to install Jedi since completions, definitions, hover, references, signature
+        -- help, and symbols all require it.
+        -- ```
+        -- pip install jedi
+        -- ```
+        -- (But to the `nvim3` virtual environment)
+        --
         -- env_path = '',
         -- settings = {
             -- pylsp = {
