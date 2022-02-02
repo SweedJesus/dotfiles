@@ -18,26 +18,14 @@ local servers = {
     --     }
     -- },
     pylsp = {
+        -- https://github.com/python-lsp/python-lsp-server#installation
+        -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
         -- Don't forget to install Jedi since completions, definitions, hover, references, signature
         -- help, and symbols all require it.
         -- ```
-        -- pip install jedi
+        -- pip install jedi python-lsp-server python-lsp-black
         -- ```
         -- (But to the `nvim3` virtual environment)
-        --
-        -- env_path = '',
-        -- settings = {
-            -- pylsp = {
-            --     plugins = {
-            --         -- pylint = { enabled = true, executable = 'pylint' },
-            --         -- pyflakes = { enabled = false },
-            --         -- pycodestyle = { enabled = false },
-            --         -- jedi_completion = { fuzzy = true },
-            --         -- pyls_isort = { enabled = true },
-            --         -- pylsp_mypy = { enabled = true },
-            --     }
-            -- }
-        -- }
     },
     sumneko_lua = {
         settings = {
