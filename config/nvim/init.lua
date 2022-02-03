@@ -3,9 +3,6 @@
 local util = require('util')
 local opts = util.opts();
 
--- :help g:python3_host_prog
--- :help virtual-environment
-
 -- =================================================================================================
 -- Options
 -- =================================================================================================
@@ -24,8 +21,8 @@ opts.breakindent = true    --Enable break indent
 -- Python virtual environments
 -- TODO: automate the setup with rcrc
 -- https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
-vim.g.python_host_prog = '$HOME/.pyenv/versions/nvim2/bin/python'
-vim.g.python3_host_prog = '$HOME/.pyenv/versions/nvim3/bin/python'
+-- vim.g.python_host_prog = '$HOME/.pyenv/versions/nvim2/bin/python'
+vim.g.python3_host_prog = '$HOME/.pyenv/versions/py3nvim/bin/python'
 
 -- Display chars
 vim.opt.list = true
@@ -127,7 +124,7 @@ augroup end
 ]], false)
 
 -- Map :Format to vim.lsp.buf.formatting()
-vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+-- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 
 -- vim.g.html_indent_script1 = "inc"
 -- vim.g.html_indent_style1 = "inc"

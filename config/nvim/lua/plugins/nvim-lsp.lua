@@ -9,24 +9,13 @@ table.insert(lua_runtime_path, 'lua/?/init.lua')
 local servers = {
     graphql = {},
     html = {},
-    -- jedi_language_server = {},
-    -- pyright = {
-    --     settings = {
-    --         python = {
-    --             venvPath = ''
-    --         }
-    --     }
-    -- },
-    pylsp = {
-        -- https://github.com/python-lsp/python-lsp-server#installation
-        -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
-        -- Don't forget to install Jedi since completions, definitions, hover, references, signature
-        -- help, and symbols all require it.
-        -- ```
-        -- pip install jedi python-lsp-server python-lsp-black
-        -- ```
-        -- (But to the `nvim3` virtual environment)
-    },
+    -- # WARNING: don't use lsp-installer to setup pylsp
+    -- do it through a virtual environment (i.e. poetry)
+    -- this is because mypy needs to be installed within the same environment
+    -- as python-lsp-server and yet mypy needs stubs and library types from
+    -- whatever you're using per-project, meaning whatever is installed within
+    -- the project virtual environment.
+    -- pylsp = {},
     sumneko_lua = {
         settings = {
             Lua = {
@@ -57,7 +46,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "gl", "<cmd>lua require('user.plugins.custom.lspconfig').show_line_diagnostics()<CR>", opts)
+    buf_set_keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
     buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     buf_set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
@@ -99,4 +88,42 @@ for server_name, specific_setup_table in pairs(servers) do
         end
     end
 end
+
+-- NOTE: getting python settup is such a bitch
+-- * the nvim venv (py3nvim) only needs the neovim plugin (pynvim)
+-- * project venv's are what need literally everything else
+--   and it's way easier to just use poetry and ignore the lspinstaller plugin
+--
+--   ```bash
+--   poetry add -D 'python-lsp-server[all]'
+--   ```
+--
+--   (Although I'm not using everything that *all* installs)
+--
+--   ```bash
+--   poetry add -D 'python-lsp-server[pylint,pyflakes]'
+--   ```
+--
+-- https://github.com/python-lsp/python-lsp-server#installation
+-- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+-- https://github.com/jdhao/nvim-config/blob/master/lua/config/lsp.lua
+lspconfig.pylsp.setup(vim.tbl_extend('keep', default_setup_table, {
+    settings = {
+        pylsp = {
+            plugins = {
+                pylint = {
+                    enabled = true,
+                    args = {
+                        '--extension_pkg_whitelist',
+                        'pydantic',
+                    },
+                },
+                pyflakes = { enabled = true },
+                pylsp_mypy = {
+                    enabled = true,
+                },
+            },
+        },
+    },
+}))
 
