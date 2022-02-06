@@ -86,9 +86,10 @@ require('packer').startup(function(use)
     -- TODO: move this to a plugin file (others?)
 
     -- =============================================================================================
-    -- LSP
+    -- LSP and linting
     -- =============================================================================================
     -- Setup language servers
+    use 'onsails/lspkind-nvim'
     use {
         'neovim/nvim-lspconfig',
         -- after = 'nvim-cmp',
@@ -97,9 +98,12 @@ require('packer').startup(function(use)
             -- 'ray-x/lsp_signature.nvim',
             -- 'jose-elias-alvarez/null-ls.nvim',
         },
-        config = function() require('plugins.nvim-lsp') end
+        config = function() require('plugins.nvim-lsp') end,
     }
-    use 'onsails/lspkind-nvim'
+    use {
+        'mfussenegger/nvim-lint',
+        config = function() require('plugins.nvim-lint') end,
+    }
 
     -- =============================================================================================
     -- Other filtype plugins

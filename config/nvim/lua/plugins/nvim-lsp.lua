@@ -36,14 +36,13 @@ local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
-    buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+    -- buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+    -- buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     buf_set_keymap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
     buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     buf_set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
@@ -96,24 +95,36 @@ end
 -- https://github.com/python-lsp/python-lsp-server#installation
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
 -- https://github.com/jdhao/nvim-config/blob/master/lua/config/lsp.lua
-lspconfig.pylsp.setup(vim.tbl_extend('keep', default_setup_table, {
-    settings = {
-        pylsp = {
-            plugins = {
-                pylint = {
-                    enabled = true,
-                    executable = "pylint",
-                    -- args = {  -- NOTE: was this for mypy?
-                    --     '--extension_pkg_whitelist',
-                    --     'pydantic',
-                    -- },
-                },
-                pyflakes = { enabled = true },
-                pylsp_mypy = { enabled = true },
-                -- pycodestyle = { enabled = false },
-                -- pyls_isort = { enabled = true },
-            },
-        },
-    },
-}))
+-- lspconfig.pylsp.setup(vim.tbl_extend('keep', default_setup_table, {
+--     settings = {
+--         pylsp = {
+--             plugins = {
+--                 -- -- Default
+--                 -- rope_completion = { enabled = false },
+--                 -- pyflakes = { enabled = false },
+--                 -- mccabe = { enabled = false },
+--                 -- pycodestyle = { enabled = false },
+--                 -- pydocstyle = { enabled = false },
+--                 -- autopep8 = { enabled = false },
+--                 -- yapf = { enabled = false },
+--                 -- -- 3rd party
+--                 -- flake8 = { enabled = false },
+--                 -- pylsp_mypy = { enabled = false },
+--                 -- pyls_isort = { enabled = false },
+--                 -- python_lsp_black = { enabled = false },
+--                 -- pyls_memestra = { enabled = false },
+--                 -- pylsp_rope = { enabled = false },
+--                 -- -- *th party
+--                 -- pylint = {
+--                 --     enabled = false,
+--                 -- --     -- executable = "pylint",
+--                 -- --     -- args = {  -- NOTE: was this for mypy?
+--                 -- --     --     '--extension_pkg_whitelist',
+--                 -- --     --     'pydantic',
+--                 -- --     -- },
+--                 -- },
+--             },
+--         },
+--     },
+-- }))
 
