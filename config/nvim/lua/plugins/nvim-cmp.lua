@@ -4,7 +4,9 @@ require("luasnip.loaders.from_vscode").load()
 
 local lspkind = require('lspkind')
 lspkind.init({
-    with_text = true,
+    -- with_text = true,
+    mode = 'symbol_text',
+    maxwidth = 50,
     preset = 'codicons',
     -- symbol_map = {
     --     Text = "t",
@@ -129,8 +131,6 @@ cmp.setup{
     },
     formatting = {
         format = lspkind.cmp_format({
-            -- with_text = false,
-            -- maxwidth = 50,
             before = function(_, vim_item)
                 return vim_item
             end,

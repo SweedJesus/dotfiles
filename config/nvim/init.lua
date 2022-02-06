@@ -21,7 +21,7 @@ opts.breakindent = true    --Enable break indent
 -- Python virtual environments
 -- TODO: automate the setup with rcrc
 -- https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
--- vim.g.python_host_prog = '$HOME/.pyenv/versions/nvim2/bin/python'
+vim.g.python_host_prog = '$HOME/.pyenv/versions/py2nvim/bin/python'
 vim.g.python3_host_prog = '$HOME/.pyenv/versions/py3nvim/bin/python'
 
 -- Display chars
@@ -47,7 +47,7 @@ opts.mouse = "a"
 -- Graphical font
 -- vim.cmd([[set guifont=FiraCode\ Nerd\ Font:h11]])
 
--- Column wrap
+-- Column wrap (global)
 vim.cmd([[set tw=100]])
 vim.cmd([[set cc=+1]])
 
@@ -77,7 +77,10 @@ opts.signcolumn="yes"
 -- Remap escape to leave terminal mode
 -- vim.api.nvim_exec([[
 vim.cmd [[
-augroup Terminal autocmd! au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n> au TermOpen * set nonu augroup end
+augroup Terminal
+autocmd!
+autocmd TermOpen * tnoremap <buffer> <Esc> <c-\><c-n> au TermOpen * set nonu
+augroup end
 ]]
 --]], false)
 
@@ -120,6 +123,14 @@ vim.api.nvim_exec([[
 augroup YankHighlight
 autocmd!
 autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+augroup end
+]], false)
+
+-- Python
+vim.api.nvim_exec([[
+augroup PythonConfig
+    autocmd!
+    autocmd FileType python set tw=80
 augroup end
 ]], false)
 

@@ -31,9 +31,6 @@ local servers = {
     },
 }
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
 local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true }
     local function buf_set_keymap(...)
@@ -67,11 +64,15 @@ local on_attach = function(client, bufnr)
 	-- }, bufnr)
 end
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local default_setup_table = {
     on_attach = on_attach,
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities),
+    capabilities = capabilities,
     flags = {
-        debounce_text_changes = 500,
+        debounce_text_changes = 200,
     },
 }
 
@@ -90,19 +91,7 @@ for server_name, specific_setup_table in pairs(servers) do
 end
 
 -- NOTE: getting python settup is such a bitch
--- * the nvim venv (py3nvim) only needs the neovim plugin (pynvim)
--- * project venv's are what need literally everything else
---   and it's way easier to just use poetry and ignore the lspinstaller plugin
---
---   ```bash
---   poetry add -D 'python-lsp-server[all]'
---   ```
---
---   (Although I'm not using everything that *all* installs)
---
---   ```bash
---   poetry add -D 'python-lsp-server[pylint,pyflakes]'
---   ```
+-- install pynvim and python-lsp-server[all] to py3nvim
 --
 -- https://github.com/python-lsp/python-lsp-server#installation
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
@@ -113,15 +102,16 @@ lspconfig.pylsp.setup(vim.tbl_extend('keep', default_setup_table, {
             plugins = {
                 pylint = {
                     enabled = true,
-                    args = {
-                        '--extension_pkg_whitelist',
-                        'pydantic',
-                    },
+                    executable = "pylint",
+                    -- args = {  -- NOTE: was this for mypy?
+                    --     '--extension_pkg_whitelist',
+                    --     'pydantic',
+                    -- },
                 },
                 pyflakes = { enabled = true },
-                pylsp_mypy = {
-                    enabled = true,
-                },
+                pylsp_mypy = { enabled = true },
+                -- pycodestyle = { enabled = false },
+                -- pyls_isort = { enabled = true },
             },
         },
     },
