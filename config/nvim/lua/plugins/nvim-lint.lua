@@ -2,8 +2,12 @@ local util = require('util')
 local map = util.map
 
 require('lint').linters_by_ft = {
-    python = { 'mypy', 'pycodestyle', 'pydocstyle' },
-    -- python = { 'mypy' },
+    python = {
+        'mypy',
+        'pycodestyle',
+        'pydocstyle',
+        'flake8',
+    },
 }
 
 local opts = { noremap = false }

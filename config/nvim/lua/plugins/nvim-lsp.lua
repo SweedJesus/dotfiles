@@ -1,4 +1,5 @@
 local lspconfig = require('lspconfig')
+local lsp_installer = require('nvim-lsp-installer')
 local lsp_installer_servers = require('nvim-lsp-installer.servers')
 
 -- Sumneko lua
@@ -6,26 +7,38 @@ local lua_runtime_path = vim.split(package.path, ';')
 table.insert(lua_runtime_path, 'lua/?.lua')
 table.insert(lua_runtime_path, 'lua/?/init.lua')
 
+-- Simple, nothing special to setup servers
 local servers = {
     graphql = {},
     html = {},
-    -- # WARNING: don't use lsp-installer to setup pylsp
-    -- do it through a virtual environment (i.e. poetry)
-    -- this is because mypy needs to be installed within the same environment
-    -- as python-lsp-server and yet mypy needs stubs and library types from
-    -- whatever you're using per-project, meaning whatever is installed within
-    -- the project virtual environment.
-    -- pylsp = {},
+    rust_analyzer = {},
+    pylsp = {
+        -- # NOTE: with nvim-lint we don't need per-venv pylsp installation, here is fine
+        -- but linting plugins go in nvim-lint.lua instead of here.
+        opts = {
+            settings = {
+                pylsp = {
+                    plugins = {
+                        -- yapf = { enabled = true },
+                        pylsp_black = { enabled = true }, 
+                        pyls_isort = { enabled = true },
+                    }
+                }
+            }
+        }
+    },
     sumneko_lua = {
-        settings = {
-            Lua = {
-                runtime = {
-                    version = 'LuaJIT',
-                    path = lua_runtime_path,
-                },
-                diagnostics = { globals = {'vim', 'feedkey'} },
-                workspace = { library = vim.api.nvim_get_runtime_file('', true) },
-                telemetry = { enable = false },
+        opts = {
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = 'LuaJIT',
+                        path = lua_runtime_path,
+                    },
+                    diagnostics = { globals = {'vim', 'feedkey'} },
+                    workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+                    telemetry = { enable = false },
+                }
             }
         }
     },
@@ -67,7 +80,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local default_setup_table = {
+local default_opts = {
     on_attach = on_attach,
     capabilities = capabilities,
     flags = {
@@ -76,12 +89,13 @@ local default_setup_table = {
 }
 
 -- Install and setup language servers
-for server_name, specific_setup_table in pairs(servers) do
+for server_name, server_conf in pairs(servers) do
     local server_available, server = lsp_installer_servers.get_server(server_name)
     if server_available then
         server:on_ready(function()
-            local opts = vim.tbl_extend('keep', specific_setup_table, default_setup_table)
+            local opts = vim.tbl_extend('keep', server_conf.opts or {}, default_opts)
             server:setup(opts)
+            server:attach_buffers()
         end)
         if not server:is_installed() then
             server:install()
@@ -89,7 +103,20 @@ for server_name, specific_setup_table in pairs(servers) do
     end
 end
 
--- NOTE: getting python settup is such a bitch
+-- require('rust-tools').setup({})
+-- lsp_installer.on_server_ready(function(server)
+--     local opts = vim.tbl_extend('keep', {}, default_opts)
+--     if server.name == "rust_analyzer" then
+--         require "rust-tools".setup {
+--             server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
+--         }
+--         server:attach_buffers()
+--     else
+--         server:setup(opts)
+--     end
+-- end)
+
+-- NOTE: this is old at not needed with nvim-lint
 -- install pynvim and python-lsp-server[all] to py3nvim
 --
 -- https://github.com/python-lsp/python-lsp-server#installation
