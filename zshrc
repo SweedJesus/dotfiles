@@ -47,3 +47,16 @@ fi
 
 # Theme (p10k) config. To customize, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Opens in a tmux session (auto-attach)
+# [[ -z "$TMUX" && -n "$USE_TMUX" ]] && {
+#     [[ -n "$ATTACH_ONLY" ]] && {
+#         tmux a 2>/dev/null || {
+#             cd && exec tmux
+#         }
+#         exit
+#     }
+# 
+#     tmux new-window -c "$PWD" 2>/dev/null && exec tmux a
+#     exec tmux
+# }
