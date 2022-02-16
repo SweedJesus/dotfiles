@@ -10,7 +10,8 @@ table.insert(lua_runtime_path, 'lua/?/init.lua')
 -- Simple, nothing special to setup servers
 local servers = {
     graphql = {},
-    html = {},
+    html = {
+    },
     rust_analyzer = {},
     pylsp = {
         -- # NOTE: with nvim-lint we don't need per-venv pylsp installation, here is fine
