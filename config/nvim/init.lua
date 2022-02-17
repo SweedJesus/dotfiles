@@ -127,12 +127,12 @@ augroup end
 ]], false)
 
 -- Python
-vim.api.nvim_exec([[
-augroup PythonConfig
-    autocmd!
-    autocmd FileType python set tw=80
-augroup end
-]], false)
+-- vim.api.nvim_exec([[
+-- augroup PythonConfig
+--     autocmd!
+--     autocmd FileType python set tw=80
+-- augroup end
+-- ]], false)
 
 -- Map :Format to vim.lsp.buf.formatting()
 -- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])

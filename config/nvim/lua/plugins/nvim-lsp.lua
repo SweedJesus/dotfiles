@@ -20,9 +20,11 @@ local servers = {
             settings = {
                 pylsp = {
                     plugins = {
-                        -- yapf = { enabled = true },
-                        pylsp_black = { enabled = true }, 
+                        yapf = { enabled = false },
+                        flake8 = { enabled = false },
+                        pylsp_black = { enabled = true },
                         pyls_isort = { enabled = true },
+                        pycodestyle = { enabled = false },
                     }
                 }
             }

@@ -1,13 +1,40 @@
-local util = require('util')
+local util = require("util")
 local map = util.map
 
 local M = {}
 
 M.nvim_tree = function()
-    local nvim_tree = require('nvim-tree')
-    nvim_tree.setup{}
+    local devicons = require("nvim-web-devicons")
+    devicons.set_icon {
+        -- md = {
+        --     icon = "",
+        --     color = "#519aba",
+        --     name = "Md",
+        -- },
+        ["poetry.lock"] = {
+            icon = "",
+            color = "#706d67",
+            name = "Lock",
+        },
+        [".pylintrc"] = {
+            icon = "",
+            color = "#aaa28a",
+            name = "Pylint",
+        },
+        xlsx = {
+            icon = "",
+            color = "#35af2a",
+            name = "Excel",
+        },
+    }
 
-    map('n', '<Leader>n', [[<cmd>NvimTreeToggle<CR>]])
+    local nvim_tree = require("nvim-tree")
+    nvim_tree.setup{
+        -- icons = {
+        -- }
+    }
+
+    map("n", "<Leader>n", [[<cmd>NvimTreeToggle<CR>]])
 end
 
 M.nerdtree = function()
