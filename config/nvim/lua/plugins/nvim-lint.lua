@@ -2,7 +2,7 @@ local util = require("util")
 local map = util.map
 require("lint").linters_by_ft = {
     python = {
-        -- "mypy",
+        "mypy",
         -- "pycodestyle",
         -- "pydocstyle",
         -- "flake8",
