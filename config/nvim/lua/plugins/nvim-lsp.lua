@@ -10,21 +10,21 @@ table.insert(lua_runtime_path, 'lua/?/init.lua')
 -- Simple, nothing special to setup servers
 local servers = {
     graphql = {},
-    html = {
-    },
+    html = {},
+    -- quick_lint_js = {},
     rust_analyzer = {},
     pylsp = {
-        -- # NOTE: with nvim-lint we don't need per-venv pylsp installation, here is fine
-        -- but linting plugins go in nvim-lint.lua instead of here.
+    --     -- # NOTE: with nvim-lint we don't need per-venv pylsp installation, here is fine
+    --     -- but linting plugins go in nvim-lint.lua instead of here.
         opts = {
             settings = {
                 pylsp = {
                     plugins = {
-                        yapf = { enabled = false },
-                        flake8 = { enabled = false },
-                        pylsp_black = { enabled = true },
+                        yapf = { enabled = true },
                         pyls_isort = { enabled = true },
-                        pycodestyle = { enabled = false },
+    --                     flake8 = { enabled = false },
+                        -- pylsp_black = { enabled = true },
+    --                     pycodestyle = { enabled = false },
                     }
                 }
             }

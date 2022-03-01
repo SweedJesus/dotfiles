@@ -6,8 +6,12 @@ require("lint").linters_by_ft = {
         -- "pycodestyle",
         -- "pydocstyle",
         -- "flake8",
-        "pylint",
+        -- "pylint",
+        "pylama",
     },
+    -- javascript = {
+    --     "eslint",
+    -- },
 }
 -- TODO: Only run this within Python contexts
 require("lint.linters.mypy").args = {

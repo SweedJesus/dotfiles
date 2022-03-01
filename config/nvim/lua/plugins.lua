@@ -110,9 +110,13 @@ require("packer").startup(function(use)
         config = function() require("plugins.nvim-lsp") end,
     }
     use {
-        "mfussenegger/nvim-lint",
-        config = function() require("plugins.nvim-lint") end,
+        "jose-elias-alvarez/null-ls.nvim",
+        config = function() require("plugins.null-ls") end,
     }
+    -- use {
+    --     "mfussenegger/nvim-lint",
+    --     config = function() require("plugins.nvim-lint") end,
+    -- }
 
     -- =============================================================================================
     -- Snippets and completion

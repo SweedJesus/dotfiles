@@ -20,7 +20,18 @@ M.ultisnips = function()
 end
 
 M.todo_comments = function()
-    require('todo-comments').setup{}
+    require('todo-comments').setup{
+        -- keywords = {
+        --     ["!"] = { icon = "!", color = "hint" }
+        -- },
+        colors = {
+            error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+            warning = { "DiagnosticWarning", "WarningMsg", "#FBBF24" },
+            info = { "DiagnosticInfo", "#2563EB" },
+            hint = { "DiagnosticHint", "#10B981" },
+            default = { "Identifier", "#7C3AED" },
+        },
+    }
 end
 M.indent_blankline = function()
     require('indent_blankline').setup{
