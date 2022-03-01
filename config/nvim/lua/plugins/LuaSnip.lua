@@ -72,4 +72,4 @@ end
 -- end, {silent = true})
 
 -- vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/LuaSnip.lua<CR>")
-vim.keymap.set("n", "<leader>ls", "<cmd>source ~/.config/nvim/lua/plugins/LuaSnip.lua<CR>")
+vim.api.nvim_set_keymap("n", "<leader>ls", "<cmd>source ~/.config/nvim/lua/plugins/LuaSnip.lua<CR>", {})
