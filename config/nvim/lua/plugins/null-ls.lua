@@ -12,9 +12,10 @@ null_ls.setup({
         -- "HTML"
         -- formatting.djhtml,
         -- Python
-        -- diagnostics.pylama,
+        diagnostics.pylama,
         -- formatting.yapf,
-        -- formatting.isort,
+        formatting.black,
+        formatting.isort,
         -- Spelling
         -- completion.spell,
     },
