@@ -2,27 +2,27 @@ local util = require("util")
 local map = util.map
 require("lint").linters_by_ft = {
     python = {
-        "mypy",
+        -- "mypy",
         -- "pycodestyle",
         -- "pydocstyle",
         -- "flake8",
-        -- "pylint",
-        "pylama",
+        "pylint",
+        -- "pylama",
     },
     -- javascript = {
     --     "eslint",
     -- },
 }
 -- TODO: Only run this within Python contexts
-require("lint.linters.mypy").args = {
-    "--show-column-numbers",
-    "--hide-error-codes",
-    "--hide-error-context",
-    "--no-color-output",
-    "--no-error-summary",
-    "--no-pretty",
-    "--strict",
-}
+-- require("lint.linters.mypy").args = {
+--     "--show-column-numbers",
+--     "--hide-error-codes",
+--     "--hide-error-context",
+--     "--no-color-output",
+--     "--no-error-summary",
+--     "--no-pretty",
+--     "--strict",
+-- }
 
 local opts = { noremap = false }
 map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
