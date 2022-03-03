@@ -126,6 +126,13 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank()
 augroup end
 ]], false)
 
+vim.diagnostic.config({
+    float = {
+        source = "always",
+        -- border = border,
+    },
+})
+
 -- Python
 -- vim.api.nvim_exec([[
 -- augroup PythonConfig

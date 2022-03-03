@@ -2,6 +2,9 @@ local null_ls = require("null-ls")
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
+-- require("nvim.lua.plugins.null-ls.pylama")
+-- local pylama = require("plugins.null-ls.pylama")
+
 null_ls.setup({
     sources = {
         -- Lua
@@ -12,18 +15,12 @@ null_ls.setup({
         -- "HTML"
         -- formatting.djhtml,
         -- Python
-        diagnostics.flake8,
-        diagnostics.mypy,
-        -- diagnostics.pylama,
-        -- diagnostics.pylama.with({
-        -- --     extra_args = { "--options", "$(CWD)/setup.cfg" }
-        --     extra_args = {
-        --         "--linters",
-        --         "mypy,pycodestyle,pydocstyle,mccabe",
-        --         "-i",
-        --         "D100,D101,D103",
-        --     }
-        -- }),
+        diagnostics.pylama.with({
+            -- NOTE: for some reason pylama wants to start at the repository root?
+            -- this means it'll miss a pylama.ini in a nested directory
+            -- e.g. project/python/pylama.ini
+            cwd = vim.loop.cwd,
+        }),
         formatting.black,
         formatting.isort,
         -- Spelling

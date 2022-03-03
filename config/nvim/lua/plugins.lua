@@ -113,6 +113,8 @@ require("packer").startup(function(use)
         "jose-elias-alvarez/null-ls.nvim",
         config = function() require("plugins.null-ls") end,
     }
+    --     config = function() require("plugins.null-ls") end,
+    -- }
     -- use {
     --     "mfussenegger/nvim-lint",
     --     config = function() require("plugins.nvim-lint") end,

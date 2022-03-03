@@ -13,32 +13,33 @@ local servers = {
     html = {},
     -- quick_lint_js = {},
     rust_analyzer = {},
-    pylsp = {
-    --     -- # NOTE: with nvim-lint we don't need per-venv pylsp installation, here is fine
-    --     -- but linting plugins go in nvim-lint.lua instead of here.
-        opts = {
-            settings = {
-                pylsp = {
-                    plugins = {
-                        -- Default
-                        rope = { enabled = false },
-                        pyflakes = { enabled = false },
-                        mccabe = { enabled = false },
-                        pycodestyle = { enabled = false },
-                        pydocstyle = { enabled = false },
-                        autopep8 = { enabled = false },
-                        yapf = { enabled = false },
-                        -- Extensions
-                        pyls_flake8 = { enabled = false },
-                        mypy_ls = { enabled = false },
-                        pyls_isort = { enabled = false },
-                        pylsp_black = { enabled = false },
-                        flake8 = { enabled = false },
-                    }
-                }
-            }
-        }
-    },
+    pyright = {},
+    -- pylsp = {
+    -- --     -- # NOTE: with nvim-lint we don't need per-venv pylsp installation, here is fine
+    -- --     -- but linting plugins go in nvim-lint.lua instead of here.
+    --     opts = {
+    --         settings = {
+    --             pylsp = {
+    --                 plugins = {
+    --                     -- Default
+    --                     rope = { enabled = false },
+    --                     pyflakes = { enabled = false },
+    --                     mccabe = { enabled = false },
+    --                     pycodestyle = { enabled = false },
+    --                     pydocstyle = { enabled = false },
+    --                     autopep8 = { enabled = false },
+    --                     yapf = { enabled = false },
+    --                     -- Extensions
+    --                     pyls_flake8 = { enabled = false },
+    --                     mypy_ls = { enabled = false },
+    --                     pyls_isort = { enabled = false },
+    --                     pylsp_black = { enabled = false },
+    --                     flake8 = { enabled = false },
+    --                 }
+    --             }
+    --         }
+    --     }
+    -- },
     sumneko_lua = {
         opts = {
             settings = {
@@ -77,7 +78,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     buf_set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
-    if client.name == "pylsp" then
+    if client.name == "pyright" then
         disable_formatting(client)
         return
     end
