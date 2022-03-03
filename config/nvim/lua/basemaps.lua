@@ -40,8 +40,14 @@ map('n', '<c-a-p>', [[:set bg=dark<cr>]]);
 -- Toggle mouse
 -- map('n', '<F10>', '<cmd>lua ToggleMouse()<cr>')
 
+-- Reduce tab
 map('n', '<S-Tab>', [[<<]])
 map('i', '<S-Tab>', [[<C-d>]])
+
+-- Diagnostics
+map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
+map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 
 -- Map compe confirm and complete functions
 -- map('i', '<cr>', 'compe#confirm("<cr>")', { noremap = false, expr = true })

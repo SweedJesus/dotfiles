@@ -12,8 +12,18 @@ null_ls.setup({
         -- "HTML"
         -- formatting.djhtml,
         -- Python
-        diagnostics.pylama,
-        -- formatting.yapf,
+        diagnostics.flake8,
+        diagnostics.mypy,
+        -- diagnostics.pylama,
+        -- diagnostics.pylama.with({
+        -- --     extra_args = { "--options", "$(CWD)/setup.cfg" }
+        --     extra_args = {
+        --         "--linters",
+        --         "mypy,pycodestyle,pydocstyle,mccabe",
+        --         "-i",
+        --         "D100,D101,D103",
+        --     }
+        -- }),
         formatting.black,
         formatting.isort,
         -- Spelling
