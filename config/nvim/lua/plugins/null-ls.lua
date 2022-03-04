@@ -21,8 +21,12 @@ null_ls.setup({
             -- e.g. project/python/pylama.ini
             cwd = vim.loop.cwd,
         }),
-        formatting.black,
-        formatting.isort,
+        formatting.black.with({
+            cwd = vim.loop.cwd,
+        }),
+        formatting.isort.with({
+            cwd = vim.loop.cwd,
+        }),
         -- Spelling
         -- completion.spell,
     },
