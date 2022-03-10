@@ -2,6 +2,17 @@ local lspconfig = require('lspconfig')
 local lsp_installer = require('nvim-lsp-installer')
 local lsp_installer_servers = require('nvim-lsp-installer.servers')
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover, {
+        -- border = "none",
+        -- border = "single",
+        -- border = "double",
+        border = "rounded",
+        -- border = "solid",
+        -- border = "shadow",
+    }
+)
+
 -- Sumneko lua
 local lua_runtime_path = vim.split(package.path, ';')
 table.insert(lua_runtime_path, 'lua/?.lua')
