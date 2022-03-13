@@ -23,6 +23,7 @@ local servers = {
     graphql = {},
     html = {},
     -- quick_lint_js = {},
+    jsonls = {},
     rust_analyzer = {},
     pyright = {},
     prismals = {},
