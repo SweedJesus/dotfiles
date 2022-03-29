@@ -22,9 +22,11 @@ table.insert(lua_runtime_path, 'lua/?/init.lua')
 local servers = {
     graphql = {},
     html = {},
+    sqlls = {},
     -- quick_lint_js = {},
     rust_analyzer = {},
-    pyright = {},
+    pyright = {
+    },
     prismals = {},
     sumneko_lua = {
         opts = {

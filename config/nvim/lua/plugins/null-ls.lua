@@ -10,10 +10,12 @@ null_ls.setup({
         -- Lua
         -- formatting.stylua,
         -- Javascript
-        diagnostics.eslint,
-        formatting.eslint_d,
+        -- diagnostics.eslint,
+        -- formatting.eslint_d,
         -- "HTML"
         -- formatting.djhtml,
+        -- SQL
+        formatting.sqlformat,
         -- Python
         diagnostics.pylama.with({
             -- NOTE: for some reason pylama wants to start at the repository root?
