@@ -153,6 +153,7 @@ augroup Indentation
     autocmd!
     autocmd FileType javascript set shiftwidth=2
     autocmd FileType typescript set shiftwidth=2
+    autocmd FileType json set shiftwidth=4
     autocmd FileType vue set shiftwidth=2
     autocmd FileType html set shiftwidth=2
 augroup END
