@@ -49,17 +49,17 @@ local snippet_groups = {
     }
 }
 
-for _, pair in pairs(snippet_groups) do
-    local langs = pair[1]
-    local snippets = pair[2]
-    for _, lang in pairs(langs) do
-        for _, snippet in pairs(snippets) do
-            ls.snippets[lang] = ls.snippets[lang] or {}
-            table.insert(ls.snippets[lang], snippet)
-        end
-    end
-    -- ls.snippets[lang] = {}
-end
+-- for _, pair in pairs(snippet_groups) do
+--     local langs = pair[1]
+--     local snippets = pair[2]
+--     for _, lang in pairs(langs) do
+--         for _, snippet in pairs(snippets) do
+--             ls.snippets[lang] = ls.snippets[lang] or {}
+--             table.insert(ls.snippets[lang], snippet)
+--         end
+--     end
+--     -- ls.snippets[lang] = {}
+-- end
 
 -- ls.snippets = {
 --     all = {},

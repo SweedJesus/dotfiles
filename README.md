@@ -1,12 +1,18 @@
 # my dotfiles
 
+**TODO:**
+
+- Conditional aliases for Windows/WSL (`open`)
+
+## General Setup
+
 First and foremost
 
 ```bash
 git clone https://github.com/SweedJesus/dotfiles.git ~/.dotfiles
 ```
 
-## Installing rcm
+### Installing rcm
 
 The `rcm` tool is one I ran accross when looking for ways to automate the setting-up and
 tearing-downof my dotfiles, quickly and on any machine. It does this by symlinking everything in the

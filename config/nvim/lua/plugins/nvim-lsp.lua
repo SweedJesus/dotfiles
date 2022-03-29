@@ -24,6 +24,13 @@ local servers = {
     html = {},
     sqlls = {},
     -- quick_lint_js = {},
+    jsonls = {
+        init_options = {
+            provideFormatter = false,
+        },
+    },
+    tsserver = {},
+    volar = {},
     rust_analyzer = {},
     pyright = {
     },
@@ -50,6 +57,13 @@ local function disable_formatting(client)
     client.resolved_capabilities.document_range_formatting = false
 end
 
+local disable_formatting_for = {
+    "pyright",
+    "volar",
+    "jsonls",
+    "tsserver",
+}
+
 local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true }
     local function buf_set_keymap(...)
@@ -64,7 +78,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     buf_set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
-    if client.name == "pyright" then
+    if vim.tbl_contains(disable_formatting_for, client.name) then
         disable_formatting(client)
         return
     end

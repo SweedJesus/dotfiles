@@ -1,4 +1,5 @@
 local null_ls = require("null-ls")
+local code_actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
@@ -10,8 +11,10 @@ null_ls.setup({
         -- Lua
         -- formatting.stylua,
         -- Javascript
-        -- diagnostics.eslint,
-        -- formatting.eslint_d,
+        code_actions.eslint_d,
+        diagnostics.eslint_d,
+        formatting.eslint_d,
+        formatting.prettierd,
         -- "HTML"
         -- formatting.djhtml,
         -- SQL
