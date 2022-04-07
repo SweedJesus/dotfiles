@@ -11,6 +11,7 @@ path+=(
     $HOME/.local/share/bin
     $HOME/.cargo/bin
     $HOME/.poetry/bin
+    $HOME/.config/yarn/global/node_modules/.bin
     /usr/local/Cellar/fontforge/20201107/bin
 )
 
