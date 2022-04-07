@@ -21,7 +21,7 @@ table.insert(lua_runtime_path, 'lua/?/init.lua')
 -- Simple, nothing special to setup servers
 local servers = {
     graphql = {},
-    html = {},
+    -- html = {},
     sqlls = {},
     -- quick_lint_js = {},
     jsonls = {
