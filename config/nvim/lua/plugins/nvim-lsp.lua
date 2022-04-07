@@ -34,7 +34,13 @@ local servers = {
     rust_analyzer = {},
     pyright = {
     },
-    prismals = {},
+    prismals = {
+        prisma = {
+            editor = {
+                tabSize = 2,
+            },
+        },
+    },
     sumneko_lua = {
         opts = {
             settings = {
