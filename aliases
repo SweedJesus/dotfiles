@@ -3,6 +3,7 @@
 #echo -e "$(tput bold).aliases$(tput sgr0)"
 #alias open='xdg-open'
 
+alias PS='poetry shell'
 alias jn=jupyter-notebook
 alias g++='g++ -std=c++11'
 alias clang='clang -std=c++14'

@@ -3,6 +3,20 @@ local opts_ns = { noremap = false, silent = true }
 
 local M = {}
 
+M.TrueZen = function()
+    require("true-zen").setup({
+        modes = {
+            ataraxis = {
+                left_padding = 0,
+                right_padding = 0,
+                top_padding = 0,
+                bottom_padding = 0,
+                ideal_writing_area_width = { 100 },
+            }
+        }
+    })
+end
+
 M.nvim_comment = function()
     require('nvim_comment').setup{}
     map('i', '<C-_>', [[<C-o><cmd>CommentToggle<CR><C-o>A]], opts_ns)
@@ -21,9 +35,7 @@ end
 
 M.todo_comments = function()
     require('todo-comments').setup{
-        -- keywords = {
-        --     ["!"] = { icon = "!", color = "hint" }
-        -- },
+        -- keywords = { ["!"] = { icon = "!", color = "hint" } },
         colors = {
             error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
             warning = { "DiagnosticWarning", "WarningMsg", "#FBBF24" },
@@ -33,6 +45,7 @@ M.todo_comments = function()
         },
     }
 end
+
 M.indent_blankline = function()
     require('indent_blankline').setup{
         filetype_exclude = {

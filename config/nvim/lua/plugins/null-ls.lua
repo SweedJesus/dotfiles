@@ -17,6 +17,8 @@ null_ls.setup({
         -- formatting.prettierd,
         -- "HTML"
         -- formatting.djhtml,
+        -- SQL
+        formatting.sqlformat,
         -- Python
         diagnostics.pylama.with({
             -- NOTE: for some reason pylama wants to start at the repository root?

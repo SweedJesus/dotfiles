@@ -21,7 +21,8 @@ table.insert(lua_runtime_path, 'lua/?/init.lua')
 -- Simple, nothing special to setup servers
 local servers = {
     graphql = {},
-    html = {},
+    -- html = {},
+    sqlls = {},
     -- quick_lint_js = {},
     jsonls = {
         init_options = {
@@ -31,8 +32,15 @@ local servers = {
     tsserver = {},
     volar = {},
     rust_analyzer = {},
-    pyright = {},
-    prismals = {},
+    pyright = {
+    },
+    prismals = {
+        prisma = {
+            editor = {
+                tabSize = 2,
+            },
+        },
+    },
     sumneko_lua = {
         opts = {
             settings = {

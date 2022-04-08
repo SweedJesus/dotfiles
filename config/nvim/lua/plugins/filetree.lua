@@ -32,6 +32,11 @@ M.nvim_tree = function()
     nvim_tree.setup{
         -- icons = {
         -- }
+        update_focused_file = {
+            enable = true,
+            update_cwd = false,
+            ignore_list = {},
+        },
     }
 
     map("n", "<Leader>n", [[<cmd>NvimTreeToggle<CR>]])

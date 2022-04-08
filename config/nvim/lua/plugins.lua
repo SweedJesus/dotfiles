@@ -154,27 +154,124 @@ require("packer").startup(function(use)
     -- =============================================================================================
     -- Miscelaneous quality of life
     -- =============================================================================================
+    use {
+        "Pocco81/TrueZen.nvim",
+        config = function()
+            require("true-zen").setup({
+                modes = {
+                    ataraxis = {
+                        left_padding = 0,
+                        right_padding = 0,
+                        top_padding = 10,
+                        bottom_padding = 10,
+                        ideal_writing_area_width = { 105 },
+                    }
+                }
+            })
+        end,
+    }
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use {
         "terrortylor/nvim-comment",
-        config = function() require("plugins.others").nvim_comment() end,
-        --keys = { { "n", "<C-/>" }, { "v", "<C-/>" }, { "i", "<C-/>" }, { "n", "gc" }, { "v", "gc" } },
+        config = function()
+            local map = vim.api.nvim_set_keymap
+            local opts_ns = { noremap = false, silent = true }
+
+            require('nvim_comment').setup{
+                hook = function()
+                    if vim.api.nvim_buf_get_option(0, 'filetype') == 'vue' then
+                        require('ts_context_commentstring.internal').update_commentstring()
+                    end
+                end
+            }
+            -- vim.api.nvim_set_keymap(
+            --     'n',
+            --     'gff',
+            --     'v:lua.require"commented".codetags.fixme_line()',
+            --     {
+            --         expr = true,
+            --         silent = true,
+            --         noremap = true,
+            --     },
+            -- )
+            map('i', '<C-_>', [[:CommentToggle<cr>]], opts_ns)
+            map('n', '<C-_>', [[:CommentToggle<cr>]], opts_ns)
+            map('v', '<C-_>', [[:<C-u>call CommentOperator(visualmode())<CR>]], opts_ns)
+        end,
     }
     use "tpope/vim-surround" -- Surround motions
     use "tpope/vim-repeat" -- Dot can do more things
     use "godlygeek/tabular" -- Auto-tabulation
     use {
         "lukas-reineke/indent-blankline.nvim", -- Show indent levels
-        config = function() require("plugins.others").indent_blankline() end
+        config = function()
+            require('indent_blankline').setup{
+                filetype_exclude = {
+                    'alpha',
+                    'lspinfo',
+                    'packer',
+                    'checkhealth',
+                    'help',
+                    '',
+                },
+                use_treesitter = true,
+                char = '│',
+                context_char = '┃',
+                show_first_indent_level = false,
+                show_current_context = true,
+                show_current_context_start = true,
+                show_current_context_start_on_current_line = false,
+                show_trailing_blankline_indent = false,
+            }
+        end,
     }
     use {
         "folke/todo-comments.nvim", -- Highlight todo/note comments
         requires = "nvim-lua/plenary.nvim",
-        config = function() require("plugins.others").todo_comments() end
+        config = function()
+            require('todo-comments').setup{
+                -- keywords = { ["!"] = { icon = "!", color = "hint" } },
+                colors = {
+                    error = {
+                        -- "DiagnosticError",
+                        -- "ErrorMsg",
+                        "#DC2626",
+                    },
+                    warning = {
+                        -- "DiagnosticWarning",
+                        -- "WarningMsg",
+                        "#FBBF24",
+                    },
+                    info = {
+                        -- "DiagnosticInfo",
+                        "#2563EB",
+                    },
+                    hint = {
+                        -- "DiagnosticHint",
+                        "#10B981",
+                    },
+                    default = {
+                        -- "Identifier",
+                        "#7C3AED",
+                    },
+                },
+            }
+        end,
     }
+    -- TODO: todo
+    -- NOTE: note
+    -- PERF: perf
+    -- WARN: warn
+    -- HACK: hack
+    -- BUG: bug
+    -- FIX: fix
     use {
         "windwp/nvim-ts-autotag", -- Add matching HTML tag
-        config = function() require("plugins.others").nvim_ts_autotag() end
+        config = function()
+            require'nvim-ts-autotag'.setup{
+                autotag = { enable = true }
+            }
+        end,
     }
     use{
         "norcalli/nvim-colorizer.lua",
@@ -183,7 +280,6 @@ require("packer").startup(function(use)
     }
     -- https://github.com/sbdchd/neoformat
 
-
     -- Annotation/docummentation generator
     -- https://github.com/danymat/neogen
     use {
@@ -191,7 +287,6 @@ require("packer").startup(function(use)
         requires = { "nvim-treesitter/nvim-treesitter" },
         after = "nvim-treesitter",
         config = function()
-        --     require("user.plugins.config.others").neogen()
             require("neogen").setup({
                 enabled = true,
             })
