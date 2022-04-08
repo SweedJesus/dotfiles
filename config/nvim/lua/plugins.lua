@@ -83,7 +83,6 @@ require("packer").startup(function(use)
     --     requires = { "ryanoasis/vim-devicons" },
     --     config = function() require("plugins.filetree").nerdtree() end
     -- }
-    -- TODO: move this to a plugin file (others?)
 
     -- =============================================================================================
     -- Non LSP filtype plugins
