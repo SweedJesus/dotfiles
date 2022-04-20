@@ -27,11 +27,19 @@ fi
 source ~/.aliases
 
 # User functions
-fpath=(~/.zfunc/ "${fpath[@]}")
+typeset -gxaU fpath
+fpath+=(
+    ~/.zfunc/ "${fpath[@]}"
+    ${ZDOTDIR:-~}/.zsh_functions
+)
 autoload -Uz try_source
 
-# Python
-eval "$(pyenv init -)"
+# Python (pyenv)
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=0
+eval "$(pyenv init --path)"
+#eval "$(pyenv virtualenv-init -)"
 
 # Node version manager
 export NVM_DIR="$HOME/.nvm"

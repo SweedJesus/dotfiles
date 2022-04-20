@@ -23,8 +23,8 @@ manpath+=()
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=0
-eval "$(pyenv init --path)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv init --path)"
+# eval "$(pyenv virtualenv-init -)"
 
 # C++
 export CXX=clang++
@@ -33,3 +33,6 @@ export CXX=clang++
 if [ -z rustc ]; then
     export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
