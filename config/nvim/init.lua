@@ -9,20 +9,31 @@ local opts = util.opts();
 
 -- Indents/tabs
 opts.autoindent = true
-opts.smartindent = true    -- Insert indents automatically
-opts.expandtab = true      -- Use spaces instead of tabs
-opts.shiftwidth = 4        -- Size of an indent
-opts.tabstop = 4           -- Number of spaces tabs count for
+opts.smartindent = true -- Insert indents automatically
+opts.expandtab = true -- Use spaces instead of tabs
+opts.shiftwidth = 4 -- Size of an indent
+opts.tabstop = 4 -- Number of spaces tabs count for
 opts.softtabstop = 4
-opts.shiftround = true     -- Round indent
-opts.joinspaces = false    -- No double spaces with join after a dot
-opts.breakindent = true    --Enable break indent
+opts.shiftround = true -- Round indent
+opts.joinspaces = false -- No double spaces with join after a dot
+opts.breakindent = true --Enable break indent
 
 -- Python virtual environments
 -- TODO: automate the setup with rcrc
 -- https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
-vim.g.python_host_prog = '$HOME/.pyenv/versions/py2nvim/bin/python'
-vim.g.python3_host_prog = '$HOME/.pyenv/versions/py3nvim/bin/python'
+vim.g.python_host_prog = '$HOME/.pyenv/versions/nvim2/bin/python'
+vim.g.python3_host_prog = '$HOME/.pyenv/versions/nvim3/bin/python'
+
+-- Window separator color
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*",
+    callback = function()
+        vim.api.nvim_set_hl(0, 'WinSeparator', {
+            fg = vim.g.terminal_color_0,
+        })
+    end,
+})
+
 
 -- Display chars
 vim.opt.list = true
@@ -72,7 +83,7 @@ opts.smartcase = true
 
 -- Decrease update time
 opts.updatetime = 250
-opts.signcolumn="yes"
+opts.signcolumn = "yes"
 
 -- Remap escape to leave terminal mode
 -- vim.api.nvim_exec([[
@@ -88,7 +99,7 @@ augroup end
 vim.api.nvim_exec([[ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]], false)
 
 -- Add map to enter paste mode
-opts.pastetoggle="<F3>"
+opts.pastetoggle = "<F3>"
 -- opts.pastetoggle="<leader>p" -- I don't know how to set this yet
 
 -- Map blankline

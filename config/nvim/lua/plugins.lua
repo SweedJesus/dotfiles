@@ -12,14 +12,14 @@ local gopts = util.opts();
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     -- vim.api.nvim_command("!git clone https://github.com/wbthomason/packer.nvim ".. install_path)
-	packer_bootstrap = fn.system({
-		"git",
-		"clone",
-		"--depth",
-		"1",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path,
-	})
+    packer_bootstrap = fn.system({
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "https://github.com/wbthomason/packer.nvim",
+        install_path,
+    })
 end
 vim.cmd([[packadd packer.nvim]])
 
@@ -43,7 +43,7 @@ require("packer").startup(function(use)
         "nvim-lualine/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons", opt = true }
     }
-    require("lualine").setup{}
+    require("lualine").setup {}
 
     -- =============================================================================================
     -- Fuzzy-finder
@@ -55,8 +55,8 @@ require("packer").startup(function(use)
     use {
         "nvim-telescope/telescope.nvim",
         requires = {
-            {"nvim-lua/popup.nvim"},
-            {"nvim-lua/plenary.nvim"}
+            { "nvim-lua/popup.nvim" },
+            { "nvim-lua/plenary.nvim" }
         },
         config = function() require("plugins.telescope") end,
     }
@@ -75,7 +75,7 @@ require("packer").startup(function(use)
     -- =============================================================================================
     use {
         "kyazdani42/nvim-tree.lua",
-        requires = {"kyazdani42/nvim-web-devicons"},
+        requires = { "kyazdani42/nvim-web-devicons" },
         config = function() require("plugins.filetree").nvim_tree() end,
     }
     -- use {
@@ -170,13 +170,14 @@ require("packer").startup(function(use)
         end,
     }
     use "JoosepAlviste/nvim-ts-context-commentstring"
+    -- TODO: replace with https://github.com/numToStr/Comment.nvim
     use {
         "terrortylor/nvim-comment",
         config = function()
             local map = vim.api.nvim_set_keymap
             local opts_ns = { noremap = false, silent = true }
 
-            require('nvim_comment').setup{
+            require('nvim_comment').setup {
                 hook = function()
                     if vim.api.nvim_buf_get_option(0, 'filetype') == 'vue' then
                         require('ts_context_commentstring.internal').update_commentstring()
@@ -193,9 +194,9 @@ require("packer").startup(function(use)
             --         noremap = true,
             --     },
             -- )
-            map('i', '<C-_>', [[:CommentToggle<cr>]], opts_ns)
-            map('n', '<C-_>', [[:CommentToggle<cr>]], opts_ns)
-            map('v', '<C-_>', [[:<C-u>call CommentOperator(visualmode())<CR>]], opts_ns)
+            -- map('i', '<C-_>', [[:CommentToggle<cr>]], opts_ns)
+            map('n', '<tab>', [[:CommentToggle<cr>]], opts_ns)
+            map('v', '<tab>', [[:<C-u>call CommentOperator(visualmode())<CR>]], opts_ns)
         end,
     }
     use "tpope/vim-surround" -- Surround motions
@@ -204,7 +205,7 @@ require("packer").startup(function(use)
     use {
         "lukas-reineke/indent-blankline.nvim", -- Show indent levels
         config = function()
-            require('indent_blankline').setup{
+            require('indent_blankline').setup {
                 filetype_exclude = {
                     'alpha',
                     'lspinfo',
@@ -228,7 +229,7 @@ require("packer").startup(function(use)
         "folke/todo-comments.nvim", -- Highlight todo/note comments
         requires = "nvim-lua/plenary.nvim",
         config = function()
-            require('todo-comments').setup{
+            require('todo-comments').setup {
                 -- keywords = { ["!"] = { icon = "!", color = "hint" } },
                 colors = {
                     error = {
@@ -267,12 +268,12 @@ require("packer").startup(function(use)
     use {
         "windwp/nvim-ts-autotag", -- Add matching HTML tag
         config = function()
-            require'nvim-ts-autotag'.setup{
+            require 'nvim-ts-autotag'.setup {
                 autotag = { enable = true }
             }
         end,
     }
-    use{
+    use {
         "norcalli/nvim-colorizer.lua",
         -- e.g. #558817 #a33243 #4269a8
         config = function() require("colorizer").setup() end,

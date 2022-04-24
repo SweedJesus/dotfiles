@@ -13,18 +13,12 @@ path+=(
     $HOME/.poetry/bin
     $HOME/.config/yarn/global/node_modules/.bin
     /usr/local/Cellar/fontforge/20201107/bin
+    # $PYENV_ROOT/bin
 )
 
 # Manpath
 typeset -gxaU manpath
 manpath+=()
-
-# Python (pyenv)
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=0
-# eval "$(pyenv init --path)"
-# eval "$(pyenv virtualenv-init -)"
 
 # C++
 export CXX=clang++
@@ -36,3 +30,5 @@ fi
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Python
+eval "$(pyenv init --path)"
