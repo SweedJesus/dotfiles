@@ -27,10 +27,14 @@ fi
 source ~/.aliases
 
 # User functions
-fpath=(~/.zfunc/ "${fpath[@]}")
+typeset -gxaU fpath
+fpath+=(
+    ~/.zfunc/ "${fpath[@]}"
+    ${ZDOTDIR:-~}/.zsh_functions
+)
 autoload -Uz try_source
 
-# Python
+# Python (pyenv)
 eval "$(pyenv init -)"
 
 # Node version manager
