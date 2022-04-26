@@ -4,6 +4,7 @@ LANG=en_US.UTF-8
 LC_ALL=$LANG
 
 # Path (https://github.com/antonio/zsh-config/blob/master/help/typeset)
+export PYENV_ROOT="$HOME/.pyenv"
 typeset -gxaU path
 path+=(
     $HOME/bin
@@ -13,7 +14,7 @@ path+=(
     $HOME/.poetry/bin
     $HOME/.config/yarn/global/node_modules/.bin
     /usr/local/Cellar/fontforge/20201107/bin
-    # $PYENV_ROOT/bin
+    $PYENV_ROOT/bin
 )
 
 # Manpath
@@ -28,8 +29,7 @@ if [ -z rustc ]; then
     export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
 
+# Python
 # eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(pyenv virtualenv-init -)"
-
-# Python
 eval "$(pyenv init --path)"
