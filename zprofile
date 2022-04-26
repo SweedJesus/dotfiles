@@ -28,7 +28,8 @@ if [ -z rustc ]; then
     export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(pyenv virtualenv-init -)"
 
 # Python
 eval "$(pyenv init --path)"
