@@ -4,3 +4,5 @@ email = nilso@enosis.net
 
 [core]
 editor = nvim
+[init]
+	defaultBranch = main

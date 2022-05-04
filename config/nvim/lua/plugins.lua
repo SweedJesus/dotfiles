@@ -6,6 +6,8 @@ augroup END
 ]])
 
 local util = require("util")
+-- local map = util.map
+-- local map_buf = util.map_buf
 local gopts = util.opts();
 
 -- Install package manager (Packer) if it"s not there
@@ -112,12 +114,14 @@ require("packer").startup(function(use)
         "jose-elias-alvarez/null-ls.nvim",
         config = function() require("plugins.null-ls") end,
     }
-    --     config = function() require("plugins.null-ls") end,
-    -- }
     -- use {
     --     "mfussenegger/nvim-lint",
     --     config = function() require("plugins.nvim-lint") end,
     -- }
+    use {
+        'simrat39/symbols-outline.nvim',
+        config = function() require("plugins.symbols-outline") end,
+    }
 
     -- =============================================================================================
     -- Snippets and completion

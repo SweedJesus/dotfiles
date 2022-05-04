@@ -49,7 +49,7 @@ local servers = {
                         version = 'LuaJIT',
                         path = lua_runtime_path,
                     },
-                    diagnostics = { globals = {'vim', 'feedkey'} },
+                    diagnostics = { globals = { 'vim', 'feedkey' } },
                     workspace = { library = vim.api.nvim_get_runtime_file('', true) },
                     telemetry = { enable = false },
                 }
@@ -59,8 +59,8 @@ local servers = {
 }
 
 local function disable_formatting(client)
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
 end
 
 local disable_formatting_for = {
@@ -75,6 +75,7 @@ local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
+
     buf_set_keymap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -88,7 +89,7 @@ local on_attach = function(client, bufnr)
         disable_formatting(client)
         return
     end
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.document_formatting then
         vim.cmd([[
         augroup LSP_FORMAT
             autocmd! * <buffer>

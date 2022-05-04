@@ -13,9 +13,14 @@ path+=(
     $HOME/.cargo/bin
     $HOME/.poetry/bin
     $HOME/.config/yarn/global/node_modules/.bin
-    /usr/local/Cellar/fontforge/20201107/bin
     $PYENV_ROOT/bin
 )
+if [[ $OSTYPE =~ darwin.* ]]; then
+    path+=(
+        /usr/local/Cellar/fontforge/20201107/bin
+        /opt/homebrew/bin
+    )
+fi
 
 # Manpath
 typeset -gxaU manpath

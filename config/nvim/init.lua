@@ -31,6 +31,12 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         vim.api.nvim_set_hl(0, 'WinSeparator', {
             fg = vim.g.terminal_color_0,
         })
+        vim.api.nvim_set_hl(0, 'Folded', {
+            fg = vim.g.terminal_color_3,
+        })
+        vim.api.nvim_set_hl(0, 'FoldColumn', {
+            fg = vim.g.terminal_color_0,
+        })
     end,
 })
 
