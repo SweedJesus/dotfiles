@@ -65,8 +65,8 @@ end
 
 local disable_formatting_for = {
     "pyright",
-    "volar",
     "jsonls",
+    "volar",
     "tsserver",
 }
 
