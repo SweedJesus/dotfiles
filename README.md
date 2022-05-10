@@ -46,6 +46,8 @@ and post-symlink hooks can be used for further automating the setup.
 
 Both [`pyenv`][pyenv] for managing Python versions and [`pyenv-virtualenv`][pyenv-virtualenv] for
 managing Python virtual environments. See [this][intro-to-pyenv] for a pretty good guide.
+It seems for some Python versions the image must be built; when that's the case follow the
+[Python's install dependencies](https://devguide.python.org/setup/#install-dependencies) instructions.
 
 [intro-to-pyenv]: https://realpython.com/intro-to-pyenv/
 
