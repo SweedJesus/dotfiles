@@ -2,7 +2,8 @@
 
 **TODO:**
 
-- Conditional aliases for Windows/WSL (`open`)
+- [ ] Refactor `lsp-isntall` `server:setup()` by [following this](git@github.com:kgpf-dev/kgpf-stack.git)
+- [ ] Conditional aliases for Windows/WSL (`open`)
 
 ## General Setup
 
