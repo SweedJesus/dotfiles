@@ -105,15 +105,15 @@ require("packer").startup(function(use)
         -- after = "nvim-cmp",
         requires = {
             "williamboman/nvim-lsp-installer",
+            "jose-elias-alvarez/null-ls.nvim",
             -- "ray-x/lsp_signature.nvim",
-            -- "jose-elias-alvarez/null-ls.nvim",
         },
         config = function() require("plugins.nvim-lsp") end,
     }
-    use {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function() require("plugins.null-ls") end,
-    }
+    -- use {
+    --     "jose-elias-alvarez/null-ls.nvim",
+    --     config = function() require("plugins.null-ls") end,
+    -- }
     -- use {
     --     "mfussenegger/nvim-lint",
     --     config = function() require("plugins.nvim-lint") end,
@@ -232,35 +232,35 @@ require("packer").startup(function(use)
     use {
         "folke/todo-comments.nvim", -- Highlight todo/note comments
         requires = "nvim-lua/plenary.nvim",
-        config = function()
-            require('todo-comments').setup {
-                -- keywords = { ["!"] = { icon = "!", color = "hint" } },
-                colors = {
-                    error = {
-                        -- "DiagnosticError",
-                        -- "ErrorMsg",
-                        "#DC2626",
-                    },
-                    warning = {
-                        -- "DiagnosticWarning",
-                        -- "WarningMsg",
-                        "#FBBF24",
-                    },
-                    info = {
-                        -- "DiagnosticInfo",
-                        "#2563EB",
-                    },
-                    hint = {
-                        -- "DiagnosticHint",
-                        "#10B981",
-                    },
-                    default = {
-                        -- "Identifier",
-                        "#7C3AED",
-                    },
-                },
-            }
-        end,
+        -- config = function()
+        --     require('todo-comments').setup {
+        --         -- keywords = { ["!"] = { icon = "!", color = "hint" } },
+        --         colors = {
+        --             error = {
+        --                 -- "DiagnosticError",
+        --                 -- "ErrorMsg",
+        --                 "#DC2626",
+        --             },
+        --             warning = {
+        --                 -- "DiagnosticWarning",
+        --                 -- "WarningMsg",
+        --                 "#FBBF24",
+        --             },
+        --             info = {
+        --                 -- "DiagnosticInfo",
+        --                 "#2563EB",
+        --             },
+        --             hint = {
+        --                 -- "DiagnosticHint",
+        --                 "#10B981",
+        --             },
+        --             default = {
+        --                 -- "Identifier",
+        --                 "#7C3AED",
+        --             },
+        --         },
+        --     }
+        -- end,
     }
     -- TODO: todo
     -- NOTE: note
