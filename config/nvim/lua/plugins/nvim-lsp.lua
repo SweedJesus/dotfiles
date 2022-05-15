@@ -74,8 +74,10 @@ local servers = {
             provideFormatter = false,
         },
     },
-    tsserver = {},
-    volar = {},
+    -- tsserver = {},
+    volar = {
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+    },
     rust_analyzer = {},
     pyright = {
     },

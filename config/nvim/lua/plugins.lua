@@ -232,43 +232,43 @@ require("packer").startup(function(use)
     use {
         "folke/todo-comments.nvim", -- Highlight todo/note comments
         requires = "nvim-lua/plenary.nvim",
-        -- config = function()
-        --     require('todo-comments').setup {
-        --         -- keywords = { ["!"] = { icon = "!", color = "hint" } },
-        --         colors = {
-        --             error = {
-        --                 -- "DiagnosticError",
-        --                 -- "ErrorMsg",
-        --                 "#DC2626",
-        --             },
-        --             warning = {
-        --                 -- "DiagnosticWarning",
-        --                 -- "WarningMsg",
-        --                 "#FBBF24",
-        --             },
-        --             info = {
-        --                 -- "DiagnosticInfo",
-        --                 "#2563EB",
-        --             },
-        --             hint = {
-        --                 -- "DiagnosticHint",
-        --                 "#10B981",
-        --             },
-        --             default = {
-        --                 -- "Identifier",
-        --                 "#7C3AED",
-        --             },
-        --         },
-        --     }
-        -- end,
+        config = function()
+            require('todo-comments').setup {
+                -- keywords = { ["!"] = { icon = "!", color = "hint" } },
+                colors = {
+                    error = {
+                        -- "DiagnosticError",
+                        -- "ErrorMsg",
+                        -- BUG: bug
+                        -- FIX: fix
+                        "#DC2626",
+                    },
+                    warning = {
+                        -- "DiagnosticWarning",
+                        -- "WarningMsg",
+                        -- WARN: warn
+                        -- HACK: hack
+                        "#FBBF24",
+                    },
+                    hint = {
+                        -- "DiagnosticHint",
+                        -- NOTE: note
+                        "#10B981",
+                    },
+                    info = {
+                        -- "DiagnosticInfo",
+                        -- TODO: todo
+                        "#2563EB",
+                    },
+                    default = {
+                        -- "Identifier",
+                        -- PERF: perf
+                        "#7C3AED",
+                    },
+                },
+            }
+        end,
     }
-    -- TODO: todo
-    -- NOTE: note
-    -- PERF: perf
-    -- WARN: warn
-    -- HACK: hack
-    -- BUG: bug
-    -- FIX: fix
     use {
         "windwp/nvim-ts-autotag", -- Add matching HTML tag
         config = function()
