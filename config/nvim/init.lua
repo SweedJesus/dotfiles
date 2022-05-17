@@ -25,7 +25,7 @@ vim.g.python_host_prog = '$HOME/.pyenv/versions/nvim2/bin/python'
 vim.g.python3_host_prog = '$HOME/.pyenv/versions/nvim3/bin/python'
 
 -- Window separator color
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+vim.api.nvim_create_autocmd("BufEnter", {
     pattern = "*",
     callback = function()
         vim.api.nvim_set_hl(0, 'WinSeparator', {

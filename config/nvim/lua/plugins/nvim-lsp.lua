@@ -74,7 +74,7 @@ local servers = {
             provideFormatter = false,
         },
     },
-    -- tsserver = {},
+    tsserver = {},
     volar = {
         filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
     },
