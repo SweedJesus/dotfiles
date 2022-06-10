@@ -26,7 +26,6 @@ vim.g.python3_host_prog = '$HOME/.pyenv/versions/nvim3/bin/python'
 
 -- Window separator color
 vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "*",
     callback = function()
         vim.api.nvim_set_hl(0, 'WinSeparator', {
             fg = vim.g.terminal_color_0,
@@ -46,7 +45,7 @@ vim.opt.list = true
 vim.opt.fillchars = {
     eob = "–",
     fold = " ",
-    -- vert = "│",
+    vert = "│",
     -- vert = "v",
     foldsep = " ",
     foldclose = "",
@@ -102,7 +101,8 @@ augroup end
 --]], false)
 
 -- Return to last edit position when opening files
-vim.api.nvim_exec([[ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]], false)
+vim.api.nvim_exec([[ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
+    , false)
 
 -- Add map to enter paste mode
 opts.pastetoggle = "<F3>"
@@ -168,11 +168,13 @@ vim.diagnostic.config({
 vim.cmd [[
 augroup Indentation
     autocmd!
+    autocmd FileType css set shiftwidth=2
     autocmd FileType json set shiftwidth=2
     autocmd FileType javascript set shiftwidth=2
     autocmd FileType typescript set shiftwidth=2
     autocmd FileType vue set shiftwidth=2
     autocmd FileType html set shiftwidth=2
+    autocmd FileType htmldjango set shiftwidth=2
     autocmd FileType markdown set shiftwidth=2
 augroup END
 ]]
