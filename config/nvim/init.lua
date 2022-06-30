@@ -1,22 +1,22 @@
 -- nilsso neovim Lua configuration lua
 
 local util = require('util')
-local opts = util.opts();
+local util_opts = util.opts();
 
 -- =================================================================================================
 -- Options
 -- =================================================================================================
 
 -- Indents/tabs
-opts.autoindent = true
-opts.smartindent = true -- Insert indents automatically
-opts.expandtab = true -- Use spaces instead of tabs
-opts.shiftwidth = 4 -- Size of an indent
-opts.tabstop = 4 -- Number of spaces tabs count for
-opts.softtabstop = 4
-opts.shiftround = true -- Round indent
-opts.joinspaces = false -- No double spaces with join after a dot
-opts.breakindent = true --Enable break indent
+util_opts.autoindent = true
+util_opts.smartindent = true -- Insert indents automatically
+util_opts.expandtab = true -- Use spaces instead of tabs
+util_opts.shiftwidth = 4 -- Size of an indent
+util_opts.tabstop = 4 -- Number of spaces tabs count for
+util_opts.softtabstop = 4
+util_opts.shiftround = true -- Round indent
+util_opts.joinspaces = false -- No double spaces with join after a dot
+util_opts.breakindent = true --Enable break indent
 
 -- Python virtual environments
 -- TODO: automate the setup with rcrc
@@ -58,7 +58,7 @@ vim.opt.fillchars = {
 -- }
 
 --Enable mouse mode
-opts.mouse = "a"
+util_opts.mouse = "a"
 
 -- Graphical font
 -- vim.cmd([[set guifont=FiraCode\ Nerd\ Font:h11]])
@@ -67,28 +67,28 @@ opts.mouse = "a"
 vim.cmd([[set tw=100]])
 vim.cmd([[set cc=+1]])
 
-opts.termguicolors = true
+util_opts.termguicolors = true
 
 --Set highlight on search
-opts.hlsearch = true
-opts.incsearch = true
+util_opts.hlsearch = true
+util_opts.incsearch = true
 
 --Make line numbers default
-opts.number = true
+util_opts.number = true
 
 --Do not save when switching buffers
-opts.hidden = true
+util_opts.hidden = true
 
 --Save undo history
 vim.cmd([[set undofile]])
 
 --Case insensitive searching UNLESS /C or capital in search
-opts.ignorecase = true
-opts.smartcase = true
+util_opts.ignorecase = true
+util_opts.smartcase = true
 
 -- Decrease update time
-opts.updatetime = 250
-opts.signcolumn = "yes"
+util_opts.updatetime = 250
+util_opts.signcolumn = "yes"
 
 -- Remap escape to leave terminal mode
 -- vim.api.nvim_exec([[
@@ -105,7 +105,7 @@ vim.api.nvim_exec([[ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= 
     , false)
 
 -- Add map to enter paste mode
-opts.pastetoggle = "<F3>"
+util_opts.pastetoggle = "<F3>"
 -- opts.pastetoggle="<leader>p" -- I don't know how to set this yet
 
 -- Map blankline
@@ -164,7 +164,8 @@ vim.diagnostic.config({
 -- vim.g.html_indent_script1 = "inc"
 -- vim.g.html_indent_style1 = "inc"
 -- vim.g.html_indent_inctags = "html,body,head,tbody"
---
+
+-- TODO: move these down into vim.filetype.add below
 vim.cmd [[
 augroup Indentation
     autocmd!
@@ -176,8 +177,32 @@ augroup Indentation
     autocmd FileType html set shiftwidth=2
     autocmd FileType htmldjango set shiftwidth=2
     autocmd FileType markdown set shiftwidth=2
+    autocmd FileType python set tw=90
 augroup END
 ]]
+
+vim.cmd("let g:do_filetype_lua = 1")
+
+vim.filetype.add({
+    -- extension = {
+    --     jinja = function()
+    --         print("A")
+    --     end,
+    -- },
+    -- filename = {
+    --     ["html.jinja"] = function()
+    --         util_opts.filetype = "htmldjango"
+    --         util_opts.shiftwidth = 2
+    --     end,
+    -- },
+    pattern = {
+        [".*html%.jinja"] = function()
+            util_opts.filetype = "htmldjango"
+            util_opts.shiftwidth = 2
+            util_opts.commentstring = "{#%s#}"
+        end,
+    },
+})
 
 require('basemaps')
 require('plugins')
