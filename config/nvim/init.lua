@@ -45,9 +45,9 @@ vim.opt.list = true
 vim.opt.fillchars = {
     eob = "–",
     fold = " ",
-    vert = "│",
-    -- vert = "v",
-    foldsep = " ",
+    -- vert = "|",
+    vert = "v",
+    foldsep = "|",
     foldclose = "",
     foldopen = ""
 }
