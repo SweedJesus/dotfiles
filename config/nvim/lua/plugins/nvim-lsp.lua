@@ -7,7 +7,7 @@ local lsp_installer = require('nvim-lsp-installer')
 -- -------------------------------------------------------------------------------------------------
 
 local disable_formatting_for = {
-    "jsonls",
+    -- "jsonls",
     "volar",
     "tsserver",
 }
@@ -77,7 +77,14 @@ local servers = {
     cssls = {},
     tsserver = {},
     volar = {
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+        filetypes = {
+            'typescript',
+            'javascript',
+            'javascriptreact',
+            'typescriptreact',
+            'vue',
+            'json',
+        },
     },
     rust_analyzer = {},
     pyright = {

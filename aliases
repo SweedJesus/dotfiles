@@ -26,9 +26,10 @@ alias open=explorer.exe
 alias pyenva='pyenv activate'
 alias pyenvd='pyenv deactivate'
 
-alias dcu='docker-compose up'
-alias dcd='docker-compose down'
-alias dcr='docker-compose restart'
+alias dcb='docker compose build'
+alias dcu='docker compose up'
+alias dcd='docker compose down'
+alias dcr='docker compose restart'
 
 alias myip='ip addr show dev eth0 | sed -nr "s/^\s*inet\s+([0-9]{1,3}(\.[0-9]{1,3}){3}).*$/\1/p"'
 

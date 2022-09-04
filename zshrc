@@ -34,6 +34,9 @@ fpath+=(
 )
 autoload -Uz try_source
 
+# SSH agent
+plugins+=(git ssh-agent)
+
 # Python (pyenv)
 eval "$(pyenv init -)"
 
