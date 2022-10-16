@@ -5,6 +5,7 @@ augroup PACKER_COMPILE_ONCHANGE
 augroup END
 ]])
 
+
 local util = require("util")
 -- local map = util.map
 -- local map_buf = util.map_buf
@@ -41,6 +42,7 @@ require("packer").startup(function(use)
     -- =============================================================================================
     -- Status line
     -- =============================================================================================
+    use "kyazdani42/nvim-web-devicons"
     use {
         "nvim-lualine/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons", opt = true }

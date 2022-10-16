@@ -6,3 +6,5 @@ email = nilso@enosis.net
 editor = nvim
 [init]
 	defaultBranch = main
+[merge]
+	tool = opendiff
