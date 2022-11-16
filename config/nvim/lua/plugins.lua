@@ -234,36 +234,72 @@ require("packer").startup(function(use)
         requires = "nvim-lua/plenary.nvim",
         config = function()
             require('todo-comments').setup {
-                -- keywords = { ["!"] = { icon = "!", color = "hint" } },
+                keywords = {
+                    ["!"] = {
+                        icon = "!",
+                        color = "hint"
+                    },
+                    DANGER = {
+                        icon = "!",
+                        color = "danger"
+                    },
+                    HACK = {
+                        icon = " ",
+                        color = "warning"
+                    },
+                    WARN = {
+                        icon = " ",
+                        color = "warning",
+                        alt = { "WARNING", "XXX" }
+                    },
+                    NOTE = {
+                        icon = " ",
+                        color = "hint",
+                        alt = { "INFO" }
+                    },
+                    TODO = {
+                        icon = " ",
+                        color = "info"
+                    },
+                    PERF = {
+                        icon = " ",
+                        alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" }
+                    },
+                    TEST = {
+                        icon = "⏲ ",
+                        color = "test",
+                        alt = { "TESTING", "PASSED", "FAILED" }
+                    },
+                },
                 colors = {
                     error = {
-                        -- "DiagnosticError",
-                        -- "ErrorMsg",
-                        -- BUG: bug
-                        -- FIX: fix
+                        "DiagnosticError",
+                        "ErrorMsg",
                         "#DC2626",
                     },
+                    danger = {
+                        "#F98E22",
+                    },
                     warning = {
-                        -- "DiagnosticWarning",
-                        -- "WarningMsg",
-                        -- WARN: warn
-                        -- HACK: hack
+                        "DiagnosticWarning",
+                        "WarningMsg",
                         "#FBBF24",
                     },
                     hint = {
-                        -- "DiagnosticHint",
-                        -- NOTE: note
+                        "DiagnosticHint",
                         "#10B981",
                     },
                     info = {
-                        -- "DiagnosticInfo",
-                        -- TODO: todo
+                        "DiagnosticInfo",
                         "#2563EB",
                     },
                     default = {
-                        -- "Identifier",
-                        -- PERF: perf
+                        "Identifier",
                         "#7C3AED",
+                    },
+                    test = {
+                        "Identifier",
+                        "#FF00FF",
                     },
                 },
             }

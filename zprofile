@@ -13,6 +13,7 @@ path+=(
     $HOME/.cargo/bin
     $HOME/.poetry/bin
     $HOME/.config/yarn/global/node_modules/.bin
+    $HOME/.gem/ruby/2.7.0/bin
     $PYENV_ROOT/bin
 )
 if [[ $OSTYPE =~ darwin.* ]]; then
@@ -33,6 +34,9 @@ export CXX=clang++
 if [ -z rustc ]; then
     export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
+
+# Work
+export app="$HOME/Documents/work/kgpf/kgpf-stack/kgpf_app"
 
 # Python
 # eval "$(/opt/homebrew/bin/brew shellenv)"
