@@ -18,12 +18,12 @@ map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Write/close edit
-map('n', '<leader>w',  [[:w<cr>]])
-map('n', '<leader>q',  [[:q<cr>]])
-map('n', '<leader>Q',  [[:q!<cr>]])
+map('n', '<leader>w', [[:w<cr>]])
+map('n', '<leader>q', [[:q<cr>]])
+map('n', '<leader>Q', [[:q!<cr>]])
 
 -- Turn off highlighting
-map('n', '<leader>l',  [[<cmd>nohl<cr>]])
+map('n', '<leader>l', [[<cmd>nohl<cr>]])
 
 -- Move between frames faster
 map('n', '<c-h>', '<c-w>h')
@@ -46,8 +46,10 @@ map('i', '<S-Tab>', [[<C-d>]])
 
 -- Diagnostics
 map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
-map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
+map("n", "[D", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+map("n", "]D", "<cmd>lua vim.diagnostic.goto_next()<CR>")
+map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>")
+map("n", "]d", "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>")
 
 -- Map compe confirm and complete functions
 -- map('i', '<cr>', 'compe#confirm("<cr>")', { noremap = false, expr = true })

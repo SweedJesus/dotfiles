@@ -184,11 +184,18 @@ augroup END
 vim.cmd("let g:do_filetype_lua = 1")
 
 vim.filetype.add({
-    -- extension = {
-    --     jinja = function()
-    --         print("A")
-    --     end,
-    -- },
+    extension = {
+        sql = function()
+            return 'sql', function()
+                util_opts.commentstring = "--%s"
+            end
+        end,
+        prisma = function()
+            return 'prisma', function()
+                util_opts.shiftwidth = 2
+            end
+        end,
+    },
     -- filename = {
     --     ["html.jinja"] = function()
     --         util_opts.filetype = "htmldjango"
@@ -197,9 +204,10 @@ vim.filetype.add({
     -- },
     pattern = {
         [".*html%.jinja"] = function()
-            util_opts.filetype = "htmldjango"
-            util_opts.shiftwidth = 2
-            util_opts.commentstring = "{#%s#}"
+            return 'htmldjango', function()
+                util_opts.shiftwidth = 2
+                util_opts.commentstring = "{#%s#}"
+            end
         end,
     },
 })

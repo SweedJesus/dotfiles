@@ -7,7 +7,7 @@ local lsp_installer = require('nvim-lsp-installer')
 -- -------------------------------------------------------------------------------------------------
 
 local disable_formatting_for = {
-    "jsonls",
+    -- "jsonls",
     "volar",
     "tsserver",
 }
@@ -15,11 +15,14 @@ local disable_formatting_for = {
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local timeout_ms = 2000
 
-local format = function(bufnr)
+local function format(bufnr)
     vim.lsp.buf.format({
         filter = function(clients)
             return vim.tbl_filter(
                 function(client)
+                    if type(client) ~= "table" then
+                        return false
+                    end
                     return not vim.tbl_contains(disable_formatting_for, client.name)
                 end,
                 clients
@@ -30,7 +33,7 @@ local format = function(bufnr)
     })
 end
 
-local setup_formatting = function(client, bufnr)
+local function setup_formatting(client, bufnr)
     if client.supports_method("textDocument/formatting") then
         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
         vim.api.nvim_create_autocmd("BufWritePre", {
@@ -77,7 +80,14 @@ local servers = {
     cssls = {},
     tsserver = {},
     volar = {
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+        filetypes = {
+            'typescript',
+            'javascript',
+            'javascriptreact',
+            'typescriptreact',
+            'vue',
+            'json',
+        },
     },
     rust_analyzer = {},
     pyright = {
@@ -134,7 +144,7 @@ local default_opts = {
     flags = {
         debounce_text_changes = 150,
     },
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities),
+    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities),
 }
 
 -- Install and setup language servers
