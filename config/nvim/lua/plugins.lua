@@ -237,10 +237,6 @@ require("packer").startup(function(use)
         config = function()
             require('todo-comments').setup {
                 keywords = {
-                    ["!"] = {
-                        icon = "!",
-                        color = "hint"
-                    },
                     DANGER = {
                         icon = "!",
                         color = "danger"
@@ -275,33 +271,33 @@ require("packer").startup(function(use)
                 },
                 colors = {
                     error = {
-                        "DiagnosticError",
-                        "ErrorMsg",
                         "#DC2626",
+                        -- BUG:
                     },
                     danger = {
                         "#F98E22",
+                        -- DANGER:
                     },
                     warning = {
-                        "DiagnosticWarning",
-                        "WarningMsg",
                         "#FBBF24",
+                        -- WARNING:
                     },
                     hint = {
-                        "DiagnosticHint",
                         "#10B981",
+                        -- INFO:
+                        -- !:
                     },
                     info = {
-                        "DiagnosticInfo",
                         "#2563EB",
+                        -- TODO:
                     },
                     default = {
-                        "Identifier",
                         "#7C3AED",
+                        -- PERF:
                     },
                     test = {
-                        "Identifier",
                         "#FF00FF",
+                        -- TEST:
                     },
                 },
             }
