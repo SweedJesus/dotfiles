@@ -28,7 +28,6 @@ vim.cmd([[packadd packer.nvim]])
 
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
-
     -- =============================================================================================
     -- Colorscheme/theme
     -- =============================================================================================
@@ -38,7 +37,6 @@ require("packer").startup(function(use)
     -- vim.cmd([[set background=light]])
     -- vim.cmd([[colorscheme one-nvim]])
     vim.cmd([[colorscheme nord]])
-
     -- =============================================================================================
     -- Status line
     -- =============================================================================================
@@ -48,7 +46,6 @@ require("packer").startup(function(use)
         requires = { "kyazdani42/nvim-web-devicons", opt = true }
     }
     require("lualine").setup {}
-
     -- =============================================================================================
     -- Fuzzy-finder
     -- =============================================================================================
@@ -64,7 +61,8 @@ require("packer").startup(function(use)
         },
         config = function() require("plugins.telescope") end,
     }
-
+    -- 
+    -- Movement
     -- This shit is crazy
     -- https://github.com/ggandor/lightspeed.nvim
     -- https://www.youtube.com/watch?v=ESyld9NCl1w
@@ -73,7 +71,8 @@ require("packer").startup(function(use)
         "ggandor/lightspeed.nvim",
         config = function() require("plugins.lightspeed") end,
     }
-
+    use "karb94/neoscroll.nvim"
+    require('neoscroll').setup()
     -- =============================================================================================
     -- Filetree
     -- =============================================================================================
@@ -87,7 +86,6 @@ require("packer").startup(function(use)
     --     requires = { "ryanoasis/vim-devicons" },
     --     config = function() require("plugins.filetree").nerdtree() end
     -- }
-
     -- =============================================================================================
     -- Non LSP filtype plugins
     -- =============================================================================================
@@ -96,7 +94,6 @@ require("packer").startup(function(use)
         ft = { "python" },
     }
     use "simrat39/rust-tools.nvim"
-
     -- =============================================================================================
     -- LSP and linting
     -- =============================================================================================
@@ -124,7 +121,6 @@ require("packer").startup(function(use)
         'simrat39/symbols-outline.nvim',
         config = function() require("plugins.symbols-outline") end,
     }
-
     -- =============================================================================================
     -- Snippets and completion
     -- =============================================================================================
@@ -146,7 +142,6 @@ require("packer").startup(function(use)
     }
     -- use "nvim-lua/lsp_extensions.nvim"
     -- use "folke/lsp-colors.nvim"
-
     -- =============================================================================================
     -- Treesitter
     -- =============================================================================================
@@ -155,7 +150,6 @@ require("packer").startup(function(use)
         run = ":TSUpdate",
         config = function() require("plugins.nvim-treesitter") end
     }
-
     -- =============================================================================================
     -- Miscelaneous quality of life
     -- =============================================================================================
@@ -236,74 +230,74 @@ require("packer").startup(function(use)
         requires = "nvim-lua/plenary.nvim",
         config = function()
             require('todo-comments').setup {
-                keywords = {
-                    ["!"] = {
-                        icon = "!",
-                        color = "hint"
-                    },
-                    DANGER = {
-                        icon = "!",
-                        color = "danger"
-                    },
-                    HACK = {
-                        icon = " ",
-                        color = "warning"
-                    },
-                    WARN = {
-                        icon = " ",
-                        color = "warning",
-                        alt = { "WARNING", "XXX" }
-                    },
-                    NOTE = {
-                        icon = " ",
-                        color = "hint",
-                        alt = { "INFO" }
-                    },
-                    TODO = {
-                        icon = " ",
-                        color = "info"
-                    },
-                    PERF = {
-                        icon = " ",
-                        alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" }
-                    },
-                    TEST = {
-                        icon = "⏲ ",
-                        color = "test",
-                        alt = { "TESTING", "PASSED", "FAILED" }
-                    },
-                },
-                colors = {
-                    error = {
-                        "DiagnosticError",
-                        "ErrorMsg",
-                        "#DC2626",
-                    },
-                    danger = {
-                        "#F98E22",
-                    },
-                    warning = {
-                        "DiagnosticWarning",
-                        "WarningMsg",
-                        "#FBBF24",
-                    },
-                    hint = {
-                        "DiagnosticHint",
-                        "#10B981",
-                    },
-                    info = {
-                        "DiagnosticInfo",
-                        "#2563EB",
-                    },
-                    default = {
-                        "Identifier",
-                        "#7C3AED",
-                    },
-                    test = {
-                        "Identifier",
-                        "#FF00FF",
-                    },
-                },
+                -- keywords = {
+                --     ["!"] = {
+                --         icon = "!",
+                --         color = "hint"
+                --     },
+                --     -- DANGER = {
+                --     --     icon = "!",
+                --     --     color = "danger"
+                --     -- },
+                --     HACK = {
+                --         icon = " ",
+                --         color = "warning"
+                --     },
+                --     WARN = {
+                --         icon = " ",
+                --         color = "warning",
+                --         alt = { "WARNING", "XXX" }
+                --     },
+                --     NOTE = {
+                --         icon = " ",
+                --         color = "hint",
+                --         alt = { "INFO" }
+                --     },
+                --     TODO = {
+                --         icon = " ",
+                --         color = "info"
+                --     },
+                --     PERF = {
+                --         icon = " ",
+                --         alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" }
+                --     },
+                --     TEST = {
+                --         icon = "⏲ ",
+                --         color = "test",
+                --         alt = { "TESTING", "PASSED", "FAILED" }
+                --     },
+                -- },
+                -- colors = {
+                --     error = {
+                --         "DiagnosticError",
+                --         "ErrorMsg",
+                --         "#DC2626",
+                --     },
+                --     danger = {
+                --         "#F98E22",
+                --     },
+                --     warning = {
+                --         "DiagnosticWarning",
+                --         "WarningMsg",
+                --         "#FBBF24",
+                --     },
+                --     hint = {
+                --         "DiagnosticHint",
+                --         "#10B981",
+                --     },
+                --     info = {
+                --         "DiagnosticInfo",
+                --         "#2563EB",
+                --     },
+                --     default = {
+                --         "Identifier",
+                --         "#7C3AED",
+                --     },
+                --     test = {
+                --         "Identifier",
+                --         "#FF00FF",
+                --     },
+                -- },
             }
         end,
     }
@@ -334,16 +328,13 @@ require("packer").startup(function(use)
             })
         end,
     }
-
     -- Maybe these two can play together?
     -- https://github.com/goolord/alpha-nvim
     -- https://github.com/Shatur/neovim-session-manager
-
     use {
         "goolord/alpha-nvim",
         config = function() require("plugins.alpha") end,
     }
-
     if packer_bootstrap then
         require("packer").sync()
     end
