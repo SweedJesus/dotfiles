@@ -230,74 +230,70 @@ require("packer").startup(function(use)
         requires = "nvim-lua/plenary.nvim",
         config = function()
             require('todo-comments').setup {
-                -- keywords = {
-                --     ["!"] = {
-                --         icon = "!",
-                --         color = "hint"
-                --     },
-                --     -- DANGER = {
-                --     --     icon = "!",
-                --     --     color = "danger"
-                --     -- },
-                --     HACK = {
-                --         icon = " ",
-                --         color = "warning"
-                --     },
-                --     WARN = {
-                --         icon = " ",
-                --         color = "warning",
-                --         alt = { "WARNING", "XXX" }
-                --     },
-                --     NOTE = {
-                --         icon = " ",
-                --         color = "hint",
-                --         alt = { "INFO" }
-                --     },
-                --     TODO = {
-                --         icon = " ",
-                --         color = "info"
-                --     },
-                --     PERF = {
-                --         icon = " ",
-                --         alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" }
-                --     },
-                --     TEST = {
-                --         icon = "⏲ ",
-                --         color = "test",
-                --         alt = { "TESTING", "PASSED", "FAILED" }
-                --     },
-                -- },
-                -- colors = {
-                --     error = {
-                --         "DiagnosticError",
-                --         "ErrorMsg",
-                --         "#DC2626",
-                --     },
-                --     danger = {
-                --         "#F98E22",
-                --     },
-                --     warning = {
-                --         "DiagnosticWarning",
-                --         "WarningMsg",
-                --         "#FBBF24",
-                --     },
-                --     hint = {
-                --         "DiagnosticHint",
-                --         "#10B981",
-                --     },
-                --     info = {
-                --         "DiagnosticInfo",
-                --         "#2563EB",
-                --     },
-                --     default = {
-                --         "Identifier",
-                --         "#7C3AED",
-                --     },
-                --     test = {
-                --         "Identifier",
-                --         "#FF00FF",
-                --     },
-                -- },
+                keywords = {
+                    DANGER = {
+                        icon = "!",
+                        color = "danger"
+                    },
+                    HACK = {
+                        icon = " ",
+                        color = "warning"
+                    },
+                    WARN = {
+                        icon = " ",
+                        color = "warning",
+                        alt = { "WARNING", "XXX" }
+                    },
+                    NOTE = {
+                        icon = " ",
+                        color = "hint",
+                        alt = { "INFO" }
+                    },
+                    TODO = {
+                        icon = " ",
+                        color = "info"
+                    },
+                    PERF = {
+                        icon = " ",
+                        alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" }
+                    },
+                    TEST = {
+                        icon = "⏲ ",
+                        color = "test",
+                        alt = { "TESTING", "PASSED", "FAILED" }
+                    },
+                },
+                colors = {
+                    error = {
+                        "#DC2626",
+                        -- BUG:
+                    },
+                    danger = {
+                        "#F98E22",
+                        -- DANGER:
+                    },
+                    warning = {
+                        "#FBBF24",
+                        -- WARNING:
+                    },
+                    hint = {
+                        "#10B981",
+                        -- INFO:
+                        -- !:
+                    },
+                    info = {
+                        "#2563EB",
+                        -- TODO:
+                    },
+                    default = {
+                        "#7C3AED",
+                        -- PERF:
+                    },
+                    test = {
+                        "#FF00FF",
+                        -- TEST:
+                    },
+                },
             }
         end,
     }
@@ -339,5 +335,3 @@ require("packer").startup(function(use)
         require("packer").sync()
     end
 end)
-
--- TODO: should probably move all the config/setup stuff down here
