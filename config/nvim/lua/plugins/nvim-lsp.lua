@@ -66,36 +66,73 @@ local lua_runtime_path = vim.split(package.path, ';')
 table.insert(lua_runtime_path, 'lua/?.lua')
 table.insert(lua_runtime_path, 'lua/?/init.lua')
 
--- Simple, nothing special to setup servers
 local servers = {
     graphql = {},
-    -- html = {},
+    html = {
+        opts = {
+            filetypes = {
+                'd',
+                'html',
+                'htmldjango',
+            },
+            init_options = {
+                -- provideFormatter = false,
+            },
+            settings = {
+                -- https://code.visualstudio.com/Docs/languages/html#_formatting
+                html = {
+                    format = {
+                        wrapLineLength = 100,
+                        -- unformatted = {},
+                        -- contentUnformatted = {
+                        --     'style',
+                        -- },
+                        wrapAttributes = 'auto',
+                        -- wrapAttributes = 'force',
+                        -- wrapAttributes = 'force-aligned',
+                        -- wrapAttributes = 'force-expand-multiline',
+                        -- wrapAttributes = 'aligned-multiple',
+                        -- wrapAttributes = 'preserve',
+                        -- wrapAttributes = 'preserve-aligned',
+                        templating = true,
+                        unformattedContentDelimiter = '{# nofmt #}',
+                    },
+                },
+            },
+        },
+    },
     sqlls = {},
     -- quick_lint_js = {},
     jsonls = {
-        init_options = {
-            provideFormatter = false,
+        opts = {
+            init_options = {
+                provideFormatter = false,
+            },
         },
     },
     cssls = {},
     tsserver = {},
     volar = {
-        filetypes = {
-            'typescript',
-            'javascript',
-            'javascriptreact',
-            'typescriptreact',
-            'vue',
-            'json',
+        opts = {
+            filetypes = {
+                'typescript',
+                'javascript',
+                'javascriptreact',
+                'typescriptreact',
+                'vue',
+                'json',
+            },
         },
     },
     rust_analyzer = {},
     pyright = {
     },
     prismals = {
-        prisma = {
-            editor = {
-                tabSize = 2,
+        opts = {
+            prisma = {
+                editor = {
+                    tabSize = 2,
+                },
             },
         },
     },
@@ -153,7 +190,9 @@ local default_opts = {
 -- https://github.com/williamboman/nvim-lsp-installer/discussions/636
 lsp_installer.setup {}
 for server_name, server_conf in pairs(servers) do
+    -- local opts = server_conf.opts or {}
     local opts = vim.tbl_extend('keep', server_conf.opts or {}, default_opts)
+    -- print(server_name, vim.inspect(opts))
     lspconfig[server_name].setup(opts)
     -- local server_available, server = lsp_installer_servers.get_server(server_name)
     -- if server_available then
@@ -180,10 +219,10 @@ null_ls.setup({
     sources = {
         -- Basic HTML/CSS/JS
         -- # TODO: only include when not Vue
-        null_ls.builtins.formatting.djhtml.with({
-            filetypes = { "d", "html", "htmldjango" },
-            extra_args = { "-t", "2" },
-        }),
+        -- null_ls.builtins.formatting.djhtml.with({
+        --     filetypes = { "d", "html", "htmldjango" },
+        --     extra_args = { "-t", "2" },
+        -- }),
         -- TS, Vue
         -- null_ls.builtins.code_actions.eslint,
         -- null_ls.builtins.diagnostics.eslint,

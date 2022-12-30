@@ -71,8 +71,10 @@ require("packer").startup(function(use)
         "ggandor/lightspeed.nvim",
         config = function() require("plugins.lightspeed") end,
     }
-    use "karb94/neoscroll.nvim"
-    require('neoscroll').setup()
+    use {
+        "karb94/neoscroll.nvim",
+        config = function() require("plugins.neoscroll") end,
+    }
     -- =============================================================================================
     -- Filetree
     -- =============================================================================================
