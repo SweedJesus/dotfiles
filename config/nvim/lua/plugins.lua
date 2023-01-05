@@ -61,7 +61,7 @@ require("packer").startup(function(use)
         },
         config = function() require("plugins.telescope") end,
     }
-    -- 
+    --
     -- Movement
     -- This shit is crazy
     -- https://github.com/ggandor/lightspeed.nvim
@@ -71,10 +71,10 @@ require("packer").startup(function(use)
         "ggandor/lightspeed.nvim",
         config = function() require("plugins.lightspeed") end,
     }
-    use {
-        "karb94/neoscroll.nvim",
-        config = function() require("plugins.neoscroll") end,
-    }
+    -- use {
+    --     "karb94/neoscroll.nvim",
+    --     config = function() require("plugins.neoscroll") end,
+    -- }
     -- =============================================================================================
     -- Filetree
     -- =============================================================================================

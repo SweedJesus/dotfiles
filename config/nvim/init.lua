@@ -193,6 +193,7 @@ vim.filetype.add({
         prisma = function()
             return 'prisma', function()
                 util_opts.shiftwidth = 2
+                util_opts.textwidth = 0
             end
         end,
     },
@@ -209,7 +210,13 @@ vim.filetype.add({
                 util_opts.commentstring = "{#%s#}"
             end
         end,
-    },
+        [".*tex%.jinja"] = function()
+            return 'tex', function()
+                util_opts.shiftwidth = 2
+                util_opts.commentstring = "{#%s#}"
+            end
+        end,
+    }
 })
 
 require('basemaps')
