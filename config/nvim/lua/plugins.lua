@@ -155,30 +155,29 @@ require("packer").startup(function(use)
     -- =============================================================================================
     -- Miscelaneous quality of life
     -- =============================================================================================
-    use {
-        "Pocco81/TrueZen.nvim",
-        config = function()
-            require("true-zen").setup({
-                modes = {
-                    ataraxis = {
-                        left_padding = 0,
-                        right_padding = 0,
-                        top_padding = 10,
-                        bottom_padding = 10,
-                        ideal_writing_area_width = { 105 },
-                    }
-                }
-            })
-        end,
-    }
+    -- use {
+    --     "Pocco81/TrueZen.nvim",
+    --     config = function()
+    --         require("true-zen").setup({
+    --             modes = {
+    --                 ataraxis = {
+    --                     left_padding = 0,
+    --                     right_padding = 0,
+    --                     top_padding = 10,
+    --                     bottom_padding = 10,
+    --                     ideal_writing_area_width = { 105 },
+    --                 }
+    --             }
+    --         })
+    --     end,
+    -- }
     use "JoosepAlviste/nvim-ts-context-commentstring"
     -- TODO: replace with https://github.com/numToStr/Comment.nvim
     use {
         "terrortylor/nvim-comment",
         config = function()
-            local map = vim.api.nvim_set_keymap
-            local opts_ns = { noremap = false, silent = true }
-
+            -- local map = vim.api.nvim_set_keymap
+            local opts = { noremap = false, silent = true }
             require('nvim_comment').setup {
                 hook = function()
                     if vim.api.nvim_buf_get_option(0, 'filetype') == 'vue' then
@@ -186,19 +185,8 @@ require("packer").startup(function(use)
                     end
                 end
             }
-            -- vim.api.nvim_set_keymap(
-            --     'n',
-            --     'gff',
-            --     'v:lua.require"commented".codetags.fixme_line()',
-            --     {
-            --         expr = true,
-            --         silent = true,
-            --         noremap = true,
-            --     },
-            -- )
-            -- map('i', '<C-_>', [[:CommentToggle<cr>]], opts_ns)
-            map('n', '<tab>', [[:CommentToggle<cr>]], opts_ns)
-            map('v', '<tab>', [[:<C-u>call CommentOperator(visualmode())<CR>]], opts_ns)
+            vim.keymap.set('n', '<tab>', [[:CommentToggle<cr>]], opts)
+            vim.keymap.set('v', '<tab>', [[:<C-u>call CommentOperator(visualmode())<CR>]], opts)
         end,
     }
     use "tpope/vim-surround" -- Surround motions
@@ -336,4 +324,17 @@ require("packer").startup(function(use)
     if packer_bootstrap then
         require("packer").sync()
     end
+    use {
+        "ziontee113/icon-picker.nvim",
+        requires = { "stevearc/dressing.nvim" },
+        config = function()
+            require("icon-picker").setup({
+                disable_legacy_commands = true,
+            })
+            local opts = { noremap = false, silent = true }
+            vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", opts)
+            vim.keymap.set("n", "<Leader><Leader>y", "<cmd>IconPickerYank<cr>", opts) --> Yank the selected icon into register
+            vim.keymap.set("i", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
+        end,
+    }
 end)
