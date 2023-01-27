@@ -1,17 +1,22 @@
 local telescope = require('telescope')
 local actions = require('telescope.actions')
 
-telescope.setup{
+telescope.setup {
     defaults = {
+        file_ignore_patterns = {
+            "node_modules",
+            "static/legacy",
+            "dist",
+        },
         vimgrep_arguments = {
             'rg',
             '--color=never',
             -- '--no-heading',
             '--with-filename',
             '--column',
-            '--smart-case',  -- search case sensitively
-            '--follow',  -- follow symlinks
-            '-u',  -- unrestritect (search hidden files)
+            '--smart-case', -- search case sensitively
+            '--follow', -- follow symlinks
+            '-u', -- unrestritect (search hidden files)
         },
         mappings = {
             i = {
@@ -43,7 +48,8 @@ local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap('n', '<leader>tt', [[<CMD>lua require('telescope.builtin').builtin()<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>tf', [[<CMD>lua require('telescope.builtin').find_files()<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>tb', [[<CMD>lua require('telescope.builtin').buffers()<CR>]], opts)
-vim.api.nvim_set_keymap('n', '<leader>tm', [[<CMD>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>tm', [[<CMD>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]],
+    opts)
 vim.api.nvim_set_keymap('n', '<leader>to', [[<CMD>lua require('telescope.builtin').oldfiles()<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>tg', [[<CMD>lua require('telescope.builtin').grep_string()<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>tl', [[<CMD>lua require('telescope.builtin').live_grep()<CR>]], opts)
