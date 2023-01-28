@@ -61,7 +61,6 @@ require("packer").startup(function(use)
         },
         config = function() require("plugins.telescope") end,
     }
-    --
     -- Movement
     -- This shit is crazy
     -- https://github.com/ggandor/lightspeed.nvim
@@ -99,7 +98,6 @@ require("packer").startup(function(use)
     -- =============================================================================================
     -- LSP and linting
     -- =============================================================================================
-    -- Setup language servers
     use "onsails/lspkind-nvim"
     use {
         "neovim/nvim-lspconfig",
@@ -111,14 +109,6 @@ require("packer").startup(function(use)
         },
         config = function() require("plugins.nvim-lsp") end,
     }
-    -- use {
-    --     "jose-elias-alvarez/null-ls.nvim",
-    --     config = function() require("plugins.null-ls") end,
-    -- }
-    -- use {
-    --     "mfussenegger/nvim-lint",
-    --     config = function() require("plugins.nvim-lint") end,
-    -- }
     use {
         'simrat39/symbols-outline.nvim',
         config = function() require("plugins.symbols-outline") end,
@@ -142,8 +132,6 @@ require("packer").startup(function(use)
             { "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
         }
     }
-    -- use "nvim-lua/lsp_extensions.nvim"
-    -- use "folke/lsp-colors.nvim"
     -- =============================================================================================
     -- Treesitter
     -- =============================================================================================
@@ -155,22 +143,6 @@ require("packer").startup(function(use)
     -- =============================================================================================
     -- Miscelaneous quality of life
     -- =============================================================================================
-    -- use {
-    --     "Pocco81/TrueZen.nvim",
-    --     config = function()
-    --         require("true-zen").setup({
-    --             modes = {
-    --                 ataraxis = {
-    --                     left_padding = 0,
-    --                     right_padding = 0,
-    --                     top_padding = 10,
-    --                     bottom_padding = 10,
-    --                     ideal_writing_area_width = { 105 },
-    --                 }
-    --             }
-    --         })
-    --     end,
-    -- }
     use "JoosepAlviste/nvim-ts-context-commentstring"
     -- TODO: replace with https://github.com/numToStr/Comment.nvim
     use {
@@ -321,9 +293,6 @@ require("packer").startup(function(use)
         "goolord/alpha-nvim",
         config = function() require("plugins.alpha") end,
     }
-    if packer_bootstrap then
-        require("packer").sync()
-    end
     use {
         "ziontee113/icon-picker.nvim",
         requires = { "stevearc/dressing.nvim" },
@@ -332,10 +301,14 @@ require("packer").startup(function(use)
                 disable_legacy_commands = true,
             })
             local opts = { noremap = false, silent = true }
-            vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", opts)
-            vim.keymap.set("n", "<Leader><Leader>y", "<cmd>IconPickerYank<cr>", opts) --> Yank the selected icon into register
+            -- vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", opts)
+            -- vim.keymap.set("n", "<Leader><Leader>y", "<cmd>IconPickerYank<cr>", opts) --> Yank the selected icon into register
             vim.keymap.set("i", "<C-e>", "<cmd>IconPickerInsert emoji<cr>", opts)
             vim.keymap.set("i", "<C-S-e>", "<cmd>IconPickerInsert<cr>", opts)
         end,
     }
+    -- ---------------------------------------------------------------------------------------------
+    if packer_bootstrap then
+        require("packer").sync()
+    end
 end)
