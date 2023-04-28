@@ -1,10 +1,22 @@
+local mason = require('mason')
 local lspconfig = require('lspconfig')
-local lsp_installer = require('nvim-lsp-installer')
+-- local diagnostic = require('vim.diagnostic')
 -- local lsp_installer_servers = require('nvim-lsp-installer.servers')
 
 -- -------------------------------------------------------------------------------------------------
 -- common
 -- -------------------------------------------------------------------------------------------------
+
+-- vim.diagnostic.config({
+--     -- virtual_text = {
+--     --     -- https://neovim.io/doc/user/diagnostic.html#vim.diagnostic.config()
+--     -- },
+--     float = {
+--         -- https://neovim.io/doc/user/diagnostic.html#vim.diagnostic.open_float()
+--         -- TODO: figure out how to show the actual code of the diagnostic
+--         source = true,
+--     },
+-- })
 
 local disable_formatting_for = {
     -- "jsonls",
@@ -19,14 +31,14 @@ local function format(bufnr)
     vim.lsp.buf.format({
         filter = function(clients)
             return vim.tbl_filter(
-                function(client)
-                    if type(client) ~= "table" then
-                        return false
-                    end
-                    return not vim.tbl_contains(disable_formatting_for, client.name)
-                end,
-                clients
-            )
+                    function(client)
+                        if type(client) ~= "table" then
+                            return false
+                        end
+                        return not vim.tbl_contains(disable_formatting_for, client.name)
+                    end,
+                    clients
+                )
         end,
         bufnr = bufnr,
         timeout_ms = timeout_ms,
@@ -52,13 +64,12 @@ end
 
 local hover = {
     -- border = "none",
-    -- border = "single",
+    border = "single",
     -- border = "double",
-    border = "rounded",
+    -- border = "rounded",
     -- border = "solid",
     -- border = "shadow",
 }
-
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, hover)
 
 -- Sumneko lua
@@ -111,7 +122,7 @@ local servers = {
         },
     },
     cssls = {},
-    tsserver = {},
+    -- tsserver = {},
     volar = {
         opts = {
             filetypes = {
@@ -125,8 +136,7 @@ local servers = {
         },
     },
     rust_analyzer = {},
-    pyright = {
-    },
+    pyright = {},
     prismals = {
         opts = {
             prisma = {
@@ -136,7 +146,7 @@ local servers = {
             },
         },
     },
-    sumneko_lua = {
+    lua_ls = {
         opts = {
             settings = {
                 Lua = {
@@ -155,12 +165,10 @@ local servers = {
 
 local lsp_on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
     local opts = { noremap = true, silent = true }
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
-
     buf_set_keymap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -168,8 +176,7 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-
+    buf_set_keymap("n", "gS", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     setup_formatting(client, bufnr)
     vim.api.nvim_create_user_command("Format", function(buf) format(buf.buf) end, {})
 end
@@ -188,7 +195,7 @@ local default_opts = {
 --
 -- "Deprecation of lsp_installer.on_server_ready()"
 -- https://github.com/williamboman/nvim-lsp-installer/discussions/636
-lsp_installer.setup {}
+mason.setup {}
 for server_name, server_conf in pairs(servers) do
     -- local opts = server_conf.opts or {}
     local opts = vim.tbl_extend('keep', server_conf.opts or {}, default_opts)

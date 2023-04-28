@@ -57,25 +57,28 @@ require("packer").startup(function(use)
         "nvim-telescope/telescope.nvim",
         requires = {
             { "nvim-lua/popup.nvim" },
-            { "nvim-lua/plenary.nvim" }
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-telescope/telescope-live-grep-args.nvim" }
         },
         config = function() require("plugins.telescope") end,
     }
-    -- Movement
-    -- This shit is crazy
-    -- https://github.com/ggandor/lightspeed.nvim
-    -- https://www.youtube.com/watch?v=ESyld9NCl1w
-    -- NOTE: use `cl` for `s` and `cc` for `S` replacements
-    use {
-        "ggandor/lightspeed.nvim",
-        config = function() require("plugins.lightspeed") end,
-    }
+    -- =============================================================================================
+    -- Motions
+    -- =============================================================================================
+    use "tpope/vim-surround" -- Surround motions
+    use "tpope/vim-repeat"   -- Dot can do more things
+    use "christoomey/vim-sort-motion"
+    -- use {
+    --     -- NOTE: use `cl` for `s` and `cc` for `S` replacements
+    --     "ggandor/lightspeed.nvim",
+    --     config = function() require("plugins.lightspeed") end,
+    -- }
     -- use {
     --     "karb94/neoscroll.nvim",
     --     config = function() require("plugins.neoscroll") end,
     -- }
     -- =============================================================================================
-    -- Filetree
+    -- Filetree & buffer manager
     -- =============================================================================================
     use {
         "kyazdani42/nvim-tree.lua",
@@ -87,6 +90,18 @@ require("packer").startup(function(use)
     --     requires = { "ryanoasis/vim-devicons" },
     --     config = function() require("plugins.filetree").nerdtree() end
     -- }
+    use {
+        "j-morano/buffer_manager.nvim",
+        requires = {
+            { "nvim-lua/plenary.nvim" }
+        },
+        config = function()
+            require("buffer_manager").setup {}
+            local ui = require("buffer_manager.ui")
+            local opts = { noremap = false, silent = true }
+            vim.keymap.set('n', '<leader>b', ui.toggle_quick_menu, opts)
+        end,
+    }
     -- =============================================================================================
     -- Non LSP filtype plugins
     -- =============================================================================================
@@ -98,17 +113,34 @@ require("packer").startup(function(use)
     -- =============================================================================================
     -- LSP and linting
     -- =============================================================================================
-    use "onsails/lspkind-nvim"
     use {
         "neovim/nvim-lspconfig",
         -- after = "nvim-cmp",
         requires = {
-            "williamboman/nvim-lsp-installer",
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            -- "williamboman/nvim-lsp-installer",
             "jose-elias-alvarez/null-ls.nvim",
             -- "ray-x/lsp_signature.nvim",
         },
+        -- config = function() require("plugins.nvim-lsp") end,
         config = function() require("plugins.nvim-lsp") end,
+        -- config = function()
+        --     require("mason").setup {
+        --         ui = {
+        --             -- icons = {
+        --             --     package_installed = "✅"
+        --             -- },
+        --         },
+        --     }
+        --     require("mason-lspconfig").setup {
+        --         ensure_installed = {
+        --             "sumneko_lua",
+        --         },
+        --     }
+        -- end,
     }
+    use "onsails/lspkind-nvim"
     use {
         'simrat39/symbols-outline.nvim',
         config = function() require("plugins.symbols-outline") end,
@@ -161,9 +193,7 @@ require("packer").startup(function(use)
             vim.keymap.set('v', '<tab>', [[:<C-u>call CommentOperator(visualmode())<CR>]], opts)
         end,
     }
-    use "tpope/vim-surround" -- Surround motions
-    use "tpope/vim-repeat" -- Dot can do more things
-    use "godlygeek/tabular" -- Auto-tabulation
+    use "godlygeek/tabular"                    -- Auto-tabulation
     use {
         "lukas-reineke/indent-blankline.nvim", -- Show indent levels
         config = function()
@@ -194,7 +224,7 @@ require("packer").startup(function(use)
             require('todo-comments').setup {
                 keywords = {
                     DANGER = {
-                        icon = "!",
+                        icon = "ﮊ",
                         color = "danger"
                     },
                     HACK = {
@@ -210,6 +240,11 @@ require("packer").startup(function(use)
                         icon = " ",
                         color = "hint",
                         alt = { "INFO" }
+                    },
+                    DESIGN = {
+                        icon = "",
+                        color = "design",
+                        alt = { "IMPL", "QUESTION" }
                     },
                     TODO = {
                         icon = " ",
@@ -243,6 +278,10 @@ require("packer").startup(function(use)
                         -- INFO:
                         -- !:
                     },
+                    design = {
+                        "#00DDFF",
+                        -- IMPL:
+                    },
                     info = {
                         "#2563EB",
                         -- TODO:
@@ -259,14 +298,14 @@ require("packer").startup(function(use)
             }
         end,
     }
-    use {
-        "windwp/nvim-ts-autotag", -- Add matching HTML tag
-        config = function()
-            require 'nvim-ts-autotag'.setup {
-                autotag = { enable = true }
-            }
-        end,
-    }
+    -- use {
+    --     "windwp/nvim-ts-autotag", -- Add matching HTML tag
+    --     config = function()
+    --         require 'nvim-ts-autotag'.setup {
+    --             autotag = { enable = true }
+    --         }
+    --     end,
+    -- }
     use {
         "norcalli/nvim-colorizer.lua",
         -- e.g. #558817 #a33243 #4269a8
@@ -303,8 +342,8 @@ require("packer").startup(function(use)
             local opts = { noremap = false, silent = true }
             -- vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", opts)
             -- vim.keymap.set("n", "<Leader><Leader>y", "<cmd>IconPickerYank<cr>", opts) --> Yank the selected icon into register
-            vim.keymap.set("i", "<C-e>", "<cmd>IconPickerInsert emoji<cr>", opts)
-            vim.keymap.set("i", "<C-S-e>", "<cmd>IconPickerInsert<cr>", opts)
+            -- vim.keymap.set("i", "<C-e>", "<cmd>IconPickerInsert emoji<cr>", opts)
+            vim.keymap.set("i", "<C-e>", "<cmd>IconPickerInsert<cr>", opts)
         end,
     }
     -- ---------------------------------------------------------------------------------------------

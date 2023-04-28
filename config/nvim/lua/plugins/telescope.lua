@@ -37,6 +37,7 @@ telescope.setup {
 
 local extensions = {
     'fzf',
+    'live_grep_args',
 }
 pcall(function()
     for _, ext in ipairs(extensions) do
@@ -45,14 +46,15 @@ pcall(function()
 end)
 
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('n', '<leader>tt', [[<CMD>lua require('telescope.builtin').builtin()<CR>]], opts)
-vim.api.nvim_set_keymap('n', '<leader>tf', [[<CMD>lua require('telescope.builtin').find_files()<CR>]], opts)
-vim.api.nvim_set_keymap('n', '<leader>tb', [[<CMD>lua require('telescope.builtin').buffers()<CR>]], opts)
-vim.api.nvim_set_keymap('n', '<leader>tm', [[<CMD>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]],
+vim.api.nvim_set_keymap('n', '<leader>tt', [[:lua require('telescope.builtin').builtin()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>tf', [[:lua require('telescope.builtin').find_files()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>tb', [[:lua require('telescope.builtin').buffers()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>tm', [[:lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]],
     opts)
-vim.api.nvim_set_keymap('n', '<leader>to', [[<CMD>lua require('telescope.builtin').oldfiles()<CR>]], opts)
-vim.api.nvim_set_keymap('n', '<leader>tg', [[<CMD>lua require('telescope.builtin').grep_string()<CR>]], opts)
-vim.api.nvim_set_keymap('n', '<leader>tl', [[<CMD>lua require('telescope.builtin').live_grep()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>to', [[:lua require('telescope.builtin').oldfiles()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>tg', [[:lua require('telescope.builtin').grep_string()<CR>]], opts)
+vim.api.nvim_set_keymap('n', '<leader>tl', [[:lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>]],
+    opts)
 -- .quickfix
 -- .loclist
 -- .jumplist

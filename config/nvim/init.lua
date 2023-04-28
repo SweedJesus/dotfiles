@@ -101,7 +101,8 @@ augroup end
 --]], false)
 
 -- Return to last edit position when opening files
-vim.api.nvim_exec([[ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
+vim.api.nvim_exec(
+    [[ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
     , false)
 
 -- Add map to enter paste mode
@@ -185,36 +186,40 @@ vim.cmd("let g:do_filetype_lua = 1")
 
 vim.filetype.add({
     extension = {
+        json = "jsonc",
         sql = function()
-            return 'sql', function()
+            local f = function()
                 util_opts.commentstring = "--%s"
             end
+            return 'sql', f
         end,
         prisma = function()
-            return 'prisma', function()
+            local f = function()
                 util_opts.shiftwidth = 2
                 util_opts.textwidth = 0
             end
+            return 'prisma', f
         end,
     },
-    -- filename = {
-    --     ["html.jinja"] = function()
-    --         util_opts.filetype = "htmldjango"
-    --         util_opts.shiftwidth = 2
-    --     end,
-    -- },
+    filename = {
+        [".eslintrc"] = "jsonc",
+        -- ["html.jinja"] = function()
+        --     util_opts.filetype = "htmldjango"
+        --     util_opts.shiftwidth = 2
+        -- end,
+    },
     pattern = {
         [".*html%.jinja"] = function()
             return 'htmldjango', function()
-                util_opts.shiftwidth = 2
-                util_opts.commentstring = "{#%s#}"
-            end
+                    util_opts.shiftwidth = 2
+                    util_opts.commentstring = "{#%s#}"
+                end
         end,
         [".*tex%.jinja"] = function()
             return 'tex', function()
-                util_opts.shiftwidth = 2
-                util_opts.commentstring = "{#%s#}"
-            end
+                    util_opts.shiftwidth = 2
+                    util_opts.commentstring = "{#%s#}"
+                end
         end,
     }
 })

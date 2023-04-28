@@ -35,6 +35,9 @@ if [ -z rustc ]; then
     export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
 
+# Neovim
+export nvimp="$HOME/.config/nvim/lua/plugins.lua"
+
 # Work
 export app="$HOME/Documents/work/kgpf/kgpf-stack/kgpf_app"
 
