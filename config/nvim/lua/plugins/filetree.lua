@@ -27,18 +27,18 @@ M.nvim_tree = function()
             name = "Excel",
         },
     }
-
     local nvim_tree = require("nvim-tree")
-    nvim_tree.setup{
+    nvim_tree.setup({
+        select_prompts = true,
         -- icons = {
         -- }
-        update_focused_file = {
-            enable = true,
-            update_cwd = false,
-            ignore_list = {},
-        },
-    }
+        -- update_focused_file = {
+        --     enable = true,
+        --     update_cwd = false,
+        --     ignore_list = {},
+        -- },
 
+    })
     map("n", "<Leader>n", [[<cmd>NvimTreeToggle<CR>]])
 end
 
