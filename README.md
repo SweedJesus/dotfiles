@@ -78,3 +78,11 @@ Following [this guide][]
 
 [this guide]: https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
 
+TODO: Add a requirements file, ignored by rcrc, in this repo for installing the following for
+the `nvim3` virtual environment:
+
+```
+neovim
+pynvim
+ruff-lsp
+```

@@ -18,46 +18,6 @@ local lspconfig = require('lspconfig')
 --     },
 -- })
 
-local disable_formatting_for = {
-    -- "jsonls",
-    "volar",
-    "tsserver",
-}
-
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-local timeout_ms = 2000
-
-local function format(bufnr)
-    vim.lsp.buf.format({
-        filter = function(clients)
-            return vim.tbl_filter(
-                    function(client)
-                        if type(client) ~= "table" then
-                            return false
-                        end
-                        return not vim.tbl_contains(disable_formatting_for, client.name)
-                    end,
-                    clients
-                )
-        end,
-        bufnr = bufnr,
-        timeout_ms = timeout_ms,
-    })
-end
-
-local function setup_formatting(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-                format(bufnr)
-            end,
-        })
-    end
-end
-
 -- -------------------------------------------------------------------------------------------------
 -- lsp_installer and lspconfig
 -- -------------------------------------------------------------------------------------------------
@@ -137,6 +97,10 @@ local servers = {
     },
     rust_analyzer = {},
     pyright = {},
+    ruff_lsp = {
+        -- format on save? code actions?
+        -- https://github.com/charliermarsh/ruff-lsp/issues/95
+    },
     prismals = {
         opts = {
             prisma = {
@@ -163,12 +127,62 @@ local servers = {
     },
 }
 
+local disable_formatting_for = {
+    -- "jsonls",
+    "volar",
+    "tsserver",
+}
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local timeout_ms = 2000
+
+local function format(bufnr)
+    vim.lsp.buf.format({
+        filter = function(clients)
+            return vim.tbl_filter(
+                function(client)
+                    if type(client) ~= "table" then
+                        return false
+                    end
+                    local skip = not vim.tbl_contains(disable_formatting_for, client.name)
+                    -- if skip then
+                    --     print('skip formatting for', client.name)
+                    -- end
+                    return skip
+                end,
+                clients
+            )
+        end,
+        bufnr = bufnr,
+        timeout_ms = timeout_ms,
+    })
+end
+
+local function setup_formatting(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                format(bufnr)
+            end,
+        })
+    end
+end
+
+local disable_hover_for = {
+    "ruff-lsp"
+}
+
 local lsp_on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
     local opts = { noremap = true, silent = true }
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
+
     buf_set_keymap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -177,8 +191,14 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     buf_set_keymap("n", "gS", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+
     setup_formatting(client, bufnr)
+
     vim.api.nvim_create_user_command("Format", function(buf) format(buf.buf) end, {})
+
+    if vim.tbl_contains(disable_hover_for, client.name) then
+        client.server_capabilities.hoverProvider = false
+    end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -242,18 +262,20 @@ null_ls.setup({
         -- SQL
         null_ls.builtins.formatting.sqlformat,
         -- Python
-        null_ls.builtins.diagnostics.pylama.with({
-            -- for some reason pylama wants to start at the repository root?
-            -- this means it'll miss a pylama.ini in a nested directory
-            -- e.g. project/python/pylama.ini
-            cwd = vim.loop.cwd,
-        }),
+        -- null_ls.builtins.diagnostics.ruff,
+        -- null_ls.builtins.formatting.ruff,
+        -- null_ls.builtins.diagnostics.pylama.with({
+        --     -- for some reason pylama wants to start at the repository root?
+        --     -- this means it'll miss a pylama.ini in a nested directory
+        --     -- e.g. project/python/pylama.ini
+        --     cwd = vim.loop.cwd,
+        -- }),
         null_ls.builtins.formatting.black.with({
             cwd = vim.loop.cwd,
         }),
-        null_ls.builtins.formatting.isort.with({
-            cwd = vim.loop.cwd,
-        }),
+        -- null_ls.builtins.formatting.isort.with({
+        --     cwd = vim.loop.cwd,
+        -- }),
     },
     on_attach = function(client, bufnr)
         setup_formatting(client, bufnr)
