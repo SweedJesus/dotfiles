@@ -43,7 +43,7 @@ local has_words_before = function()
 end
 
 local cmp = require('cmp')
-cmp.setup{
+cmp.setup {
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -53,14 +53,15 @@ cmp.setup{
     -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#super-tab-like-mapping
     -- https://github.com/Neelfrost/nvim-config/blob/main/lua/user/plugins/config/cmp.lua
     mapping = {
-        ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), {'i', 's'}),
-        ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), {'i', 's'}),
-        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+        ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
+        ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
+        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
         ['<C-c>'] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
-        }, {'i', 's'}),
+        }, { 'i', 's' }),
+        ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
         ['<CR>'] = cmp.mapping(function(fallback)
             if luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
@@ -74,17 +75,17 @@ cmp.setup{
             -- else
             --     fallback()
             -- end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
         ['<C-l>'] = cmp.mapping(function(_)
             if luasnip.jumpable(1) then
                 luasnip.jump(1)
             end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
         ['<C-h>'] = cmp.mapping(function(_)
             if luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -151,4 +152,3 @@ cmp.setup.cmdline(':', {
         }
     })
 })
-
