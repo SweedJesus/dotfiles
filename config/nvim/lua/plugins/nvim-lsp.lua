@@ -1,4 +1,5 @@
 local mason = require('mason')
+local mason_lspconfig = require('mason-lspconfig')
 local lspconfig = require('lspconfig')
 -- local diagnostic = require('vim.diagnostic')
 -- local lsp_installer_servers = require('nvim-lsp-installer.servers')
@@ -215,7 +216,8 @@ local default_opts = {
 --
 -- "Deprecation of lsp_installer.on_server_ready()"
 -- https://github.com/williamboman/nvim-lsp-installer/discussions/636
-mason.setup {}
+mason.setup()
+mason_lspconfig.setup()
 for server_name, server_conf in pairs(servers) do
     -- local opts = server_conf.opts or {}
     local opts = vim.tbl_extend('keep', server_conf.opts or {}, default_opts)

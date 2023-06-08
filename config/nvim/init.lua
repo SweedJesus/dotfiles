@@ -10,11 +10,11 @@ local util_opts = util.opts();
 -- Indents/tabs
 util_opts.autoindent = true
 util_opts.smartindent = true -- Insert indents automatically
-util_opts.expandtab = true -- Use spaces instead of tabs
-util_opts.shiftwidth = 4 -- Size of an indent
-util_opts.tabstop = 4 -- Number of spaces tabs count for
+util_opts.expandtab = true   -- Use spaces instead of tabs
+util_opts.shiftwidth = 4     -- Size of an indent
+util_opts.tabstop = 4        -- Number of spaces tabs count for
 util_opts.softtabstop = 4
-util_opts.shiftround = true -- Round indent
+util_opts.shiftround = true  -- Round indent
 util_opts.joinspaces = false -- No double spaces with join after a dot
 util_opts.breakindent = true --Enable break indent
 
@@ -174,11 +174,12 @@ augroup Indentation
     autocmd FileType json set shiftwidth=2
     autocmd FileType javascript set shiftwidth=2
     autocmd FileType typescript set shiftwidth=2
+    autocmd FileType typescriptreact set shiftwidth=2
     autocmd FileType vue set shiftwidth=2
     autocmd FileType html set shiftwidth=2
     autocmd FileType htmldjango set shiftwidth=2
     autocmd FileType markdown set shiftwidth=2
-    autocmd FileType python set tw=90
+    autocmd FileType python set tw=120
 augroup END
 ]]
 
@@ -211,15 +212,15 @@ vim.filetype.add({
     pattern = {
         [".*html%.jinja"] = function()
             return 'htmldjango', function()
-                    util_opts.shiftwidth = 2
-                    util_opts.commentstring = "{#%s#}"
-                end
+                util_opts.shiftwidth = 2
+                util_opts.commentstring = "{#%s#}"
+            end
         end,
         [".*tex%.jinja"] = function()
             return 'tex', function()
-                    util_opts.shiftwidth = 2
-                    util_opts.commentstring = "{#%s#}"
-                end
+                util_opts.shiftwidth = 2
+                util_opts.commentstring = "{#%s#}"
+            end
         end,
     }
 })

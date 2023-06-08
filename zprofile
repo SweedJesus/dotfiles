@@ -7,6 +7,7 @@ LC_ALL=$LANG
 export PYENV_ROOT="$HOME/.pyenv"
 typeset -gxaU path
 path+=(
+    /opt/homebrew/bin/
     $HOME/bin
     $HOME/.local/bin
     $HOME/.local/share/bin

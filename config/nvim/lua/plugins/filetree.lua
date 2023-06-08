@@ -40,6 +40,7 @@ M.nvim_tree = function()
 
     })
     map("n", "<Leader>n", [[<cmd>NvimTreeToggle<CR>]])
+    map("n", "<Leader>N", [[<cmd>NvimTreeFindFileToggle<CR>]])
 end
 
 M.nerdtree = function()
