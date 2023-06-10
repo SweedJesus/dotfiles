@@ -128,34 +128,27 @@ local servers = {
     },
 }
 
-local disable_formatting_for = {
+local skip_formatting_for = {
     -- "jsonls",
     "volar",
+    "vue-language-server",
     "tsserver",
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-local timeout_ms = 2000
+-- local timeout_ms = 2000
 
 local function format(bufnr)
     vim.lsp.buf.format({
-        filter = function(clients)
-            return vim.tbl_filter(
-                function(client)
-                    if type(client) ~= "table" then
-                        return false
-                    end
-                    local skip = not vim.tbl_contains(disable_formatting_for, client.name)
-                    -- if skip then
-                    --     print('skip formatting for', client.name)
-                    -- end
-                    return skip
-                end,
-                clients
-            )
-        end,
+        async = true,
         bufnr = bufnr,
-        timeout_ms = timeout_ms,
+        -- timeout_ms = timeout_ms,
+        filter = function(client)
+            -- see <https://neovim.io/doc/user/lsp.html#lsp-buf> {vim.lsp.buf.format}
+            local skip = vim.tbl_contains(skip_formatting_for, client.name)
+            -- print('client', client.name, 'skip', skip)
+            return not skip
+        end,
     })
 end
 
@@ -193,9 +186,9 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     buf_set_keymap("n", "gS", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
-    setup_formatting(client, bufnr)
-
     vim.api.nvim_create_user_command("Format", function(buf) format(buf.buf) end, {})
+
+    setup_formatting(client, bufnr)
 
     if vim.tbl_contains(disable_hover_for, client.name) then
         client.server_capabilities.hoverProvider = false
