@@ -256,6 +256,9 @@ null_ls.setup({
         -- }),
         {
             -- INFO: Formatting action
+            --
+            -- <https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/MAIN.md#sources>
+            -- <https://blog.semanticart.com/2021/12/31/null-ls-nvim-custom-code-actions>
             method = null_ls.methods.CODE_ACTION,
             filetypes = {},
             generator = {
