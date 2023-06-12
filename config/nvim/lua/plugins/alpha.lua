@@ -5,11 +5,11 @@ local headers = require('plugins.alpha-headers')
 theme.section.header.val = headers[math.random(#headers)]
 
 theme.section.buttons.val = {
-    theme.button('e', '  New file', '<cmd>ene <CR>'),
-    theme.button('r', '  Recents', '<cmd>lua require("telescope.builtin").oldfiles()<CR>'),
-    theme.button('n', '  File tree', '<cmd>NvimTreeOpen<CR>'),
-    theme.button('f', '  Find file', '<cmd>lua require("telescope.builtin").find_files()<CR>'),
-    theme.button('t', '  Find text', '<cmd>lua require("telescope.builtin").live_grep{}<CR>'),
+    theme.button('e', '  New file', '<cmd>ene <cr>'),
+    theme.button('r', '  Recents', '<cmd>lua require("telescope.builtin").oldfiles()<cr>'),
+    theme.button('n', '  File tree', '<cmd>ToggleTree<cr>'),
+    theme.button('f', '  Find file', '<cmd>lua require("telescope.builtin").find_files()<cr>'),
+    theme.button('t', '  Find text', '<cmd>lua require("telescope.builtin").live_grep{}<cr>'),
     -- dashboard.button('t', '  Find text',
     -- [[<cmd>lua require('telescope.builtin').live_grep{search_dirs={vim.fn.getcwd()}}<CR>]]
     -- ),
