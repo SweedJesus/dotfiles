@@ -3,6 +3,18 @@ local map = util.map
 
 local M = {}
 
+M.neo_tree = function()
+    vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+    local neo_tree = require("neo-tree")
+    neo_tree.setup({
+        -- close_if_last_window = true,
+    })
+
+    map("n", "<Leader>n", [[<cmd>Neotree toggle left<CR>]])
+    map("n", "<Leader>N", [[<cmd>Neotree toggle reveal left<CR>]])
+    map("n", "<Leader>b", [[<cmd>Neotree toggle buffers right<CR>]])
+end
+
 M.nvim_tree = function()
     local devicons = require("nvim-web-devicons")
     devicons.set_icon {

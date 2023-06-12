@@ -81,27 +81,37 @@ require("packer").startup(function(use)
     -- Filetree & buffer manager
     -- =============================================================================================
     use {
-        "kyazdani42/nvim-tree.lua",
-        requires = { "kyazdani42/nvim-web-devicons" },
-        config = function() require("plugins.filetree").nvim_tree() end,
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+        },
+        config = function() require("plugins.filetree").neo_tree() end,
     }
+    -- use {
+    --     "kyazdani42/nvim-tree.lua",
+    --     requires = { "kyazdani42/nvim-web-devicons" },
+    --     config = function() require("plugins.filetree").nvim_tree() end,
+    -- }
     -- use {
     --     "scrooloose/nerdtree",
     --     requires = { "ryanoasis/vim-devicons" },
     --     config = function() require("plugins.filetree").nerdtree() end
     -- }
-    use {
-        "j-morano/buffer_manager.nvim",
-        requires = {
-            { "nvim-lua/plenary.nvim" }
-        },
-        config = function()
-            require("buffer_manager").setup {}
-            local ui = require("buffer_manager.ui")
-            local opts = { noremap = false, silent = true }
-            vim.keymap.set('n', '<leader>b', ui.toggle_quick_menu, opts)
-        end,
-    }
+    -- use {
+    --     "j-morano/buffer_manager.nvim",
+    --     requires = {
+    --         { "nvim-lua/plenary.nvim" }
+    --     },
+    --     config = function()
+    --         require("buffer_manager").setup {}
+    --         local ui = require("buffer_manager.ui")
+    --         local opts = { noremap = false, silent = true }
+    --         vim.keymap.set('n', '<leader>b', ui.toggle_quick_menu, opts)
+    --     end,
+    -- }
     -- =============================================================================================
     -- Non LSP filtype plugins
     -- =============================================================================================
