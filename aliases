@@ -21,6 +21,7 @@ gitacm() {
 }
 
 # Only for Windows with Linux subsystem
+# <https://stackoverflow.com/a/53998402>
 if uname -r | rg -q 'microsoft'; then
     alias open=explorer.exe
 fi
