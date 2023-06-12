@@ -21,7 +21,9 @@ gitacm() {
 }
 
 # Only for Windows with Linux subsystem
-alias open=explorer.exe
+if uname -r | rg -q 'microsoft'; then
+    alias open=explorer.exe
+fi
 
 alias pyenva='pyenv activate'
 alias pyenvd='pyenv deactivate'
