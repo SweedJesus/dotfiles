@@ -30,6 +30,12 @@ M.neo_tree = function()
     local neo_tree = require("neo-tree")
     neo_tree.setup({
         -- close_if_last_window = true,
+        window = {
+            mappings = {
+                ["<space>"] = { "toggle_node", nowait = true },
+                ["o"] = { "toggle_node" },
+            },
+        },
     })
 
     -- map("n", "<Leader>n", [[<cmd>Neotree toggle left<CR>]])

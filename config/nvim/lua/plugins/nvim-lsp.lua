@@ -87,6 +87,8 @@ local servers = {
     -- tsserver = {},
     volar = {
         opts = {
+            init_options = {
+            },
             filetypes = {
                 'typescript',
                 'javascript',

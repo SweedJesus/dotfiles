@@ -5,7 +5,8 @@ function M.map(mode, lhs, rhs, opts)
     local def_opts = { noremap = true, silent = true }
     if opts == nil then opts = {} end
     local keyopts = vim.tbl_extend('force', def_opts, opts)
-    vim.api.nvim_set_keymap(mode, lhs, rhs, keyopts)
+    vim.keymap.set(mode, lhs, rhs, keyopts)
+    -- vim.api.nvim_set_keymap(mode, lhs, rhs, keyopts)
 end
 
 -- Buffer key mapper, use only inside attachment
