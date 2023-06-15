@@ -1,6 +1,7 @@
 local mason = require('mason')
 local mason_lspconfig = require('mason-lspconfig')
 local lspconfig = require('lspconfig')
+local null_ls = require("null-ls")
 -- local diagnostic = require('vim.diagnostic')
 -- local lsp_installer_servers = require('nvim-lsp-installer.servers')
 
@@ -86,6 +87,8 @@ local servers = {
     -- tsserver = {},
     volar = {
         opts = {
+            init_options = {
+            },
             filetypes = {
                 'typescript',
                 'javascript',
@@ -135,14 +138,15 @@ local skip_formatting_for = {
     "tsserver",
 }
 
+-- local TIMEOUT_MS = 2000
+--
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
--- local timeout_ms = 2000
 
 local function format(bufnr)
     vim.lsp.buf.format({
         async = true,
         bufnr = bufnr,
-        -- timeout_ms = timeout_ms,
+        -- timeout_ms = TIMEOUT_MS,
         filter = function(client)
             -- see <https://neovim.io/doc/user/lsp.html#lsp-buf> {vim.lsp.buf.format}
             local skip = vim.tbl_contains(skip_formatting_for, client.name)
@@ -150,19 +154,6 @@ local function format(bufnr)
             return not skip
         end,
     })
-end
-
-local function setup_formatting(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-                format(bufnr)
-            end,
-        })
-    end
 end
 
 local disable_hover_for = {
@@ -185,10 +176,6 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     buf_set_keymap("n", "gS", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-
-    vim.api.nvim_create_user_command("Format", function(buf) format(buf.buf) end, {})
-
-    setup_formatting(client, bufnr)
 
     if vim.tbl_contains(disable_hover_for, client.name) then
         client.server_capabilities.hoverProvider = false
@@ -233,8 +220,6 @@ end
 -- null_ls
 -- -------------------------------------------------------------------------------------------------
 
-local null_ls = require("null-ls")
-
 null_ls.setup({
     debug = true,
     debounce_text_changes = 150,
@@ -271,8 +256,23 @@ null_ls.setup({
         -- null_ls.builtins.formatting.isort.with({
         --     cwd = vim.loop.cwd,
         -- }),
+        {
+            -- INFO: Formatting action
+            --
+            -- <https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/MAIN.md#sources>
+            -- <https://blog.semanticart.com/2021/12/31/null-ls-nvim-custom-code-actions>
+            method = null_ls.methods.CODE_ACTION,
+            filetypes = {},
+            generator = {
+                fn = function(ctx)
+                    return {
+                        {
+                            title = "Format",
+                            action = function() format(ctx.bufnr) end,
+                        }
+                    }
+                end
+            }
+        }
     },
-    on_attach = function(client, bufnr)
-        setup_formatting(client, bufnr)
-    end,
 })
