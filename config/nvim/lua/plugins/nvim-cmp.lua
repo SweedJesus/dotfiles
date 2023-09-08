@@ -43,16 +43,17 @@ local has_words_before = function()
 end
 
 local cmp = require('cmp')
+
 cmp.setup {
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end,
-    },
+    -- snippet = {
+    --     expand = function(args)
+    --         luasnip.lsp_expand(args.body)
+    --     end,
+    -- },
     -- Mappings:
     -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#super-tab-like-mapping
-    -- https://github.com/Neelfrost/nvim-config/blob/main/lua/user/plugins/config/cmp.lua
-    mapping = {
+    -- https://github.com/Neelfrost/nvim-config/blob/main/lua/user/plugins/config/cmp/mappings.lua
+    mapping = cmp.mapping.preset.insert({
         ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
         ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
@@ -62,6 +63,7 @@ cmp.setup {
             c = cmp.mapping.close(),
         }, { 'i', 's' }),
         ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
+        -- ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping(function(fallback)
             if luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
@@ -102,49 +104,64 @@ cmp.setup {
                 fallback()
             end
         end, { 'i', 's' }),
-    },
+    }),
     -- Completion sources:
     -- https://github.com/topics/nvim-cmp
     sources = cmp.config.sources({
-        {
-            name = 'luasnip',
-            options = { use_show_condition = true },
-        },
-        { name = 'nvim_lsp' },
-        {
-            -- https://github.com/hrsh7th/cmp-buffer
-            name = 'buffer',
-            keyword_length = 5,
-            get_bufnrs = function()
-                -- get visible buffer numbers
-                local bufs = {}
-                for _, win in ipairs(vim.api.nvim_list_wins()) do
-                    bufs[vim.api.nvim_win_get_buf(win)] = true
-                end
-                return vim.tbl_keys(bufs)
-            end,
-        },
-        { name = 'path' },
-    }, {}),
-    experimental = {
-        ghost_text = true,
-    },
-    formatting = {
-        format = lspkind.cmp_format({
-            before = function(_, vim_item)
-                return vim_item
-            end,
-        })
-    },
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    }),
+    -- sources = cmp.config.sources({
+    --     {
+    --         name = 'luasnip',
+    --         options = { use_show_condition = true },
+    --     },
+    --     { name = 'nvim_lsp' },
+    --     -- {
+    --     --     -- https://github.com/hrsh7th/cmp-buffer
+    --     --     name = 'buffer',
+    --     --     keyword_length = 5,
+    --     --     get_bufnrs = function()
+    --     --         -- get visible buffer numbers
+    --     --         local bufs = {}
+    --     --         for _, win in ipairs(vim.api.nvim_list_wins()) do
+    --     --             bufs[vim.api.nvim_win_get_buf(win)] = true
+    --     --         end
+    --     --         return vim.tbl_keys(bufs)
+    --     --     end,
+    --     -- },
+    --     -- { name = 'path' },
+    -- }, {
+    --     { name = 'buffer' },
+    -- }),
+    -- experimental = {
+    --     ghost_text = true,
+    -- },
+    -- formatting = {
+    --     format = lspkind.cmp_format({
+    --         before = function(_, vim_item)
+    --             return vim_item
+    --         end,
+    --     })
+    -- },
 }
-cmp.setup.cmdline('/', {
+
+cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer' }
+        -- { name = 'buffer' }
     }
 })
+
 cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        -- { name = 'path' }
+        { name = 'path' }
     }, {
         {
             name = 'cmdline',

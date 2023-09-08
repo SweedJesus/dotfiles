@@ -106,7 +106,7 @@ vim.api.nvim_exec(
     , false)
 
 -- Add map to enter paste mode
-util_opts.pastetoggle = "<F3>"
+-- util_opts.pastetoggle = "<F3>"
 -- opts.pastetoggle="<leader>p" -- I don't know how to set this yet
 
 -- Map blankline

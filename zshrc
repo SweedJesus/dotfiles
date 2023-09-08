@@ -13,6 +13,9 @@ umask 022
 #setopt no_bang_hist
 #setopt no_prompt_bang
 
+# Glob
+setopt extended_glob
+
 # Vim mode
 bindkey -v
 export KEYTIMEOUT=1
