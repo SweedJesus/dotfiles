@@ -22,12 +22,15 @@ function M.opts()
     local opts_info = vim.api.nvim_get_all_options_info()
     return setmetatable({}, {
         __newindex = function(_, key, value)
+            -- vim.api.nvim_set_option_value(key, value, {})
             vim.o[key] = value
             local scope = opts_info[key].scope
             if scope == 'win' then
                 vim.wo[key] = value
+                -- vim.api.nvim_win_set_option_value(key, value)
             elseif scope == 'buf' then
                 vim.bo[key] = value
+                -- vim.api.nvim_buf_set_option_value(key, value)
             end
         end
     })

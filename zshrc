@@ -37,27 +37,6 @@ fpath+=(
 )
 autoload -Uz try_source
 
-# SSH agent
-plugins+=(git ssh-agent)
-
-# Python (pyenv)
-eval "$(pyenv init -)"
-
-# Node version manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Antigen and plugins
-source ~/.antigen/antigen.zsh
-if [[ ! -v ANTIGEN_LOADED ]]; then
-    antigen init ~/.antigenrc
-    ANTIGEN_LOADED=1
-fi
-
-# Theme (p10k) config. To customize, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # Opens in a tmux session (auto-attach)
 # [[ -z "$TMUX" && -n "$USE_TMUX" ]] && {
 #     [[ -n "$ATTACH_ONLY" ]] && {
@@ -71,10 +50,33 @@ fi
 #     exec tmux
 # }
 
+# Python (pyenv)
+eval "$(pyenv init -)"
+
+# Perl stuff?
 PATH="/home/nils/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/nils/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/nils/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/nils/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/nils/perl5"; export PERL_MM_OPT;
 
+# yarn
 # export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/nils/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# Antigen + OhMyZsh
+# source ~/.antigen/antigen.zsh
+source $(brew --prefix antigen)/share/antigen/antigen.zsh
+if [[ ! -v ANTIGEN_LOADED ]]; then
+    antigen init ~/.antigenrc
+    ANTIGEN_LOADED=1
+fi
+
+# Theme (p10k) config. To customize, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

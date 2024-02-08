@@ -1,5 +1,9 @@
 antigen use oh-my-zsh
 
+# Oh my Zsh plugins
+antigen bundle git
+antigen bundle nvm
+
 antigen bundle vi-mode
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions

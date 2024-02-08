@@ -40,6 +40,7 @@ table.insert(lua_runtime_path, 'lua/?.lua')
 table.insert(lua_runtime_path, 'lua/?/init.lua')
 
 local servers = {
+    -- cssls = {},
     graphql = {},
     html = {
         opts = {
@@ -74,8 +75,6 @@ local servers = {
             },
         },
     },
-    sqlls = {},
-    -- quick_lint_js = {},
     jsonls = {
         opts = {
             init_options = {
@@ -83,7 +82,92 @@ local servers = {
             },
         },
     },
-    cssls = {},
+    lua_ls = {
+        opts = {
+            on_init = function(client)
+                local path = client.workspace_folders[1].name
+                if (
+                    not vim.loop.fs_stat(path..'/.luarc.json') and
+                    not vim.loop.fs_stat(path..'/.luarc.jsonc')
+                ) then
+                    client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+                        Lua = {
+                            runtime = {
+                                -- Tell the language server which version of Lua you're using
+                                -- (most likely LuaJIT in the case of Neovim)
+                                version = 'LuaJIT',
+                                path = vim.split(package.path, ';'),
+                            },
+                            diagnostics = {
+                                globals = {
+                                    'vim',
+                                    -- 'feedkey',
+                                },
+                                workspaceDelay = -1,
+                            },
+                            -- Make the server aware of Neovim runtime files
+                            workspace = {
+                                ignoreSubmodules = true,
+                                checkThirdParty = false,
+                                library = {
+                                    vim.env.VIMRUNTIME
+                                    -- "${3rd}/luv/library"
+                                    -- "${3rd}/busted/library",
+                                }
+                                -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                                -- library = vim.api.nvim_get_runtime_file("", true)
+                            },
+                            telemetry = { enable = false },
+                        }
+                    })
+                    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+                end
+                return true
+            end,
+            -- settings = {
+            --     Lua = {
+            --         -- runtime = {
+            --         --     -- Tell the language server which version of Lua you're using
+            --         --     -- (most likely LuaJIT in the case of Neovim)
+            --         --     version = 'LuaJIT'
+            --         -- },
+            --         -- Make the server aware of Neovim runtime files
+            --         workspace = {
+            --             checkThirdParty = false,
+            --             diagnostics = {
+            --                 globals = { 'vim', 'feedkey' },
+            --             },
+            --             library = {
+            --                 vim.env.VIMRUNTIME
+            --                 -- "${3rd}/luv/library"
+            --                 -- "${3rd}/busted/library",
+            --             }
+            --             -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+            --             -- library = vim.api.nvim_get_runtime_file("", true)
+            --         },
+            --         telemetry = { enable = false },
+            --     },
+            -- },
+        },
+    },
+    prismals = {
+        opts = {
+            prisma = {
+                editor = {
+                    tabSize = 2,
+                },
+            },
+        },
+    },
+    pyright = {},
+    -- quick_lint_js = {},
+    ruff_lsp = {
+        -- format on save? code actions?
+        -- https://github.com/charliermarsh/ruff-lsp/issues/95
+    },
+    rust_analyzer = {},
+    sqlls = {},
+    tailwindcss = {},
     -- tsserver = {},
     volar = {
         opts = {
@@ -99,36 +183,7 @@ local servers = {
             },
         },
     },
-    rust_analyzer = {},
-    pyright = {},
-    ruff_lsp = {
-        -- format on save? code actions?
-        -- https://github.com/charliermarsh/ruff-lsp/issues/95
-    },
-    prismals = {
-        opts = {
-            prisma = {
-                editor = {
-                    tabSize = 2,
-                },
-            },
-        },
-    },
-    lua_ls = {
-        opts = {
-            settings = {
-                Lua = {
-                    runtime = {
-                        version = 'LuaJIT',
-                        path = lua_runtime_path,
-                    },
-                    diagnostics = { globals = { 'vim', 'feedkey' } },
-                    workspace = { library = vim.api.nvim_get_runtime_file('', true) },
-                    telemetry = { enable = false },
-                }
-            }
-        }
-    },
+    yamlls = {},
 }
 
 local skip_formatting_for = {

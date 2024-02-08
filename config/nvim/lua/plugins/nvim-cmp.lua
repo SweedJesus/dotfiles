@@ -108,37 +108,28 @@ cmp.setup {
     -- Completion sources:
     -- https://github.com/topics/nvim-cmp
     sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
+        { name = 'nvim_lsp' },
+        -- {
+        --     name = 'luasnip',
+        --     options = { use_show_condition = true },
+        -- },
+        -- {
+        --     -- https://github.com/hrsh7th/cmp-buffer
+        --     name = 'buffer',
+        --     keyword_length = 5,
+        --     get_bufnrs = function()
+        --         -- get visible buffer numbers
+        --         local bufs = {}
+        --         for _, win in ipairs(vim.api.nvim_list_wins()) do
+        --             bufs[vim.api.nvim_win_get_buf(win)] = true
+        --         end
+        --         return vim.tbl_keys(bufs)
+        --     end,
+        -- },
+        { name = 'path' },
     }, {
-      { name = 'buffer' },
+        { name = 'buffer' },
     }),
-    -- sources = cmp.config.sources({
-    --     {
-    --         name = 'luasnip',
-    --         options = { use_show_condition = true },
-    --     },
-    --     { name = 'nvim_lsp' },
-    --     -- {
-    --     --     -- https://github.com/hrsh7th/cmp-buffer
-    --     --     name = 'buffer',
-    --     --     keyword_length = 5,
-    --     --     get_bufnrs = function()
-    --     --         -- get visible buffer numbers
-    --     --         local bufs = {}
-    --     --         for _, win in ipairs(vim.api.nvim_list_wins()) do
-    --     --             bufs[vim.api.nvim_win_get_buf(win)] = true
-    --     --         end
-    --     --         return vim.tbl_keys(bufs)
-    --     --     end,
-    --     -- },
-    --     -- { name = 'path' },
-    -- }, {
-    --     { name = 'buffer' },
-    -- }),
     -- experimental = {
     --     ghost_text = true,
     -- },

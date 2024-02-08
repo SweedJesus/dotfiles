@@ -151,14 +151,6 @@ vim.diagnostic.config({
     },
 })
 
--- Python
--- vim.api.nvim_exec([[
--- augroup PythonConfig
---     autocmd!
---     autocmd FileType python set tw=80
--- augroup end
--- ]], false)
-
 -- Map :Format to vim.lsp.buf.formatting()
 -- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 
@@ -166,62 +158,24 @@ vim.diagnostic.config({
 -- vim.g.html_indent_style1 = "inc"
 -- vim.g.html_indent_inctags = "html,body,head,tbody"
 
--- TODO: move these down into vim.filetype.add below
-vim.cmd [[
-augroup Indentation
-    autocmd!
-    autocmd FileType css set shiftwidth=2
-    autocmd FileType json set shiftwidth=2
-    autocmd FileType javascript set shiftwidth=2
-    autocmd FileType typescript set shiftwidth=2
-    autocmd FileType typescriptreact set shiftwidth=2
-    autocmd FileType vue set shiftwidth=2
-    autocmd FileType html set shiftwidth=2
-    autocmd FileType htmldjango set shiftwidth=2
-    autocmd FileType markdown set shiftwidth=2
-    autocmd FileType python set tw=120
-augroup END
-]]
+vim.cmd('filetype plugin indent on')
 
-vim.cmd("let g:do_filetype_lua = 1")
+-- vim.api.nvim_create_autocmd("FileType", {
+--     callback = function(arg)
+--         local ft = arg.match
+--     end,
+-- })
 
 vim.filetype.add({
     extension = {
         json = "jsonc",
-        sql = function()
-            local f = function()
-                util_opts.commentstring = "--%s"
-            end
-            return 'sql', f
-        end,
-        prisma = function()
-            local f = function()
-                util_opts.shiftwidth = 2
-                util_opts.textwidth = 0
-            end
-            return 'prisma', f
-        end,
+        -- TODO: Migrate ftplugis that set only shiftwidth to here
     },
     filename = {
         [".eslintrc"] = "jsonc",
-        -- ["html.jinja"] = function()
-        --     util_opts.filetype = "htmldjango"
-        --     util_opts.shiftwidth = 2
-        -- end,
     },
     pattern = {
-        [".*html%.jinja"] = function()
-            return 'htmldjango', function()
-                util_opts.shiftwidth = 2
-                util_opts.commentstring = "{#%s#}"
-            end
-        end,
-        [".*tex%.jinja"] = function()
-            return 'tex', function()
-                util_opts.shiftwidth = 2
-                util_opts.commentstring = "{#%s#}"
-            end
-        end,
+        [".*%.jinja"] = 'htmldjango',
     }
 })
 
